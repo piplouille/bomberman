@@ -19,12 +19,21 @@ public:
 
     Bomb(int amplitude, int row, int column, double elapsed_seconds):
         range(amplitude),x(row),y(column), temps(elapsed_seconds)
-        {std::chrono::system_clock::now() = start;}
+        {
+            start = std::chrono::system_clock::now();
+            while(std::chrono::system_clock::now()<start+temps)
+            {/*ne rien faire*/}
+            delete *this;
+        }
     
-    ~Bomb(){}
+    ~Bomb()
+    {
+        explose(int joueurs_coord);
+    }
 
 protected:
 
+    inline void explose(int joueurs_coord){}; //quand la bombe se delete, elle execute la fonction explose
 
 };
 
