@@ -1,5 +1,5 @@
 #ifndef mapHPP
-#define maphPP
+#define mapHPP
 
 #include <iostream>
 #include "bloc.hpp"
@@ -10,8 +10,6 @@ class Map {
     int length;
     int width;
     Bloc** area;
-    int* scores;
-    Player* players;
 
     public:
     inline int get_length();
@@ -23,8 +21,6 @@ class Map {
     inline Player* get_players();
 
     inline void print_map();
-    inline void print_scores();
-    inline void print_players();
 }
 
 #endif
