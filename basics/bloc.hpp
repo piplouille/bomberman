@@ -1,5 +1,5 @@
 #ifndef mapHPP
-#define maphPP
+#define mapHPP
 
 #include "bomb.hpp"
 
