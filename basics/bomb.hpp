@@ -6,29 +6,29 @@
 #include <chrono>
 #include <cmath>
 
-
-
 class Bomb
 {
 private:
     int range, x, y;
-    std::chrono::time_point<std::chrono::system_clock> start;
-    double temps;
+    std::chrono::time_point<std::chrono::system_clock> start; // c'est quoi ?
+    double temps; // c'est quoi ?
 
 public:
+    void destruction() {
+        while(std::chrono::system_clock::now()<start+temps) // tu dois définir l'opérateur + entre un temps et un double
+        {/*ne rien faire*/}
+        delete this;
+    }
 
     Bomb(int amplitude, int row, int column, double elapsed_seconds):
         range(amplitude),x(row),y(column), temps(elapsed_seconds)
         {
             start = std::chrono::system_clock::now();
-            while(std::chrono::system_clock::now()<start+temps)
-            {/*ne rien faire*/}
-            delete *this;
         }
     
     ~Bomb()
     {
-        explose(int joueurs_coord);
+        explose(joueurs_coord);
     }
 
 protected:
