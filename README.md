@@ -1,4 +1,4 @@
-# bomberman
+# B O M B E R M A N
 IN204 - Project c++
 
 ## Déroulé du projet
