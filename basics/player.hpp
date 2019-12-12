@@ -12,7 +12,11 @@ private:
     int x,y; //coordonnées
     unsigned int nbr_bomb, nbr_bomb_used; //nombre de bombe pouvant être placées par le joueur simultanément
     int range; // portée de la bombe
+<<<<<<< HEAD
     char name[] = {'P', 'a', 't', 'r', 'i', 'c', 'k', 'k', 'k', 'k', ' ',(char)num_player,'\0'}; //nom du joueur
+=======
+    char name[11] = {'P', 'a', 't', 'r', 'i', 'c', 'k', 'k', 'k', 'k', '\0'}; //nom du joueur
+>>>>>>> 08475b3d3878805d8e8a54d7a1b26d6a11ca6129
     double speed; //en cases par secondes
     unsigned int lives; //nombre de vies
 
