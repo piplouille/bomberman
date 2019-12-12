@@ -3,7 +3,7 @@
 
 #include "bomb.hpp"
 
-class Bloc() {
+class Bloc {
     private:
     int type;
     int item;

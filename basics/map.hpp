@@ -12,6 +12,17 @@ class Map {
     Bloc** area;
 
     public:
+    Map() {
+        length = 4; // i premier indice
+        width = 4; // j deuxième indice
+        Bloc** area;
+        *area = malloc (length * sizeof (Bloc*));
+        if (*area == NULL) {
+            exit (-1);
+        }
+
+    }
+
     inline int get_length();
     inline int get_width();
     inline Bloc** get_area();
