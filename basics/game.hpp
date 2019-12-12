@@ -3,7 +3,7 @@
 
 #include "player.hpp"
 
-class Game() {
+class Game {
     private:
     int* scores;
     Player* players;
@@ -13,6 +13,6 @@ class Game() {
     inline void print_scores();
     inline void print_players();
 
-}
+};
 
 #endif
