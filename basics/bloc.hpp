@@ -7,8 +7,8 @@ class Bloc {
     private:
     int type;
     int item;
-    Bomb* bombe;
-    Player* player;
+    Bomb* bombe; // NULL si aucune bombe dessus
+    Player* player; // NULL si personne dessus
 
     public:
     inline int get_type();
