@@ -2,6 +2,7 @@
 #define mapHPP
 
 #include "bomb.hpp"
+#include "player.hpp"
 
 class Bloc {
     private:
@@ -18,6 +19,6 @@ class Bloc {
     inline void set_bombe(Bomb*);
     inline Player* get_player();
     inline void set_player(Player*);
-}
+};
 
 #endif
