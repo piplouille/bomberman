@@ -12,7 +12,7 @@ private:
     int x,y; //coordonnées
     unsigned int nbr_bomb, nbr_bomb_used; //nombre de bombes pouvant être placées par le joueur simultanément
     int range; // portée de la bombe
-    char name[13] = {'P', 'a', 't', 'r', 'i', 'c', 'k', 'k', 'k', 'k', ' ',(char) num_player,'\0'}; //nom du joueur
+    char name[13] = {'P', 'a', 't', 'r', 'i', 'c', 'k', 'k', 'k', 'k', ' ',(char)num_player,'\0'}; //nom du joueur
     double speed; //en cases par secondes
     unsigned int lives; //nombre de vies
 
