@@ -52,8 +52,3 @@ Si au moment de l'explosion d'une bombe un bloc cassable est dans son périmètr
 #### Nombre de vies limité
 
 But : faire exploser l'autre joueur jusqu'à ce que son nombre de vie tombe à zéro
-
-#### Nombre de vies illimité
-
-Jeu en temps : faire le plus de points
-Tuer une personne : +1 point
