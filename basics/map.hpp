@@ -35,10 +35,12 @@ class Map {
     bool move_down_player(Player*);
     bool move_left_player(Player*);
 
-    inline void print_map();
+    inline void print_map(Player*);
 };
 
-
+inline void Map::print_map(Player* p) {
+    std::cout << "Coord du joueur 1 : (" << *p.get_x() << "," << *p.get_y() << ")" << std::endl;
+}
 
 
 // #endif
