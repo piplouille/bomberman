@@ -13,6 +13,14 @@ class Bloc {
     bool available; // qq chose peut etre dessus TRUE si tu peux y aller
 
     public:
+    Bloc() {
+        type = 0; // bloc vide
+        item =  0; // aucun item
+        bombe = NULL; // aucune bombe
+        player = NULL; // aucun joueur sur la case
+        available = true; // la case est libre
+    }
+
     inline int get_type();
     inline int get_item();
     inline int set_item();

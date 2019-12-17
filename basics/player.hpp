@@ -23,6 +23,7 @@ private:
 
 public:
     Player(int joueur) {
+        // joueur : id du joueur de 0 à 3 pour se conformer à l'indexation du tableau
         num_player = joueur;
         // x = joueur/3;
         // y = joueur%2; //un premier moyen de faire des emplacement différents pour chaque joueurs
