@@ -1,9 +1,10 @@
-#ifndef mapHPP
 #define mapHPP
 
 #include <iostream>
 #include "bloc.hpp"
 #include "player.hpp"
+
+// On fait hériter chaque type de map de la classe Map
 
 class Map {
     private:
@@ -32,6 +33,6 @@ class Map {
     inline Player* get_players();
 
     inline void print_map();
-}
+};
 
 #endif

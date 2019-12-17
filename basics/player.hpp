@@ -6,6 +6,8 @@
 #include "bomb.hpp"
 #include "map.hpp"
 
+// On fait hériter chaque type de joueur de la classe Player (humain, IA)
+
 class Player{
 private:
     unsigned int num_player; //de 1 à 4
