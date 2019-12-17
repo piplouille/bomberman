@@ -5,8 +5,7 @@
 #include <vector>
 #include <chrono>
 #include <cmath>
-#include "bloc.hpp"
-#include "bomb.hpp"
+
 #include "map.hpp"
 #include "player.hpp"
 

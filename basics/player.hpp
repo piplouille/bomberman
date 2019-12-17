@@ -2,6 +2,7 @@
 #define playerHPP
 
 #include <iostream>
+
 #include "bloc.hpp"
 #include "bomb.hpp"
 #include "map.hpp"
@@ -17,6 +18,7 @@ private:
     char name[13] = {'P', 'a', 't', 'r', 'i', 'c', 'k', 'k', 'k', 'k', ' ',(char)num_player,'\0'}; //nom du joueur
     double speed; //en cases par secondes
     unsigned int lives; //nombre de vies
+    Bloc* location;
 
 public:
     Player(int joueur) {
@@ -40,7 +42,8 @@ public:
     unsigned int get_nbr_bomb_used() {return nbr_bomb_used;}
     int get_range() {return range;}
 
-    inline void move(void);
+    inline void move(void); // get move => Map qui gère déplacement
+
     inline void drop_bomb(void);
     inline void pick_up_object(void);
 };
