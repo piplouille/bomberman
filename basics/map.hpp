@@ -30,7 +30,7 @@ class Map {
 
     inline Player* get_players(); // on récupère les joueurs
 
-    inline bool move_player(Bloc*, Bloc*, Player*);
+    inline bool move_player(Player*, int);
     /* on move le joueur d'un bloc 
     on teste available sur nouvelle case
     on met sur nouvelle case
@@ -45,6 +45,16 @@ class Map {
     inline void print_map();
 };
 
+bool Map::move_player(Player* you, int direction) {
+    // on récupère bloc suivant
+    Bloc* suivant;
+    suivant = &(area[3][2]); // 
+    // on demande a bloc de set
+    // on teste si bloc suivant est libre
+    // on récupère bloc actuel
+    // on supprime le joeuru du bloc actuel
+    // on return bool
+}
 
 
 // #endif

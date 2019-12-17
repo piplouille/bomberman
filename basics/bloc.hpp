@@ -23,8 +23,10 @@ class Bloc {
     inline bool set_player(Player*); 
     /* on pose le joueur sur une case 
     On vérifie si available == true
+    on modifie available et player ensuite
     */
    inline bool erase_player();
+   // on rechange le player et available
 
 };
 

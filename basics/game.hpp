@@ -16,9 +16,12 @@ class Game {
     Game(){} // Par défaut
     // Constructeur
 
+    inline void get_map();
     inline void print_map();
     inline void print_scores();
     inline void print_players();
+
+    // grosse fonction du jeu
 
 };
 
