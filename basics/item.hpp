@@ -27,6 +27,16 @@ private:
 public:
     Item(){}
     ~Item(){}
+
+    inline int get_x(void);
+    inline int get_y(void);
+    inline unsigned int get_power(void);
+    inline int counter(void);
 };
+
+    inline int get_x(void){return x;}
+    inline int get_y(void){return y;}
+    inline unsigned int get_power(void){return power;}
+    inline int counter(void) {return counter;}
 
 #endif

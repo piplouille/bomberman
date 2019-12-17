@@ -30,13 +30,13 @@ public:
 
     ~Player(){}
 
-    inline int get_x() {return x;}
-    inline int get_y(){return y;}
-    inline int get_lives(){return lives;}
-    inline unsigned int get_num_player() {return num_player;}
-    inline unsigned int get_nbr_bomb() {return nbr_bomb;}
-    inline unsigned int get_nbr_bomb_used() {return nbr_bomb_used;}
-    inline int get_range() {return range;}
+    int get_x() {return x;}
+    int get_y(){return y;}
+    int get_lives(){return lives;}
+    unsigned int get_num_player() {return num_player;}
+    unsigned int get_nbr_bomb() {return nbr_bomb;}
+    unsigned int get_nbr_bomb_used() {return nbr_bomb_used;}
+    int get_range() {return range;}
 
     inline void move(void);
     inline void drop_bomb(void);
