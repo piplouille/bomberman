@@ -49,7 +49,7 @@ public:
     inline void pick_up_object(void);
 };
 
-inline Player::void move(char move){
+inline void Player::move(char move){
     //On regarde si le mouvmeent souhaité est exécutable et on met à jour les coordonnées
     //En fonction du résultat
     bool move_autorized = false;
@@ -82,8 +82,9 @@ inline Player::void move(char move){
         y+=move_y;
     }
 }
-inline Player::void drop_bomb(void){}
-inline Player::void pick_up_object(void){}
+
+inline void Player::drop_bomb(void){}
+inline void Player::pick_up_object(void){}
 
 
 #endif
