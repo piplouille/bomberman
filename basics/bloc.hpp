@@ -25,7 +25,7 @@ class Bloc {
     On vérifie si available == true
     on modifie available et player ensuite
     */
-   inline bool erase_player();
+   inline void erase_player();
    // on rechange le player et available
 
 };
