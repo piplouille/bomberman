@@ -8,7 +8,7 @@
 class Game {
     // Moteur du jeu
     private:
-    Player* players; // La liste des joueurs
+    Player** players; // La liste des joueurs
     Map* map; // La map du jeu
     // std::chrono::time_point <std::chrono::system_clock> start; // Temps du début de la partie
 

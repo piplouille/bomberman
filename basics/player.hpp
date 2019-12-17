@@ -24,10 +24,13 @@ private:
 public:
     Player(int joueur) {
         num_player = joueur;
-        x = joueur/3;
-        y = joueur%2; //un premier moyen de faire des emplacement différents pour chaque joueurs
+        // x = joueur/3;
+        // y = joueur%2; //un premier moyen de faire des emplacement différents pour chaque joueurs
+        x = 0;
+        y = 0;
+        
         range = 1;
-        nbr_bomb = 0;
+        nbr_bomb = 1;
         nbr_bomb_used = 0;
         speed = 1.5;
         lives = 1;
