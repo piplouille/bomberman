@@ -28,18 +28,8 @@ class Bloc {
     inline void set_bombe(Bomb* n_bombe) {bombe = n_bombe;}
 
     inline Player* get_player() {return player;} // on récupère s'il y a un joueur sur le bloc
-    inline bool set_player(Player* n_player) {
-        if (available) {
-            // On pose le joueur sur une case
-            player = n_player;
-            available = false;
-            // Modifier l'info de son emplacement dans player ?
-            return true;
-        }
-        return false;
-    }
-    inline void erase_player();
-    // on rechange le player et available
+    bool set_player(Player* n_player);
+    inline void erase_player() {player = NULL; available = true;}
 
 };
 

@@ -33,10 +33,7 @@ class Map {
 
     inline Player* get_players(); // on récupère les joueurs
 
-    bool move_up_player(Player*);
-    bool move_right_player(Player*);
-    bool move_down_player(Player*);
-    bool move_left_player(Player*);
+    void move_player(Player*, int move);
 
     inline void print_map(Player*);
 };

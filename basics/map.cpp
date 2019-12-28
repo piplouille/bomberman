@@ -1,105 +1,45 @@
 #include "map.hpp"
 
-bool Map::move_up_player(Player* you) {
-    // on récupère bloc suivant
+void Map::move_player(Player* player, int move){
+    // J'ai changé le type de move pcq si on fait plsrs joueurs, ce ne sera pas forcément la touche zqsd
+    
+    /*
+    On regarde le bloc où le joueur veut aller
+    On demande à joueur d'y aller
+    */
+   
     int x, y;
-    x = (*you).get_x();
-    y = (*you).get_y();
+    x = player->get_x();
+    y = player->get_y();
+
+    int move_x = 0; // le changement de mouvements
+    int move_y = 0;
 
     Bloc* suivant;
-    suivant = &(area[x][y+1]);
-    // on demande a bloc de set
-    // on teste si bloc suivant est libre
-    bool available;
-    available = (*suivant).set_player(you);
 
-    if (available) {
-        // on récupère bloc actuel
-        Bloc *previous;
-        previous = &(area[x][y]);
-        // on supprime le joueur du bloc actuel
-        (*previous).erase_player();
-        // on return bool
-        return true;
+    switch (move) 
+    {
+        case '0':
+            // le nouveau bloc vers le haut
+            suivant = &(area[x][y+1]);
+            move_y++;
+            break;
+        case '1':
+            // le nouveau bloc vers la droite
+            suivant = &(area[x+1][y]);
+            move_x++;
+            break;
+        case '2':
+            // le nouveau bloc vers le bas
+            suivant = &(area[x][y-1]);
+            move_y--;
+            break;
+        case '3':
+            // le nouveau bloc vers la gauche
+            suivant = &(area[x-1][y]);
+            move_x--;
+            break;
     }
-    
-    return false;
-}
 
-bool Map::move_right_player(Player* you) {
-    // on récupère bloc suivant
-    int x, y;
-    x = (*you).get_x();
-    y = (*you).get_y();
-
-    Bloc* suivant;
-    suivant = &(area[x+1][y]);
-    // on demande a bloc de set
-    // on teste si bloc suivant est libre
-    bool available;
-    available = (*suivant).set_player(you);
-
-    if (available) {
-        // on récupère bloc actuel
-        Bloc *previous;
-        previous = &(area[x][y]);
-        // on supprime le joueur du bloc actuel
-        (*previous).erase_player();
-        // on return bool
-        return true;
-    }
-    
-    return false;
-}
-
-bool Map::move_down_player(Player* you) {
-    // on récupère bloc suivant
-    int x, y;
-    x = (*you).get_x();
-    y = (*you).get_y();
-
-    Bloc* suivant;
-    suivant = &(area[x][y-1]);
-    // on demande a bloc de set
-    // on teste si bloc suivant est libre
-    bool available;
-    available = (*suivant).set_player(you);
-
-    if (available) {
-        // on récupère bloc actuel
-        Bloc *previous;
-        previous = &(area[x][y]);
-        // on supprime le joueur du bloc actuel
-        (*previous).erase_player();
-        // on return bool
-        return true;
-    }
-    
-    return false;
-}
-
-bool Map::move_left_player(Player* you) {
-    // on récupère bloc suivant
-    int x, y;
-    x = (*you).get_x();
-    y = (*you).get_y();
-
-    Bloc* suivant;
-    suivant = &(area[x-1][y]);
-    // on demande a bloc de set
-    // on teste si bloc suivant est libre
-    bool available;
-    available = (*suivant).set_player(you);
-
-    if (available) {
-        // on récupère bloc actuel
-        Bloc *previous;
-        previous = &(area[x][y]);
-        // on supprime le joueur du bloc actuel
-        (*previous).erase_player();
-        // on return bool
-        return true;
-    }
-    
-    return false;
+    player->move(suivant, move_x, move_y);
 }

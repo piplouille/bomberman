@@ -10,9 +10,9 @@
 
 // On fait hériter chaque type de joueur de la classe Player (humain, IA)
 
-class Player{
+class Player {
 private:
-    unsigned int num_player; //de 1 à 4
+    unsigned int num_player; //de 0 à 3
     int x,y; //coordonnées
     unsigned int nbr_bomb, nbr_bomb_used; //nombre de bombes pouvant être placées par le joueur simultanément
     int range; // portée de la bombe
@@ -47,53 +47,13 @@ public:
     unsigned int get_nbr_bomb_used() {return nbr_bomb_used;}
     int get_range() {return range;}
 
-    inline void move(char move); 
-    // recoit direction du mouvement
-    // essaie de placer joueur sur nouvelle case avec Bloc::move
-    // si ça a marché, mise à jour de la position
-    // sinon std::cout échec
-    // get move => Map qui gère déplacement ?
+    void move(Bloc* suivant, int move_x, int move_y);
 
     inline void drop_bomb(void);
     inline void pick_up_object(void);
 };
 
-inline void Player::move(char move){
-    //On regarde si le mouvmeent souhaité est exécutable et on met à jour les coordonnées
-    //En fonction du résultat
-    bool move_autorized = false;
-    int move_x = 0; //le changement de mouvements
-    int move_y = 0;
-    switch(move)
-    {
-        case 'z':
-            move_done = move_up_player(this);
-            move_y++;
-            break;
-        case 'd':
-            move_done = move_right_player(this);
-            move_x++;
-            break;
-        case 's':
-            move_done = move_down_player(this);
-            move_y--;
-            break;
-        case 'q':
-            move_done = move_left_player(this);
-            move_x--;
-            break;
-        default:
-            break;
-    }
-    if (move_done==true)
-    {
-        x+=move_x;
-        y+=move_y;
-    }
-}
-
 inline void Player::drop_bomb(void){}
 inline void Player::pick_up_object(void){}
-
 
 #endif
