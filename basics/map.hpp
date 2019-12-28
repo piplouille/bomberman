@@ -5,6 +5,9 @@
 #include "bloc.hpp"
 #include "player.hpp"
 
+class Bloc;
+class Player;
+
 // On fait hériter chaque type de map de la classe Map
 
 class Map {
@@ -17,8 +20,8 @@ class Map {
     Map() {
         length = 4; // i premier indice
         width = 4; // j deuxième indice
-        area = new Bloc*[length];
-        *area = new Bloc[width];
+        Bloc** area = new Bloc*[length];
+        Bloc* area = new Bloc[width];
     }
 
     inline int get_length();

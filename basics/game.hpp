@@ -1,7 +1,7 @@
 #ifndef gameHPP
 #define gameHPP
 
-// #include <chrono>
+#include <chrono>
 #include "player.hpp"
 #include "map.hpp"
 
@@ -10,13 +10,13 @@ class Game {
     private:
     Player** players; // La liste des joueurs
     Map* map; // La map du jeu
-    // std::chrono::time_point <std::chrono::system_clock> start; // Temps du début de la partie
-
+    std::chrono::time_point<std::chrono::system_clock> start; // temps du début de partie
+    
     public:
-    Game(){} // Par défaut
     // Constructeur
+    Game(Player**, Map*);
 
-    inline void get_map();
+    Map* get_map() {return(map);}
     inline void print_map();
     inline void print_scores();
     inline void print_players();

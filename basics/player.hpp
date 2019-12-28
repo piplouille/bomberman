@@ -47,7 +47,12 @@ public:
     unsigned int get_nbr_bomb_used() {return nbr_bomb_used;}
     int get_range() {return range;}
 
-    inline void move(char move); // get move => Map qui gère déplacement
+    inline void move(char move); 
+    // recoit direction du mouvement
+    // essaie de placer joueur sur nouvelle case avec Bloc::move
+    // si ça a marché, mise à jour de la position
+    // sinon std::cout échec
+    // get move => Map qui gère déplacement ?
 
     inline void drop_bomb(void);
     inline void pick_up_object(void);

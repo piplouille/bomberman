@@ -1,9 +1,20 @@
 # B O M B E R M A N
 IN204 - Project c++
 
+## Documentation
+
+### Déplacement d'un joueur
+
+- Display (interface) [récupère touche clavier](https://developer.gnome.org/gtkmm-tutorial/stable/sec-keyboardevents-overview.html.en) qui demande déplacement
+- Map demande à Joueur de se déplacer
+- Joueur demande à Bloc s'il peut venir
+- Joueur s'en va de l'ancienne case et change ses coordonnées
+
 ## Déroulé du projet
 
 [Sujet](https://perso.ensta-paris.fr/~bmonsuez/Cours/lib/exe/fetch.php?media=in204:projet_informatique_-_tetris.pdf)
+
+[Des classes en attribut de classe](https://www.ensta-bretagne.fr/jaulin/polycottenceau.pdf)
 
 1. Analyse du problème
     * Use case analysis
