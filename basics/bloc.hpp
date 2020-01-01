@@ -42,7 +42,7 @@ class Bloc {
     inline void set_item(int n_item) {item = n_item;}
     inline Bomb* get_bombe() {return bombe;}
     inline void set_bombe(Bomb* n_bombe) {bombe = n_bombe;}
-    inline void get_available() {return available;}
+    inline bool get_available() {return available;}
 
     inline Player* get_player() {return player;} // on récupère s'il y a un joueur sur le bloc
     bool set_player(Player* n_player);

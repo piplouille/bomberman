@@ -3,8 +3,10 @@
 void Player::move(Bloc* suivant, int move_x, int move_y) {
     Bloc precedent;
     //precedent = Bloc(*location); // ce n'est pas une deep copy lol
-    precedent = Bloc(location->get_type(), location->get_item(), location->get_bombe(), location->get_player(), location->get_available);
-
+    // precedent = Bloc(location->get_type(), location->get_item(), location->get_bombe(), location->get_player(), location->get_available());
+    // int type = location->get_type();
+    int type = precedent.get_type();
+    // location peut être de type NULL => ne pas deep copy avant de vérifier
 
     //bool move_done = suivant->set_player(this);
 
