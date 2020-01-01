@@ -4,11 +4,13 @@
 #include <iostream>
 
 #include "bloc.hpp"
-#include "bomb.hpp"
-#include "map.hpp"
-#include "game.hpp"
+// #include "bomb.hpp"
+// #include "map.hpp"
+// #include "game.hpp"
 
 // On fait hériter chaque type de joueur de la classe Player (humain, IA)
+
+class Bloc;
 
 class Player {
 private:
@@ -22,6 +24,20 @@ private:
     Bloc* location;
 
 public:
+    Player() {
+        // joueur : id du joueur de 0 à 3 pour se conformer à l'indexation du tableau
+        num_player = 0;
+        // x = joueur/3;
+        // y = joueur%2; //un premier moyen de faire des emplacement différents pour chaque joueurs
+        x = 0;
+        y = 0;
+        
+        range = 1;
+        nbr_bomb = 1;
+        nbr_bomb_used = 0;
+        speed = 1.5;
+        lives = 1;
+    }
     Player(int joueur) {
         // joueur : id du joueur de 0 à 3 pour se conformer à l'indexation du tableau
         num_player = joueur;

@@ -1,6 +1,6 @@
 #include "bloc.hpp"
 
-bool Bloc::set_player(Player* n_player) {
+bool Bloc::set_player(Player* n_player) {    
     if (available) {
         // On pose le joueur sur une case
         player = n_player;
@@ -8,4 +8,9 @@ bool Bloc::set_player(Player* n_player) {
         return true;
     }
     return false;
+}
+
+void Bloc::print() {
+    // std::cout << type;
+    std::cout << available;
 }

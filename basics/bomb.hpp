@@ -9,6 +9,8 @@
 #include "map.hpp"
 #include "player.hpp"
 
+class Player;
+
 class Bomb
 {
 private:

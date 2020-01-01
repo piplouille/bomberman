@@ -1,5 +1,5 @@
-// #ifndef mapHPP
-// #define mapHPP
+#ifndef mapHPP
+#define mapHPP
 
 #include <iostream>
 #include "bloc.hpp"
@@ -17,12 +17,7 @@ class Map {
     Bloc** area;
 
     public:
-    Map() {
-        length = 4; // i premier indice
-        width = 4; // j deuxième indice
-        Bloc** area = new Bloc*[length];
-        Bloc* area = new Bloc[width];
-    }
+    Map ();
 
     inline int get_length();
     inline int get_width();
@@ -33,14 +28,12 @@ class Map {
 
     inline Player* get_players(); // on récupère les joueurs
 
-    void move_player(Player*, int move);
+    void init_player(Player*, int, int); // placer un joueur sur la map
+    void move_player(Player*, int move); // déplacer un joueur sur la map
 
-    inline void print_map(Player*);
+    void print(Player*);
 };
 
-inline void Map::print_map(Player* p) {
-    std::cout << "Coord du joueur 1 : (" << *p.get_x() << "," << *p.get_y() << ")" << std::endl;
-}
 
 
-// #endif
+#endif
