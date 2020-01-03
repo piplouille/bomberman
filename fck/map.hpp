@@ -13,9 +13,10 @@ class Map {
     private:
     int length;
     int width;
-    // Bloc** area; // on va tenter avec des vecteurs
-    // std::vector<std::reference_wrapper<Bloc>> area;
-    Bloc area;
+    Bloc** area;
+
+    // IL FAUT QUE MAP DISE OU SE TROUVE UN JOUEUR AVEC SON ID FCK
+    Bloc* positions[4]; // en 0, bloc où se trouve joueur 0
 
     public:
     Map ();
@@ -29,7 +30,8 @@ class Map {
     // inline void inc_scores(int player);
 
     void init_player(Player&, int, int); // placer un joueur sur la map
-    void move_player(Player&, int move); // déplacer un joueur sur la map
+    void move_player(Player&, int move); // déplacer un joueur de manière relative
+    void move_player(Player&, int, int); // déplace un joueur sur la case x y
 
     void print(Player&);
 };

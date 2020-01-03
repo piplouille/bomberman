@@ -4,20 +4,37 @@ Map::Map() {
     width = 4; // premier indice longueur
     length = 4; // deuxième indice largeur
     
-    area.resize(width*length);
+    area = new Bloc* [ width ];
+    for (int i=0; i < width; i++)
+        area[i] = new Bloc[ length ];
 
-    // area = new Bloc* [width]; // nb de lignes
-    // for (int i=0 ; i<width ; i++) {
-    //     area[i] = new Bloc [length]; // nb de colonnes
-    // }
+    for (int i=0 ; i<4 ; i++) {
+        positions[i] = NULL;
+    }
 }
 
 void Map::init_player(Player &player, int x, int y) {
     Bloc suivant;
     // suivant = area[x][y];
-    suivant = area[x + length * y];
-    player.move(suivant, x, y);
-    player.set_location(suivant);
+    suivant = *area[x + length * y];
+    move_player(player, x, y); // dans map
+
+    // player.move(suivant, x, y); On met ça dans map
+    // player.set_location(suivant); On met ça dans bloc aussi
+}
+
+void Map::move_player(Player &player, int x, int y) {
+    // on veut que player aille en x, y
+    Bloc suivant;
+    suivant = *area[x + length * y];
+
+    // demander à bloc en x,y s'il est libre pour accueuillir joueur
+    bool move_done = suivant.set_player(player);
+
+    // déplacer joueur
+    // supprimer joueur ancienne case
+    // mettre a jour table positions joueurs
+
 }
 
 void Map::move_player(Player &player, int move){
@@ -45,7 +62,7 @@ void Map::move_player(Player &player, int move){
             if (y == 0) {
                 break;
             }
-            suivant = area[x + length * (y-1)];
+            suivant = *area[x + length * (y-1)];
             move_y--;
             break;
         case 1:
@@ -53,7 +70,7 @@ void Map::move_player(Player &player, int move){
             if (x == width) {
                 break;
             }
-            suivant = area[x+1 + length * y];
+            suivant = *area[x+1 + length * y];
             move_x++;
             break;
         case 2:
@@ -63,7 +80,7 @@ void Map::move_player(Player &player, int move){
                 break;
             }
             std::cout << "move_y va changer" << std::endl;
-            suivant = area[x + length * (y+1)];
+            suivant = *area[x + length * (y+1)];
             move_y++;
             break;
         case 3:
@@ -71,21 +88,22 @@ void Map::move_player(Player &player, int move){
             if (x == 0) {
                 break;
             }
-            suivant = area[x-1 + length * y];
+            suivant = *area[x-1 + length * y];
             move_x--;
             break;
     }
 
     if (move_x != 0 || move_y != 0) {
-        std::cout << "Il va bouger" << std::endl;
-        player.move(suivant, move_x, move_y);
+        std::cout << "Il va essayer de bouger" << std::endl;
+        // player.move(suivant, move_x, move_y);
+        move_player(player, player.get_x() + move_x, player.get_y() + move_y);
     }
 }
 
 void Map::print(Player &p) {
     for (int i=0 ; i<width ; i++) {
         for (int j=0 ; j<length; j++) {
-            area[i + length * j].print();
+            area[i + length * j]->print();
         }
         std::cout << std::endl;
     }

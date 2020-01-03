@@ -7,8 +7,13 @@ IN204 - Project c++
 
 - Display (interface) [récupère touche clavier](https://developer.gnome.org/gtkmm-tutorial/stable/sec-keyboardevents-overview.html.en) qui demande déplacement
 - (done) Map demande à Joueur de se déplacer
-- Joueur demande à Bloc s'il peut venir
-- Joueur s'en va de l'ancienne case et change ses coordonnées
+- (done) Joueur demande à Bloc s'il peut venir
+- (done) Joueur s'en va de l'ancienne case et change ses coordonnées
+
+Ca foire on fait plutot :
+- interface
+- Map regarde où est Joueur et demande à Bloc s'il peut venir
+- Map déplace Joueur et change ses coords
 
 ## Déroulé du projet
 
