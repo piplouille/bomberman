@@ -14,6 +14,7 @@ int main () {
 
     // Il faut mettre Maxence sur la map
 
+    std::cout << "On demande à se déplacer" << std::endl;
     map.init_player(maxence, 0, 2);
 
     // map.print(maxence);

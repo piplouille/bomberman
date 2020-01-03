@@ -15,19 +15,18 @@ Map::Map() {
 
 void Map::init_player(Player &player, int x, int y) {
     Bloc suivant;
-    // suivant = area[x][y];
-    suivant = *area[x + length * y];
+    std::cout << "je vais consulter area" << std::endl;
+    suivant = area[x][y];
+    std::cout << "On commence la mise en place" << std::endl;
     move_player(player, x, y); // dans map
-
-    // player.move(suivant, x, y); On met ça dans map
-    // player.set_location(suivant); On met ça dans bloc aussi
 }
 
 void Map::move_player(Player &player, int x, int y) {
     // on veut que player aille en x, y
     Bloc suivant;
-    suivant = *area[x + length * y];
+    suivant = area[x][y];
 
+    std::cout << "On demande à déplacer le joueur" << std::endl;
     // demander à bloc en x,y s'il est libre pour accueuillir joueur et bouger
     bool move_done = suivant.set_player(player);
 
