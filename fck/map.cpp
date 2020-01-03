@@ -28,13 +28,23 @@ void Map::move_player(Player &player, int x, int y) {
     Bloc suivant;
     suivant = *area[x + length * y];
 
-    // demander à bloc en x,y s'il est libre pour accueuillir joueur
+    // demander à bloc en x,y s'il est libre pour accueuillir joueur et bouger
     bool move_done = suivant.set_player(player);
 
-    // déplacer joueur
-    // supprimer joueur ancienne case
-    // mettre a jour table positions joueurs
-
+    if (move_done) {
+        std::cout << "Le mouvement a réussi" << std::endl;
+        // mise à joueur des coordonnées de player
+        player.set_x(x);
+        player.set_y(y);
+        if (positions[player.get_num_player()] != NULL) {
+            std::cout << "Effacement position précédente" << std::endl;
+            positions[player.get_num_player()]->erase_player(); // segmentation fault
+        }
+        positions[player.get_num_player()] = &suivant;
+    }
+    else {
+        std::cout << "bitch try again" << std::endl;
+    }
 }
 
 void Map::move_player(Player &player, int move){

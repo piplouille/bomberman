@@ -56,8 +56,10 @@ public:
 
     int get_x() {return x;}
     int get_y(){return y;}
+    void set_x(int n_x) {x = n_x;}
+    void set_y(int n_y) {y = n_y;}
     // int get_lives(){return lives;}
-    // unsigned int get_num_player() {return num_player;}
+    unsigned int get_num_player() {return num_player;}
     // unsigned int get_nbr_bomb() {return nbr_bomb;}
     // unsigned int get_nbr_bomb_used() {return nbr_bomb_used;}
     // int get_range() {return range;}
