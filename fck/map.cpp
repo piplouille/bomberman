@@ -112,7 +112,7 @@ void Map::move_player(Player &player, int move){
 void Map::print(Player &p) {
     for (int i=0 ; i<width ; i++) {
         for (int j=0 ; j<length; j++) {
-            area[i + length * j]->print();
+            area[i][j].print();
         }
         std::cout << std::endl;
     }

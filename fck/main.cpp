@@ -17,7 +17,7 @@ int main () {
     std::cout << "On demande à se déplacer" << std::endl;
     map.init_player(maxence, 0, 2);
 
-    // map.print(maxence);
+    map.print(maxence);
 
     // map.move_player(maxence, 2);
 
