@@ -14,14 +14,17 @@ int main () {
 
     // Il faut mettre Maxence sur la map
 
+    map.print(maxence);
+
+
     std::cout << "On demande à se déplacer" << std::endl;
     map.init_player(maxence, 0, 2);
 
     map.print(maxence);
 
-    // map.move_player(maxence, 2);
+    map.move_player(maxence, 2);
 
-    // map.print(maxence);
+    map.print(maxence);
     // on va mettre maxence sur bloc (0, 0)
     
     // il faut thread dédié en while(1)

@@ -23,12 +23,10 @@ void Map::init_player(Player &player, int x, int y) {
 
 void Map::move_player(Player &player, int x, int y) {
     // on veut que player aille en x, y
-    Bloc suivant;
-    suivant = area[x][y];
 
     std::cout << "On demande à déplacer le joueur" << std::endl;
     // demander à bloc en x,y s'il est libre pour accueuillir joueur et bouger
-    bool move_done = suivant.set_player(player);
+    bool move_done = area[x][y].set_player(player);
 
     if (move_done) {
         std::cout << "Le mouvement a réussi" << std::endl;
@@ -39,7 +37,7 @@ void Map::move_player(Player &player, int x, int y) {
             std::cout << "Effacement position précédente" << std::endl;
             positions[player.get_num_player()]->erase_player(); // segmentation fault
         }
-        positions[player.get_num_player()] = &suivant;
+        positions[player.get_num_player()] = &area[x][y];
     }
     else {
         std::cout << "bitch try again" << std::endl;
