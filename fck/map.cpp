@@ -69,7 +69,7 @@ void Map::move_player(Player &player, int move){
             if (y == 0) {
                 break;
             }
-            suivant = *area[x + length * (y-1)];
+            suivant = area[x][y-1];
             move_y--;
             break;
         case 1:
@@ -77,7 +77,7 @@ void Map::move_player(Player &player, int move){
             if (x == width) {
                 break;
             }
-            suivant = *area[x+1 + length * y];
+            suivant = area[x+1][y];
             move_x++;
             break;
         case 2:
@@ -87,7 +87,7 @@ void Map::move_player(Player &player, int move){
                 break;
             }
             std::cout << "move_y va changer" << std::endl;
-            suivant = *area[x + length * (y+1)];
+            suivant = area[x][y+1];
             move_y++;
             break;
         case 3:
@@ -95,7 +95,7 @@ void Map::move_player(Player &player, int move){
             if (x == 0) {
                 break;
             }
-            suivant = *area[x-1 + length * y];
+            suivant = area[x-1][y];
             move_x--;
             break;
     }

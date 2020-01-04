@@ -22,6 +22,7 @@ int main () {
 
     map.print(maxence);
 
+    std::cout << "On va se déplacer" << std::endl;
     map.move_player(maxence, 2);
 
     map.print(maxence);
