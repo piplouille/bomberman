@@ -12,8 +12,7 @@ std::mutex lock;
 
 void random_laetitia(Map &map, Player &laetitia) {
     int move;
-    // move = rand() % 4;
-    move = 2; // le mvt 2 fait seg fault
+    move = rand() % 4;
     lock.lock();
     map.move_player(laetitia, move);
     map.print(laetitia);
@@ -51,9 +50,9 @@ int main () {
     int i = 0;
     while (i<5) {
         std::thread laetitiaThread(random_laetitia, std::ref(map), std::ref(laetitia));
-        // std::thread maxenceThread(random_maxence, std::ref(map), std::ref(maxence));
+        std::thread maxenceThread(random_maxence, std::ref(map), std::ref(maxence));
         laetitiaThread.join();
-        // maxenceThread.join();
+        maxenceThread.join();
         i++;
     }
 
