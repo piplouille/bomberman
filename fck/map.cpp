@@ -73,7 +73,7 @@ void Map::move_player(Player &player, int move){
             break;
         case 1:
             // le nouveau bloc vers la droite : colonne y + 1
-            if (y == length) {
+            if (y == length - 1) {
                 break;
             }
             suivant = area[x][y+1];
@@ -81,7 +81,7 @@ void Map::move_player(Player &player, int move){
             break;
         case 2:
             // le nouveau bloc vers le bas : ligne x + 1
-            if (x == width) {
+            if (x == width - 1) {
                 break;
             }
             suivant = area[x+1][y];

@@ -12,7 +12,8 @@ std::mutex lock;
 
 void random_laetitia(Map &map, Player &laetitia) {
     int move;
-    move = rand() % 4;
+    // move = rand() % 4;
+    move = 2; // le mvt 2 fait seg fault
     lock.lock();
     map.move_player(laetitia, move);
     map.print(laetitia);
