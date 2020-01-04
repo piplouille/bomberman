@@ -4,7 +4,6 @@ bool Bloc::set_player(Player &n_player) {
     if (available) {
         // On pose le joueur sur une case
         player = &n_player;
-        std::cout << "Je modifie le bloc" << std::endl;
         available = false;
         return true;
     }
@@ -12,14 +11,10 @@ bool Bloc::set_player(Player &n_player) {
 }
 
 void Bloc::print() {
-    // std::cout << type;
-    std::cout << available;
-}
-
-void Bloc::deep_copy(Bloc& ancien) {
-    std::cout << "j suis la deep copy" << std::endl;
-    // item = ancien->item;
-    // bombe = ancien->bombe;
-    // player = ancien->player;
-    // available = ancien->available;
+    if (player == NULL) {
+        std::cout << "~";
+    }
+    else {
+        std::cout << player->get_num_player();
+    }
 }

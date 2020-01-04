@@ -38,7 +38,6 @@ class Bloc {
     void erase_player() {player = 0; available = true;}
 
     void print();
-    void deep_copy(Bloc&);
 };
 
 #endif

@@ -1,8 +1,8 @@
 #include "map.hpp"
 
 Map::Map() {
-    width = 4; // premier indice longueur
-    length = 4; // deuxième indice largeur
+    width = 4; // premier indice hauteur nb de lignes
+    length = 8; // deuxième indice largeur nb de colonnes
     
     area = new Bloc* [ width ];
     for (int i=0; i < width; i++)
@@ -15,33 +15,32 @@ Map::Map() {
 
 void Map::init_player(Player &player, int x, int y) {
     Bloc suivant;
-    std::cout << "je vais consulter area" << std::endl;
     suivant = area[x][y];
-    std::cout << "On commence la mise en place" << std::endl;
-    move_player(player, x, y); // dans map
+    move_player(player, x, y);
 }
 
 void Map::move_player(Player &player, int x, int y) {
     // on veut que player aille en x, y
 
-    std::cout << "On demande à déplacer le joueur" << std::endl;
+    // mutex ici svp pour bloquer lecture de area[x][y]
+
     // demander à bloc en x,y s'il est libre pour accueuillir joueur et bouger
     bool move_done = area[x][y].set_player(player);
 
     if (move_done) {
-        std::cout << "Le mouvement a réussi" << std::endl;
         // mise à joueur des coordonnées de player
         player.set_x(x);
         player.set_y(y);
         if (positions[player.get_num_player()] != NULL) {
-            std::cout << "Effacement position précédente" << std::endl;
-            positions[player.get_num_player()]->erase_player(); // segmentation fault
+            positions[player.get_num_player()]->erase_player();
         }
         positions[player.get_num_player()] = &area[x][y];
     }
     else {
         std::cout << "bitch try again" << std::endl;
     }
+
+    // je libère la case area[x][y]
 }
 
 void Map::move_player(Player &player, int move){
@@ -65,56 +64,53 @@ void Map::move_player(Player &player, int move){
     switch (move) 
     {
         case 0:
-            // le nouveau bloc vers le haut
-            if (y == 0) {
-                break;
-            }
-            suivant = area[x][y-1];
-            move_y--;
-            break;
-        case 1:
-            // le nouveau bloc vers la droite
-            if (x == width) {
-                break;
-            }
-            suivant = area[x+1][y];
-            move_x++;
-            break;
-        case 2:
-            // le nouveau bloc vers le bas
-            std::cout << "on rentre" << std::endl;
-            if (y == length) {
-                break;
-            }
-            std::cout << "move_y va changer" << std::endl;
-            suivant = area[x][y+1];
-            move_y++;
-            break;
-        case 3:
-            // le nouveau bloc vers la gauche
+            // le nouveau bloc vers le haut : ligne x - 1
             if (x == 0) {
                 break;
             }
             suivant = area[x-1][y];
             move_x--;
             break;
+        case 1:
+            // le nouveau bloc vers la droite : colonne y + 1
+            if (y == length) {
+                break;
+            }
+            suivant = area[x][y+1];
+            move_y++;
+            break;
+        case 2:
+            // le nouveau bloc vers le bas : ligne x + 1
+            if (x == width) {
+                break;
+            }
+            suivant = area[x+1][y];
+            move_x++;
+            break;
+        case 3:
+            // le nouveau bloc vers la gauche : colonne y - 1
+            if (y == 0) {
+                break;
+            }
+            suivant = area[x][y-1];
+            move_y--;
+            break;
     }
 
     if (move_x != 0 || move_y != 0) {
-        std::cout << "Il va essayer de bouger" << std::endl;
-        // player.move(suivant, move_x, move_y);
         move_player(player, player.get_x() + move_x, player.get_y() + move_y);
+    }
+    else {
+        std::cout << "Mouvement impossible" << std::endl;
     }
 }
 
 void Map::print(Player &p) {
-    for (int i=0 ; i<width ; i++) {
-        for (int j=0 ; j<length; j++) {
-            area[i][j].print();
-        }
-        std::cout << std::endl;
-    }
-
-
-    std::cout << "Coord du joueur 1 : (" << p.get_x() << "," << p.get_y() << ")" << std::endl;
+    // for (int i=0 ; i<width ; i++) {
+    //     for (int j=0 ; j<length; j++) {
+    //         area[i][j].print();
+    //     }
+    //     std::cout << std::endl;
+    // }
+    std::cout << "Coord du joueur " << p.get_num_player() << " : (" << p.get_x() << "," << p.get_y() << ")" << std::endl;
 }
