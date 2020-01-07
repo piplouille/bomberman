@@ -1,15 +1,23 @@
 #include "map.hpp"
 
-Map::Map() {
+Map::Map(): Map(defaultWidth, defaultLength)
+{} 
+
+Map::Map(int aWidth, int aLength):
+    width(aWidth), length(aLength),
+    area(width, std::vector<bloc_type>(length)) 
+{
+    /*
     width = 4; // premier indice hauteur nb de lignes
     length = 8; // deuxième indice largeur nb de colonnes
     
-    area = new Bloc* [ width ];
+    
+    area = new block_type* [ width ];
     for (int i=0; i < width; i++)
-        area[i] = new Bloc[ length ];
-
+        area[i] = new std::vector<block_type>(length);
+*/
     for (int i=0 ; i<4 ; i++) {
-        positions[i] = NULL;
+        positions[i] = nullptr;
     }
 }
 
@@ -39,7 +47,6 @@ void Map::move_player(Player &player, int x, int y) {
     else {
         std::cout << "bitch try again" << std::endl;
     }
-
     // je libère la case area[x][y]
 }
 
@@ -103,6 +110,12 @@ void Map::move_player(Player &player, int move){
     else {
         std::cout << "Mouvement impossible" << std::endl;
     }
+}
+
+void Map::put_bomb(Player &p) {
+    // On appelle un fonction qui init bombes de player
+    // On pose la bombe sur le bloc si possible
+    // Si ca marche, on doit stocker la bombe dans Map ?
 }
 
 void Map::print(Player &p) {

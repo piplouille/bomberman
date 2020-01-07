@@ -3,10 +3,7 @@
 
 #include <iostream>
 
-// #include "bomb.hpp"
-// #include "map.hpp"
-// #include "game.hpp"
-
+class Bomb; // bombe sera crée après
 // On fait hériter chaque type de joueur de la classe Player (humain, IA)
 
 class Player {
@@ -18,7 +15,6 @@ private:
     char name[13] = {'P', 'a', 't', 'r', 'i', 'c', 'k', 'k', 'k', 'k', ' ',(char)num_player,'\0'}; //nom du joueur
     double speed; //en cases par secondes
     unsigned int lives; //nombre de vies
-    // Bloc* location;
 
 public:
     Player() {
@@ -54,6 +50,7 @@ public:
         // location = NULL;
     }
 
+    inline void stupid_code_using_bomb(const Bomb& aBomb);
     int get_x() {return x;}
     int get_y(){return y;}
     void set_x(int n_x) {x = n_x;}
@@ -64,10 +61,15 @@ public:
     // unsigned int get_nbr_bomb_used() {return nbr_bomb_used;}
     // int get_range() {return range;}
 
-    // void set_location (Bloc &n_location) {
-    //     location = &n_location;
-    // }
+
 
 };
+
+#include "bomb.hpp"
+
+inline void Player::stupid_code_using_bomb(const Bomb& aBomb)
+{
+    aBomb.explode();
+}
 
 #endif

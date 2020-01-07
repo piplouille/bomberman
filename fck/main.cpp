@@ -13,10 +13,10 @@ std::mutex lock;
 void random_move(Map &map, Player &player) {
     int move;
     move = rand() % 4;
-    lock.lock();
+    // lock.lock();
     map.move_player(player, move);
     map.print(player);
-    lock.unlock();
+    // lock.unlock();
 }
 
 int main () {
@@ -54,6 +54,7 @@ int main () {
 
     int i = 0;
     while (i<5) {
+        // sémaphore
         std::thread laetitiaThread(random_move, std::ref(map), std::ref(laetitia));
         std::thread maxenceThread(random_move, std::ref(map), std::ref(maxence));
         std::thread gerardThread(random_move, std::ref(map), std::ref(gerard));
