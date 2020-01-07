@@ -10,28 +10,21 @@ std::mutex lock;
 // on compile avec
 // g++ main.cpp player.cpp bloc.cpp map.cpp -o main.x -lpthread
 
-void random_laetitia(Map &map, Player &laetitia) {
+void random_move(Map &map, Player &player) {
     int move;
     move = rand() % 4;
     lock.lock();
-    map.move_player(laetitia, move);
-    map.print(laetitia);
-    lock.unlock();
-}
-
-void random_maxence(Map &map, Player &maxence) {
-    int move;
-    move = rand() % 4;
-    lock.lock();
-    map.move_player(maxence, move);
-    map.print(maxence);
+    map.move_player(player, move);
+    map.print(player);
     lock.unlock();
 }
 
 int main () {
-    Player maxence, laetitia;
+    Player maxence, laetitia, gerard, patrick;
     maxence = Player(0);
     laetitia = Player(1);
+    gerard = Player(2);
+    patrick = Player(3);
 
     Map map;
     map = Map();
@@ -46,13 +39,30 @@ int main () {
     map.init_player(laetitia, 3, 3);
     map.print(laetitia);
 
-    // random_laetitia(map, laetitia);
+    std::cout << "Placement de Gerard en (6,3)" << std::endl;
+    map.init_player(gerard, 3, 6);
+    map.print(gerard);
+
+    std::cout << "Placement de Patrick en (7,2)" << std::endl;
+    map.init_player(patrick, 2, 7);
+    map.print(patrick);    
+
+    std::thread laetitiaThread;
+    std::thread maxenceThread;
+    std::thread gerardThread;
+    std::thread patrickThread;
+
     int i = 0;
     while (i<5) {
-        std::thread laetitiaThread(random_laetitia, std::ref(map), std::ref(laetitia));
-        std::thread maxenceThread(random_maxence, std::ref(map), std::ref(maxence));
+        std::thread laetitiaThread(random_move, std::ref(map), std::ref(laetitia));
+        std::thread maxenceThread(random_move, std::ref(map), std::ref(maxence));
+        std::thread gerardThread(random_move, std::ref(map), std::ref(gerard));
+        std::thread patrickThread(random_move, std::ref(map), std::ref(patrick));
         laetitiaThread.join();
         maxenceThread.join();
+        gerardThread.join();
+        patrickThread.join();
+        std::cout << "~-~-~fin du tour~-~-~" << std::endl;
         i++;
     }
 
