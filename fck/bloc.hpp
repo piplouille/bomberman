@@ -6,27 +6,6 @@
 
 #include "player.hpp"
 
-/*
-C'est ça que je veux ?
-
-struct AnotherStruct : public std::mutex
-{
-
-    int a;
-    int b;
-};
-
-And now I can do (for example):
-
-AnotherStruct bar = { };
-
-bar.lock ().
-bar.a++;
-bar.b++;
-bar.unlock ();
-
-*/
-
 class Bloc : public std::mutex {
     /*
     Maintenant, je peux bloquer l'accès au bloc quand je veux
@@ -35,7 +14,7 @@ class Bloc : public std::mutex {
     int type;
     int item;
     std::shared_ptr<Player> player; // nullptr si personne dessus ; shared_ptr permet aux autres blocs etc de lire
-    bool available; // qq chose peut etre dessus TRUE si tu peux y aller
+    bool available; // qq chose peut etre dessus, TRUE si tu peux y aller
 
     public:
     Bloc() : type(0), item(0), player(nullptr), available(true) {
@@ -53,11 +32,6 @@ class Bloc : public std::mutex {
         player = bloc.player;
         available = bloc.available;
     }
-
-    // inline int get_type() {return type;}
-    // inline int get_item() {return item;}
-    // inline void set_item(int n_item) {item = n_item;}
-    // inline bool get_available() {return available;}
 
     inline std::shared_ptr<Player> get_player() {return player;} // on récupère s'il y a un joueur sur le bloc
 

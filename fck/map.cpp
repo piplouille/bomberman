@@ -102,12 +102,6 @@ void Map::put_bomb(Player &p) {
 }
 
 void Map::print(Player &p) {
-    // for (int i=0 ; i<width ; i++) {
-    //     for (int j=0 ; j<length; j++) {
-    //         area[i][j].print();
-    //     }
-    //     std::cout << std::endl;
-    // }
     std::cout << "Coord du joueur " << p.get_num_player() << " : (" << p.get_x() << "," << p.get_y() << ")" << std::endl;
 }
 
@@ -122,7 +116,6 @@ void Map::print() {
 }
 
 auto Map::begin(int x) {
-    // auto suivant = (area.begin() + x)->begin() + y;
     return (area.begin() + x);
 }
 
