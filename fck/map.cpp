@@ -27,8 +27,6 @@ void Map::move_player(Player &player, int x, int y) {
     bool move_done = suivant->set_player(player);
 
     if (move_done) {
-        std::cout << "ca a marché" << std::endl;
-        std::cout << suivant->get_player() << std::endl;
         // mise à joueur des coordonnées de player
         player.set_x(x);
         player.set_y(y);
@@ -37,15 +35,12 @@ void Map::move_player(Player &player, int x, int y) {
         if (positions[player.get_num_player()] != end()) {
             positions[player.get_num_player()]->erase_player();
         }
-
         positions[player.get_num_player()] = suivant;
     }
     else {
-        std::cout << "bitch try again" << std::endl;
+        // std::cout << "bitch try again" << std::endl;
     }
     suivant->unlock();
-    std::cout << suivant->get_player() << std::endl;
-    std::cout << area[x][y].get_player() << std::endl;
 }
 
 void Map::move_player(Player &player, int move){
@@ -123,6 +118,7 @@ void Map::print() {
         }
         std::cout << std::endl;
     }
+    std::cout << "~-~-~-Fin du tour-~-~-~" << std::endl;
 }
 
 auto Map::begin(int x) {
