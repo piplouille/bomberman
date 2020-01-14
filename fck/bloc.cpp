@@ -1,9 +1,12 @@
 #include "bloc.hpp"
 
-bool Bloc::set_player(Player &n_player) {    
+bool Bloc::set_player(Player &n_player) {
+    // std::cout << available << std::endl;
     if (available) {
+        std::cout << "on peut déplacer joueur" << std::endl;
         // On pose le joueur sur une case
-        player = &n_player;
+        player = std::make_shared<Player> (n_player);
+        std::cout << player << std::endl;
         available = false;
         return true;
     }
@@ -11,7 +14,7 @@ bool Bloc::set_player(Player &n_player) {
 }
 
 void Bloc::print() {
-    if (player == NULL) {
+    if (player == nullptr) {
         std::cout << "~";
     }
     else {

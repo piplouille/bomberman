@@ -1,17 +1,44 @@
 #ifndef blocHPP
 #define blocHPP
 
+#include <memory>
+#include <mutex>
+
 #include "player.hpp"
 
-class Bloc {
+/*
+C'est ça que je veux ?
+
+struct AnotherStruct : public std::mutex
+{
+
+    int a;
+    int b;
+};
+
+And now I can do (for example):
+
+AnotherStruct bar = { };
+
+bar.lock ().
+bar.a++;
+bar.b++;
+bar.unlock ();
+
+*/
+
+class Bloc : public std::mutex {
+    /*
+    Maintenant, je peux bloquer l'accès au bloc quand je veux
+    */
     private:
     int type;
     int item;
-    Player* player; // NULL si personne dessus
+    std::shared_ptr<Player> player; // nullptr si personne dessus ; shared_ptr permet aux autres blocs etc de lire
     bool available; // qq chose peut etre dessus TRUE si tu peux y aller
 
     public:
-    Bloc() : type(0), item(0), player(0), available(true) {
+    Bloc() : type(0), item(0), player(nullptr), available(true) {
 
     }
 
@@ -32,10 +59,10 @@ class Bloc {
     // inline void set_item(int n_item) {item = n_item;}
     // inline bool get_available() {return available;}
 
-    // inline Player* get_player() {return player;} // on récupère s'il y a un joueur sur le bloc
+    inline std::shared_ptr<Player> get_player() {return player;} // on récupère s'il y a un joueur sur le bloc
 
     bool set_player(Player& n_player);
-    void erase_player() {player = 0; available = true;}
+    void erase_player() {player = nullptr; available = true;}
 
     void print();
 };

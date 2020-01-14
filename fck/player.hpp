@@ -3,7 +3,7 @@
 
 #include <iostream>
 
-class Bomb; // bombe sera crée après
+// class Bomb; // bombe sera crée après
 // On fait hériter chaque type de joueur de la classe Player (humain, IA)
 
 class Player {
@@ -50,7 +50,7 @@ public:
         // location = NULL;
     }
 
-    inline void stupid_code_using_bomb(const Bomb& aBomb);
+    // inline void stupid_code_using_bomb(const Bomb& aBomb);
     int get_x() {return x;}
     int get_y(){return y;}
     void set_x(int n_x) {x = n_x;}
@@ -65,11 +65,11 @@ public:
 
 };
 
-#include "bomb.hpp"
+// #include "bomb.hpp"
 
-inline void Player::stupid_code_using_bomb(const Bomb& aBomb)
-{
-    aBomb.explode();
-}
+// inline void Player::stupid_code_using_bomb(const Bomb& aBomb)
+// {
+//     aBomb.explode();
+// }
 
 #endif

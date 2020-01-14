@@ -5,58 +5,52 @@ Map::Map(): Map(defaultWidth, defaultLength)
 
 Map::Map(int aWidth, int aLength):
     width(aWidth), length(aLength),
-    area(width, std::vector<bloc_type>(length)) 
-{
-    /*
-    width = 4; // premier indice hauteur nb de lignes
-    length = 8; // deuxième indice largeur nb de colonnes
-    
-    
-    area = new block_type* [ width ];
-    for (int i=0; i < width; i++)
-        area[i] = new std::vector<block_type>(length);
-*/
+    area(width, std::vector<Bloc>(length)) {
+
     for (int i=0 ; i<4 ; i++) {
-        positions[i] = nullptr;
+        positions[i] = end();
     }
 }
 
 void Map::init_player(Player &player, int x, int y) {
-    Bloc suivant;
-    suivant = area[x][y];
     move_player(player, x, y);
 }
 
 void Map::move_player(Player &player, int x, int y) {
     // on veut que player aille en x, y
 
-    // mutex ici svp pour bloquer lecture de area[x][y]
+    // itérateur
+    auto suivant = begin(x, y);
 
     // demander à bloc en x,y s'il est libre pour accueuillir joueur et bouger
-    bool move_done = area[x][y].set_player(player);
+    suivant->lock();
+    bool move_done = suivant->set_player(player);
 
     if (move_done) {
+        std::cout << "ca a marché" << std::endl;
+        std::cout << suivant->get_player() << std::endl;
         // mise à joueur des coordonnées de player
         player.set_x(x);
         player.set_y(y);
-        if (positions[player.get_num_player()] != NULL) {
+
+        // Mise à jour du tableau positions
+        if (positions[player.get_num_player()] != end()) {
             positions[player.get_num_player()]->erase_player();
         }
-        positions[player.get_num_player()] = &area[x][y];
+
+        positions[player.get_num_player()] = suivant;
     }
     else {
         std::cout << "bitch try again" << std::endl;
     }
-    // je libère la case area[x][y]
+    suivant->unlock();
+    std::cout << suivant->get_player() << std::endl;
+    std::cout << area[x][y].get_player() << std::endl;
 }
 
 void Map::move_player(Player &player, int move){
-    // J'ai changé le type de move pcq si on fait plsrs joueurs, ce ne sera pas forcément la touche zqsd
-    // dsl j'ai mis l'origine en haut à gauche, un affichage naturel se fait comme ça :(
-    
     /*
-    On regarde le bloc où le joueur veut aller
-    On demande à joueur d'y aller
+    On trouve où le joueur veut se déplacer en coordonnées
     */
    
     int x, y;
@@ -66,8 +60,6 @@ void Map::move_player(Player &player, int move){
     int move_x = 0; // le changement de mouvements
     int move_y = 0;
 
-    Bloc suivant;
-
     switch (move) 
     {
         case 0:
@@ -75,7 +67,6 @@ void Map::move_player(Player &player, int move){
             if (x == 0) {
                 break;
             }
-            suivant = area[x-1][y];
             move_x--;
             break;
         case 1:
@@ -83,7 +74,6 @@ void Map::move_player(Player &player, int move){
             if (y == length - 1) {
                 break;
             }
-            suivant = area[x][y+1];
             move_y++;
             break;
         case 2:
@@ -91,7 +81,6 @@ void Map::move_player(Player &player, int move){
             if (x == width - 1) {
                 break;
             }
-            suivant = area[x+1][y];
             move_x++;
             break;
         case 3:
@@ -99,7 +88,6 @@ void Map::move_player(Player &player, int move){
             if (y == 0) {
                 break;
             }
-            suivant = area[x][y-1];
             move_y--;
             break;
     }
@@ -127,3 +115,30 @@ void Map::print(Player &p) {
     // }
     std::cout << "Coord du joueur " << p.get_num_player() << " : (" << p.get_x() << "," << p.get_y() << ")" << std::endl;
 }
+
+void Map::print() {
+    for (int i=0 ; i<width ; i++) {
+        for (int j=0 ; j<length; j++) {
+            area[i][j].print();
+        }
+        std::cout << std::endl;
+    }
+}
+
+auto Map::begin(int x) {
+    // auto suivant = (area.begin() + x)->begin() + y;
+    return (area.begin() + x);
+}
+
+std::vector<Bloc>::iterator Map::begin(int x, int y) {
+    return (area.begin() + x)->begin() + y;
+}
+
+auto Map::end(int x) {
+    return (area.begin() + x)->end();
+}
+std::vector<Bloc>::iterator Map::end() {
+    // Valeur par défaut si "nullptr"
+    return (area.begin() + width)->end();
+}
+

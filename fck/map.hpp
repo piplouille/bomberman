@@ -3,15 +3,15 @@
 
 #include <iostream>
 #include <vector>
-#include<atomic>
+#include <atomic>
+#include <memory>
 
 #include "bloc.hpp"
 #include "player.hpp"
 
 // On fait hériter chaque type de map de la classe Map
 class Map {
-    typedef std::atomic<Bloc> bloc_type;
-    typedef std::vector<std::vector<bloc_type>> area_type;
+    typedef std::vector<std::vector<Bloc>> area_type;
 
     private:
     static const int defaultLength = 8;
@@ -22,13 +22,12 @@ class Map {
 
     area_type area;
 
-    // IL FAUT QUE MAP DISE OU SE TROUVE UN JOUEUR AVEC SON ID FCK
-    Bloc* positions[4]; // en 0, bloc où se trouve joueur 0
+    std::vector<Bloc>::iterator positions[4]; // en 0, bloc où se trouve joueur 0
 
     public:
     Map ();
     Map(int aWidth, int aLength);
-    
+
     // inline int get_length();
     // inline int get_width();
     // inline Bloc** get_area(); // a modifier avec des vecteurs
@@ -43,8 +42,17 @@ class Map {
     void put_bomb(Player&);
 
     void print(Player&);
+    void print();
+
+    // méthode begin(x) premier itérateur colonne x
+    // begin(x, y) donne itérateur position x, y
+    // end(x) donne ligne
+    // end() donne la fin de la classe
+    auto begin(int);
+    std::vector<Bloc>::iterator begin(int, int);
+    auto end(int);
+    std::vector<Bloc>::iterator end();
+    
 };
-
-
 
 #endif
