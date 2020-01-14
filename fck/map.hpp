@@ -8,6 +8,7 @@
 
 #include "bloc.hpp"
 #include "player.hpp"
+#include "bomb.hpp"
 
 class Map {
     typedef std::vector<std::vector<Bloc>> area_type;
@@ -23,13 +24,15 @@ class Map {
 
     std::vector<Bloc>::iterator positions[4]; // en 0, bloc où se trouve joueur 0
 
+    void move_player(Player&, int, int); // déplace un joueur sur la case x y
+    
     public:
     Map ();
     Map(int aWidth, int aLength);
 
     void init_player(Player&, int, int); // placer un joueur sur la map
-    void move_player(Player&, int move); // déplacer un joueur de manière relative
-    void move_player(Player&, int, int); // déplace un joueur sur la case x y
+    void move_player(Player&, int); // déplacer un joueur de manière relative
+    
     void put_bomb(Player&);
 
     void print(Player&);
@@ -39,7 +42,6 @@ class Map {
     std::vector<Bloc>::iterator begin(int, int);
     auto end(int);
     std::vector<Bloc>::iterator end();
-    
 };
 
 #endif

@@ -18,3 +18,12 @@ void Bloc::print() {
         std::cout << player->get_num_player();
     }
 }
+
+bool Bloc::set_bomb(Bomb& n_bomb) {
+    if (bomb_available) {
+        bomb = std::make_shared<Bomb> (n_bomb);
+        bomb_available = false;
+        return true;
+    }
+    return false;
+}

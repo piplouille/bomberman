@@ -1,5 +1,9 @@
 #include "map.hpp"
 
+/*
+Les constructeurs
+*/
+
 Map::Map(): Map(defaultWidth, defaultLength)
 {} 
 
@@ -15,6 +19,10 @@ Map::Map(int aWidth, int aLength):
 void Map::init_player(Player &player, int x, int y) {
     move_player(player, x, y);
 }
+
+/*
+Déplacement d'un joueur
+*/
 
 void Map::move_player(Player &player, int x, int y) {
     // on veut que player aille en x, y
@@ -44,9 +52,8 @@ void Map::move_player(Player &player, int x, int y) {
 }
 
 void Map::move_player(Player &player, int move){
-    /*
-    On trouve où le joueur veut se déplacer en coordonnées
-    */
+    // On trouve où le joueur veut se déplacer en coordonnées
+
    
     int x, y;
     x = player.get_x();
@@ -95,11 +102,37 @@ void Map::move_player(Player &player, int move){
     }
 }
 
+/*
+Les bombes
+*/
+
 void Map::put_bomb(Player &p) {
-    // On appelle un fonction qui init bombes de player
-    // On pose la bombe sur le bloc si possible
-    // Si ca marche, on doit stocker la bombe dans Map ?
+    // On vérifie que joueur peut encore poser une bombe
+    if (p.able_bomb()) {
+        // On appelle un fonction qui init bombes de player
+        Bomb bombe(p);
+        // On pose la bombe sur le bloc si possible
+        auto bloc = begin(p.get_x(), p.get_y());
+        // Si ca marche, on doit stocker la bombe dans Map ?
+        bloc->lock();
+        bool move_done = bloc->set_bomb(bomb);
+
+        if (move_done) {
+            // mise à joueur des coordonnées de player
+            bomb.set_x(p.get_x());
+            bomb.set_y(p.get_y());
+        }
+        else {
+            // std::cout << "bitch try again" << std::endl;
+        }
+        bloc->unlock();
+    }
+
 }
+
+/*
+Fonctions de print
+*/
 
 void Map::print(Player &p) {
     std::cout << "Coord du joueur " << p.get_num_player() << " : (" << p.get_x() << "," << p.get_y() << ")" << std::endl;
@@ -114,6 +147,10 @@ void Map::print() {
     }
     std::cout << "~-~-~-Fin du tour-~-~-~" << std::endl;
 }
+
+/*
+Gestion des itérateurs
+*/
 
 auto Map::begin(int x) {
     return (area.begin() + x);

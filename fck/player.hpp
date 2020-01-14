@@ -2,6 +2,7 @@
 #define playerHPP
 
 #include <iostream>
+#include <chrono>
 
 // class Bomb; // bombe sera crée après
 
@@ -9,8 +10,8 @@ class Player {
 private:
     unsigned int num_player; //de 0 à 3
     int x, y; //coordonnées
-    unsigned int nbr_bomb, nbr_bomb_used; //nombre de bombes pouvant être placées par le joueur simultanément
-    int range; // portée de la bombe
+    unsigned int bomb_range, bomb_nbr, bomb_nbr_used;
+    // bomb_life;
     char name[13] = {'P', 'a', 't', 'r', 'i', 'c', 'k', 'k', 'k', 'k', ' ',(char)num_player,'\0'}; //nom du joueur
     double speed; //en cases par secondes
     unsigned int lives; //nombre de vies
@@ -24,9 +25,11 @@ public:
         x = 0;
         y = 0;
         
-        range = 1;
-        nbr_bomb = 1;
-        nbr_bomb_used = 0;
+        bomb_range = 1;
+        bomb_nbr = 1;
+        bomb_nbr_used = 0;
+        // bomb_life = 5;
+
         speed = 1.5;
         lives = 1;
     }
@@ -38,18 +41,22 @@ public:
         x = 0;
         y = 0;
         
-        range = 1;
-        nbr_bomb = 1;
-        nbr_bomb_used = 0;
+        bomb_range = 1;
+        bomb_nbr = 1;
+        bomb_nbr_used = 0;
+        // bomb_life = 5;
+        
         speed = 1.5;
         lives = 1;
     }
 
+    unsigned int get_num_player() {return num_player;}
     int get_x() {return x;}
     int get_y(){return y;}
     void set_x(int n_x) {x = n_x;}
     void set_y(int n_y) {y = n_y;}
-    unsigned int get_num_player() {return num_player;}
+    bool able_bomb() {return ((bomb_nbr - bomb_nbr_used) > 0);}
+    int get_bomb_range() {return bomb_range;}
 };
 
 // #include "bomb.hpp"
