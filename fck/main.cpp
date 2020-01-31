@@ -16,7 +16,7 @@ void random_move(Map &map, Player &player) {
     while (i<10) {
         move = rand() % 4;
         map.move_player(player, move);
-        if (i%5 == 0) {
+        if (i%2 == 0) {
             map.put_bomb(player);
         }
         i++;
