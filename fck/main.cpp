@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <thread>
 #include <mutex>
+#include <unistd.h>
 
 #include "player.hpp"
 #include "map.hpp"
@@ -28,6 +29,12 @@ void random_move(Map &map, Player &player) {
 
 void check_bomb(Map &map) {
     // vérifie et met à jour les bombes sur Map
+    int i = 0;
+    while (i<20) {
+        map.update_bomb();
+        sleep(0.1);
+        i++;
+    }
 }
 
 int main () {
@@ -63,6 +70,9 @@ int main () {
     // std::thread gerardThread;
     // std::thread patrickThread;
 
+    std::thread checkThread;
+    checkThread = std::thread(check_bomb, std::ref(map));
+
     maxenceThread = std::thread(random_move, std::ref(map), std::ref(maxence));
     // laetitiaThread = std::thread(random_move, std::ref(map), std::ref(laetitia));
     // gerardThread = std::thread(random_move, std::ref(map), std::ref(gerard));
@@ -72,6 +82,7 @@ int main () {
     // laetitiaThread.join();
     // gerardThread.join();
     // patrickThread.join();
+    checkThread.join();
     
     std::cout << "~-~-~fin du jeu~-~-~" << std::endl;
     map.print();

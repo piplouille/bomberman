@@ -131,6 +131,22 @@ void Map::put_bomb(Player &p) {
 
 }
 
+void Map::update_bomb() {
+    // On prend chaque bombe du vecteur (itérateur stp)
+    std::vector<std::shared_ptr<Bomb>>::iterator it = bombs.begin();
+    // Je diminue de 1 sa vie
+    while (it < bombs.end()) {
+        (*it)->decrease_life();
+        if ((*it)->get_life() == 0) {
+            std::cout << "boum bébi" << std::endl;
+            // J'appelle bombe explose et touche les différents blocs : calculer ça au moment de poser ?
+                // conséquences sur joueurs
+            // Je remets à vide le bloc où bombe était
+        }
+        it++;
+    }
+}
+
 /*
 Fonctions de print
 */

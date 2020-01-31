@@ -21,6 +21,9 @@ public:
     ~Bomb()
     {}
 
+    int get_life() {return life;}
+    void decrease_life() {life--;}
+
     void set_x(int x) {
         this->x = x;
     }

@@ -26,7 +26,7 @@ public:
         y = 0;
         
         bomb_range = 1;
-        bomb_life = 10;
+        bomb_life = 3;
         bomb_quota = 3;
 
         speed = 1.5;
@@ -41,7 +41,7 @@ public:
         y = 0;
         
         bomb_range = 1;
-        bomb_life = 10;
+        bomb_life = 3;
         bomb_quota = 3;
         
         speed = 1.5;

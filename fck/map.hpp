@@ -35,6 +35,7 @@ class Map {
     void move_player(Player&, int); // déplacer un joueur de manière relative
     
     void put_bomb(Player&);
+    void update_bomb();
 
     void print(Player&);
     void print();
