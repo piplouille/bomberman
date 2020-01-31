@@ -109,19 +109,20 @@ Les bombes
 void Map::put_bomb(Player &p) {
     // On vérifie que joueur peut encore poser une bombe
     if (p.able_bomb()) {
-        // On appelle un fonction qui init bombes de player
-        Bomb bombe(p);
+        // On appelle un fonction qui init bombe de player
+        Bomb bomb(p);
+
         // On pose la bombe sur le bloc si possible
         auto bloc = begin(p.get_x(), p.get_y());
-        // Si ca marche, on doit stocker la bombe dans Map ?
         bloc->lock();
         bool move_done = bloc->set_bomb(bomb);
 
         if (move_done) {
-            // mise à joueur des coordonnées de player
-            bomb.set_x(p.get_x());
-            bomb.set_y(p.get_y());
+            // Si ca marche, on doit stocker la bombe dans Map
+            #pragma omp critical 
+            bombs.push_back(std::make_shared<Bomb> (bomb));
         }
+        
         else {
             // std::cout << "bitch try again" << std::endl;
         }

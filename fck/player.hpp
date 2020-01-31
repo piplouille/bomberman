@@ -10,7 +10,7 @@ class Player {
 private:
     unsigned int num_player; //de 0 à 3
     int x, y; //coordonnées
-    unsigned int bomb_range, bomb_nbr, bomb_nbr_used;
+    unsigned int bomb_range, bomb_life, bomb_nbr, bomb_nbr_used;
     // bomb_life;
     char name[13] = {'P', 'a', 't', 'r', 'i', 'c', 'k', 'k', 'k', 'k', ' ',(char)num_player,'\0'}; //nom du joueur
     double speed; //en cases par secondes
@@ -26,6 +26,7 @@ public:
         y = 0;
         
         bomb_range = 1;
+        bomb_life = 10;
         bomb_nbr = 1;
         bomb_nbr_used = 0;
         // bomb_life = 5;
@@ -42,6 +43,7 @@ public:
         y = 0;
         
         bomb_range = 1;
+        bomb_life = 10;
         bomb_nbr = 1;
         bomb_nbr_used = 0;
         // bomb_life = 5;
@@ -57,6 +59,7 @@ public:
     void set_y(int n_y) {y = n_y;}
     bool able_bomb() {return ((bomb_nbr - bomb_nbr_used) > 0);}
     int get_bomb_range() {return bomb_range;}
+    int get_bomb_life() {return bomb_life;}
 };
 
 // #include "bomb.hpp"

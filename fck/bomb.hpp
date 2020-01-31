@@ -10,7 +10,8 @@ class Bomb {
 private:
     int x, y; // coordonnées de la bombe
     int range; // portée de la bombe
-    std::chrono::time_point<std::chrono::system_clock> start,life; // activation et durée de vie de la bomb
+    // std::chrono::time_point<std::chrono::system_clock> start,life; // activation et durée de vie de la bomb
+    int life; // à chaque action, on enlève un
     std::shared_ptr<Player> owner; // permet de savoir quel décompte de bombe modifier à l'explosion
 
 public:
@@ -19,6 +20,14 @@ public:
     
     ~Bomb()
     {}
+
+    void set_x(int x) {
+        this->x = x;
+    }
+
+    void set_y(int y) {
+        this->y = y;
+    }
 
 };
 

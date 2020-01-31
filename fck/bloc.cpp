@@ -1,10 +1,9 @@
 #include "bloc.hpp"
 
 bool Bloc::set_player(Player &n_player) {
-    if (available) {
+    if (available()) {
         // On pose le joueur sur une case
         player = std::make_shared<Player> (n_player);
-        available = false;
         return true;
     }
     return false;
@@ -20,9 +19,8 @@ void Bloc::print() {
 }
 
 bool Bloc::set_bomb(Bomb& n_bomb) {
-    if (bomb_available) {
+    if (bomb_available()) {
         bomb = std::make_shared<Bomb> (n_bomb);
-        bomb_available = false;
         return true;
     }
     return false;

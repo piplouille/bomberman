@@ -17,10 +17,13 @@ void random_move(Map &map, Player &player) {
         move = rand() % 4;
         map.move_player(player, move);
         i++;
-        #pragma omp critical
         map.print();
         // std::cout << "~-~-~fin du tour de " << player.get_num_player() << "~-~-~" << std::endl;
     }
+}
+
+void check_bomb(Map &map) {
+    // vérifie et met à jour les bombes sur Map
 }
 
 int main () {
@@ -28,7 +31,7 @@ int main () {
     maxence = Player(0);
     laetitia = Player(1);
     gerard = Player(2);
-    patrick = Player(3);
+    patrick = Player(3);    
 
     Map map;
     map = Map();

@@ -16,31 +16,35 @@ class Bloc : public std::mutex {
     int item;
     std::shared_ptr<Player> player; // nullptr si personne dessus ; shared_ptr permet aux autres blocs etc de lire
     std::shared_ptr<Bomb> bomb;
-    bool available; // qq chose peut etre dessus, TRUE si tu peux y aller
-    bool bomb_available;
 
     public:
-    Bloc() : type(0), item(0), player(nullptr), available(true), bomb_available(true) {
+    Bloc() : type(0), item(0), player(nullptr), bomb(nullptr) {
 
     }
 
-    Bloc (int n_type, int n_item, Player &n_player, bool n_available)
-        : type(n_type), item(n_item), player(&n_player), available(n_available), bomb_available(true) {
-        
+    Bloc (int n_type, int n_item, Player &n_player, Bomb &n_bomb)
+        : type(n_type), item(n_item), player(&n_player), bomb(&n_bomb) {
     }
 
     Bloc(const Bloc &bloc) {
         type = bloc.type;
         item = bloc.item;
         player = bloc.player;
-        available = bloc.available;
-        bomb_available = bloc.bomb_available;
+        bomb = bloc.bomb;
     }
 
     inline std::shared_ptr<Player> get_player() {return player;} // on récupère s'il y a un joueur sur le bloc
 
+    bool available() {
+        return ((player == nullptr) && bomb == nullptr);
+    }
+
+    bool bomb_available() {
+        return (bomb == nullptr);
+    }
+
     bool set_player(Player& n_player);
-    void erase_player() {player = nullptr; available = true;}
+    void erase_player() {player = nullptr;}
 
     bool set_bomb(Bomb&);
 
