@@ -10,9 +10,14 @@ bool Bloc::set_player(Player &n_player) {
 }
 
 void Bloc::print() {
-    if (player == nullptr) {
+    if (player == nullptr && bomb == nullptr) {
         std::cout << "~";
     }
+    
+    else if (bomb != nullptr) {
+        std::cout << "#";
+    }
+
     else {
         std::cout << player->get_num_player();
     }

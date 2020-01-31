@@ -122,7 +122,7 @@ void Map::put_bomb(Player &p) {
             #pragma omp critical 
             bombs.push_back(std::make_shared<Bomb> (bomb));
         }
-        
+
         else {
             // std::cout << "bitch try again" << std::endl;
         }
@@ -146,7 +146,6 @@ void Map::print() {
         }
         std::cout << std::endl;
     }
-    std::cout << "~-~-~-Fin du tour-~-~-~" << std::endl;
 }
 
 /*

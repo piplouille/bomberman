@@ -16,8 +16,12 @@ void random_move(Map &map, Player &player) {
     while (i<10) {
         move = rand() % 4;
         map.move_player(player, move);
+        if (i%5 == 0) {
+            map.put_bomb(player);
+        }
         i++;
         map.print();
+        std::cout << "~-~-~-Fin du tour-~-~-~" << std::endl;
         // std::cout << "~-~-~fin du tour de " << player.get_num_player() << "~-~-~" << std::endl;
     }
 }
@@ -40,34 +44,34 @@ int main () {
     map.init_player(maxence, 1, 0);
     map.print(maxence);
 
-    std::cout << "Placement de Laetitia en (3,3)" << std::endl;
-    map.init_player(laetitia, 3, 3);
-    map.print(laetitia);
+    // std::cout << "Placement de Laetitia en (3,3)" << std::endl;
+    // map.init_player(laetitia, 3, 3);
+    // map.print(laetitia);
 
-    std::cout << "Placement de Gerard en (3,6)" << std::endl;
-    map.init_player(gerard, 3, 6);
-    map.print(gerard);
+    // std::cout << "Placement de Gerard en (3,6)" << std::endl;
+    // map.init_player(gerard, 3, 6);
+    // map.print(gerard);
 
-    std::cout << "Placement de Patrick en (2,7)" << std::endl;
-    map.init_player(patrick, 2, 7);
-    map.print(patrick);
+    // std::cout << "Placement de Patrick en (2,7)" << std::endl;
+    // map.init_player(patrick, 2, 7);
+    // map.print(patrick);
 
     map.print();
 
-    std::thread laetitiaThread;
     std::thread maxenceThread;
-    std::thread gerardThread;
-    std::thread patrickThread;
+    // std::thread laetitiaThread;
+    // std::thread gerardThread;
+    // std::thread patrickThread;
 
-    laetitiaThread = std::thread(random_move, std::ref(map), std::ref(laetitia));
     maxenceThread = std::thread(random_move, std::ref(map), std::ref(maxence));
-    gerardThread = std::thread(random_move, std::ref(map), std::ref(gerard));
-    patrickThread = std::thread (random_move, std::ref(map), std::ref(patrick));
+    // laetitiaThread = std::thread(random_move, std::ref(map), std::ref(laetitia));
+    // gerardThread = std::thread(random_move, std::ref(map), std::ref(gerard));
+    // patrickThread = std::thread (random_move, std::ref(map), std::ref(patrick));
 
-    laetitiaThread.join();
     maxenceThread.join();
-    gerardThread.join();
-    patrickThread.join();
+    // laetitiaThread.join();
+    // gerardThread.join();
+    // patrickThread.join();
     
     std::cout << "~-~-~fin du jeu~-~-~" << std::endl;
     map.print();
