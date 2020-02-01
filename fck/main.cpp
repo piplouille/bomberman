@@ -9,7 +9,7 @@
 // std::mutex lock;
 
 // on compile avec
-// g++ main.cpp player.cpp bloc.cpp map.cpp -o main.x -lpthread
+// g++ main.cpp player.cpp bloc.cpp map.cpp bomb.hpp -o main.x -lpthread
 
 void random_move(Map &map, Player &player) {
     int move;

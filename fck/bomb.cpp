@@ -1,8 +1,8 @@
 #include "bomb.hpp"
 
 Bomb::Bomb(Player& p) {
-    if (p.able_bomb()) {   
-         // On récupère les infos de joueur pour créer la bombe
+    if (p.able_bomb()) {
+        // On récupère les infos de joueur pour créer la bombe
         x = p.get_x();
         y = p.get_y();
         range = p.get_bomb_range();
