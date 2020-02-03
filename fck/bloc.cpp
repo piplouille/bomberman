@@ -18,7 +18,7 @@ void Bloc::print() {
         std::cout << "#";
     }
 
-    else {
+    else if (player != nullptr) {
         std::cout << player->get_num_player();
     }
 }

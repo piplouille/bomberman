@@ -44,6 +44,10 @@ class Bloc : public std::mutex {
         return (bomb == nullptr);
     }
 
+    void set_type() {
+        type = 9;
+    }
+
     bool set_player(Player& n_player);
     void erase_player() {player = nullptr;}
 

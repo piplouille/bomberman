@@ -4,10 +4,12 @@
 #include <chrono>
 #include <memory>
 #include <vector>
+#include <algorithm>
 
 #include "player.hpp"
 
 class Bloc;
+class Map;
 
 class Bomb {
 private:
@@ -28,9 +30,10 @@ public:
         life = 1;
     }
     Bomb(Player& p);
+
+    Bomb(Player&, Map&);
     
-    ~Bomb()
-    {}
+    ~Bomb();
 
     int get_life() {return life;}
     void decrease_life() {life--;}
@@ -46,6 +49,7 @@ public:
 };
 
 #include "bloc.hpp"
+#include "map.hpp"
 
 /*
         // on va aller chercher les blocs qui correspondent au range touché

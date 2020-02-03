@@ -39,6 +39,14 @@ class Map {
     void print(Player&);
     void print();
 
+    int get_width() {
+        return width;
+    }
+
+    int get_length() {
+        return length;
+    }
+
     auto begin(int);
     std::vector<Bloc>::iterator begin(int, int);
     auto end(int);

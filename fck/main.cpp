@@ -21,7 +21,7 @@ void random_move(Map &map, Player &player) {
             map.put_bomb(player);
         }
         i++;
-        map.print();
+        // map.print ();
         std::cout << "~-~-~-Fin du tour-~-~-~" << std::endl;
         // std::cout << "~-~-~fin du tour de " << player.get_num_player() << "~-~-~" << std::endl;
     }
@@ -48,7 +48,7 @@ int main () {
     map = Map();
 
     std::cout << "Placement de Maxence en (1,0)" << std::endl;
-    map.init_player(maxence, 1, 0);
+    map.init_player(maxence, 3, 3);
     map.print(maxence);
 
     // std::cout << "Placement de Laetitia en (3,3)" << std::endl;

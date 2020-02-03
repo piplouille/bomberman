@@ -54,7 +54,7 @@ public:
     void set_x(int n_x) {x = n_x;}
     void set_y(int n_y) {y = n_y;}
     bool able_bomb() {return ((bomb_quota) > 0);}
-    void decrase_bomb_quota() {bomb_quota--;}
+    void decrease_bomb_quota() {bomb_quota--;}
     int get_bomb_range() {return bomb_range;}
     int get_bomb_life() {return bomb_life;}
 };
