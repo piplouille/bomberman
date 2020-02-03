@@ -14,7 +14,7 @@
 void random_move(Map &map, Player &player) {
     int move;
     int i = 0;
-    while (i<10) {
+    while (i<50) {
         move = rand() % 4;
         map.move_player(player, move);
         if (i%2 == 0) {
@@ -22,7 +22,7 @@ void random_move(Map &map, Player &player) {
         }
         i++;
         // map.print ();
-        std::cout << "~-~-~-Fin du tour-~-~-~" << std::endl;
+        // std::cout << "~-~-~-Fin du tour-~-~-~" << std::endl;
         // std::cout << "~-~-~fin du tour de " << player.get_num_player() << "~-~-~" << std::endl;
     }
 }
@@ -47,12 +47,12 @@ int main () {
     Map map;
     map = Map();
 
-    std::cout << "Placement de Maxence en (1,0)" << std::endl;
+    std::cout << "Placement de Maxence en (3,3)" << std::endl;
     map.init_player(maxence, 3, 3);
     map.print(maxence);
 
-    // std::cout << "Placement de Laetitia en (3,3)" << std::endl;
-    // map.init_player(laetitia, 3, 3);
+    std::cout << "Placement de Laetitia en (3,2)" << std::endl;
+    map.init_player(laetitia, 3, 2);
     // map.print(laetitia);
 
     // std::cout << "Placement de Gerard en (3,6)" << std::endl;

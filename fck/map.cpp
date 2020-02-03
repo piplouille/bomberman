@@ -127,6 +127,7 @@ void Map::put_bomb(Player &p) {
 
 void Map::update_bomb() {
     // On prend chaque bloc de la map
+    int total = 0;
     for (int i = 0; i < width ; i++) {
         for (int j = 0 ; j < length ; j++) {
             auto bloc = begin(i, j);
@@ -138,9 +139,11 @@ void Map::update_bomb() {
                     // On doit faire exploser la bombe !
                     std::cout << "aïe" << std::endl;
                 }
+                total++;
             }
         }
     }
+    std::cout << "IL Y A " << total << " BOMBES ICI" << std::endl;
 }
 
 /*

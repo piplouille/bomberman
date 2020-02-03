@@ -48,7 +48,8 @@ Bomb::Bomb(Player& p, Map& map) {
         }
 
         // std::cout << "JAI WIDTH et LENGTH : " << width << ", " << length << std::endl;
-        // std::cout << "JE POSE EN : (" << x << ", " << y << "), J'AI UN RANGE DE ";
+        // std::cout << "JE POSE EN : (" << x << ", " << y << ")" << std::endl; 
+        // J'AI UN RANGE DE ";
         // std::cout << range << "LE NOMBRE DE CASES TOUCHEES :" << touched.size() << std::endl;
         // map.print();
 
