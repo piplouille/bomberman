@@ -10,7 +10,11 @@ bool Bloc::set_player(Player &n_player) {
 }
 
 void Bloc::print() {
-    if (player == nullptr && bomb == nullptr) {
+    if (type == 0) {
+        std::cout << "X";
+    }
+
+    else if (player == nullptr && bomb == nullptr) {
         std::cout << "~";
     }
     

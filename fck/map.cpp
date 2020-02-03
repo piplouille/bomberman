@@ -14,6 +14,15 @@ Map::Map(int aWidth, int aLength):
     for (int i=0 ; i<4 ; i++) {
         positions[i] = end();
     }
+    // on va dire que le contour de la map sont des murs
+    for (int i = 0 ; i < width ; i++) {
+        begin(i, 0)->set_type(0);
+        begin(i, length - 1)->set_type(0);
+    }
+    for (int j = 0; j < length ; j++) {
+        begin(0, j)->set_type(0);
+        begin(width - 1, j)->set_type(0);
+    }
 }
 
 void Map::init_player(Player &player, int x, int y) {
@@ -143,7 +152,7 @@ void Map::update_bomb() {
             }
         }
     }
-    std::cout << "IL Y A " << total << " BOMBES ICI" << std::endl;
+    // std::cout << "IL Y A " << total << " BOMBES ICI" << std::endl;
 }
 
 /*

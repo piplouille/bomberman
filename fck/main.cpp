@@ -48,11 +48,11 @@ int main () {
     map = Map();
 
     std::cout << "Placement de Maxence en (3,3)" << std::endl;
-    map.init_player(maxence, 3, 3);
+    map.init_player(maxence, 1, 3);
     map.print(maxence);
 
     std::cout << "Placement de Laetitia en (3,2)" << std::endl;
-    map.init_player(laetitia, 3, 2);
+    map.init_player(laetitia, 2, 2);
     // map.print(laetitia);
 
     // std::cout << "Placement de Gerard en (3,6)" << std::endl;
