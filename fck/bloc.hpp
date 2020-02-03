@@ -34,6 +34,7 @@ class Bloc : public std::mutex {
     }
 
     inline std::shared_ptr<Player> get_player() {return player;} // on récupère s'il y a un joueur sur le bloc
+    inline std::shared_ptr<Bomb> get_bomb() {return bomb;}
 
     bool available() {
         return ((player == nullptr) && bomb == nullptr);

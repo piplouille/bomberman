@@ -31,7 +31,7 @@ void check_bomb(Map &map) {
     // vérifie et met à jour les bombes sur Map
     int i = 0;
     while (i<20) {
-        map.update_bomb();
+        map.update_bomb(); // => crée soucis de seg fault : on ajoute bomb à bombs tout en les regardant
         sleep(0.1);
         i++;
     }

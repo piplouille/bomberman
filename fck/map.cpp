@@ -116,15 +116,9 @@ void Map::put_bomb(Player &p) {
         auto bloc = begin(p.get_x(), p.get_y());
         bloc->lock();
         bool move_done = bloc->set_bomb(bomb);
-
-        if (move_done) {
-            // Si ca marche, on doit stocker la bombe dans Map
-            #pragma omp critical 
-            bombs.push_back(std::make_shared<Bomb> (bomb));
-        }
-
-        else {
-            // std::cout << "bitch try again" << std::endl;
+        if (!move_done) {
+            // On détruit la bombe
+            delete(&bomb);
         }
         bloc->unlock();
     }
@@ -132,18 +126,20 @@ void Map::put_bomb(Player &p) {
 }
 
 void Map::update_bomb() {
-    // On prend chaque bombe du vecteur (itérateur stp)
-    std::vector<std::shared_ptr<Bomb>>::iterator it = bombs.begin();
-    // Je diminue de 1 sa vie
-    while (it < bombs.end()) {
-        (*it)->decrease_life();
-        if ((*it)->get_life() == 0) {
-            std::cout << "boum bébi" << std::endl;
-            // J'appelle bombe explose et touche les différents blocs : calculer ça au moment de poser ?
-                // conséquences sur joueurs
-            // Je remets à vide le bloc où bombe était
+    // On prend chaque bloc de la map
+    for (int i = 0; i < width ; i++) {
+        for (int j = 0 ; j < length ; j++) {
+            auto bloc = begin(i, j);
+            if (!bloc->bomb_available()) {
+                // On décrémente
+                auto bomb = bloc->get_bomb();
+                bomb->decrease_life();
+                if (bomb->get_life() == 0) {
+                    // On doit faire exploser la bombe !
+                    std::cout << "aïe" << std::endl;
+                }
+            }
         }
-        it++;
     }
 }
 
