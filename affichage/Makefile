@@ -50,20 +50,24 @@ OBJECTS_DIR   = ./
 
 ####### Files
 
-SOURCES       = Sources/Bomb.cpp \
+SOURCES       = Sources/Bloc.cpp \
+		Sources/Bomb.cpp \
 		Sources/Button.cpp \
 		Sources/Game.cpp \
 		Sources/main.cpp \
 		Sources/MainWindow.cpp \
+		Sources/Map.cpp \
 		Sources/Player.cpp qrc_res.cpp \
 		moc_Bomb.cpp \
 		moc_Button.cpp \
 		moc_Game.cpp
-OBJECTS       = Bomb.o \
+OBJECTS       = Bloc.o \
+		Bomb.o \
 		Button.o \
 		Game.o \
 		main.o \
 		MainWindow.o \
+		Map.o \
 		Player.o \
 		qrc_res.o \
 		moc_Bomb.o \
@@ -144,15 +148,19 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/exceptions.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/yacc.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/lex.prf \
-		affichage.pro Headers/Bomb.hpp \
+		affichage.pro Headers/Bloc.hpp \
+		Headers/Bomb.hpp \
 		Headers/Button.hpp \
 		Headers/Game.hpp \
 		Headers/MainWindow.hpp \
-		Headers/Player.hpp Sources/Bomb.cpp \
+		Headers/Map.hpp \
+		Headers/Player.hpp Sources/Bloc.cpp \
+		Sources/Bomb.cpp \
 		Sources/Button.cpp \
 		Sources/Game.cpp \
 		Sources/main.cpp \
 		Sources/MainWindow.cpp \
+		Sources/Map.cpp \
 		Sources/Player.cpp
 QMAKE_TARGET  = affichage
 DESTDIR       = 
@@ -346,8 +354,8 @@ distdir: FORCE
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents res.qrc $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents Headers/Bomb.hpp Headers/Button.hpp Headers/Game.hpp Headers/MainWindow.hpp Headers/Player.hpp $(DISTDIR)/
-	$(COPY_FILE) --parents Sources/Bomb.cpp Sources/Button.cpp Sources/Game.cpp Sources/main.cpp Sources/MainWindow.cpp Sources/Player.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents Headers/Bloc.hpp Headers/Bomb.hpp Headers/Button.hpp Headers/Game.hpp Headers/MainWindow.hpp Headers/Map.hpp Headers/Player.hpp $(DISTDIR)/
+	$(COPY_FILE) --parents Sources/Bloc.cpp Sources/Bomb.cpp Sources/Button.cpp Sources/Game.cpp Sources/main.cpp Sources/MainWindow.cpp Sources/Map.cpp Sources/Player.cpp $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -545,6 +553,7 @@ moc_Bomb.cpp: /usr/include/x86_64-linux-gnu/qt5/QtCore/QObject \
 		/usr/include/x86_64-linux-gnu/qt5/QtGui/qinputmethod.h \
 		/usr/include/x86_64-linux-gnu/qt5/QtGui/QKeyEvent \
 		Headers/Bloc.hpp \
+		Headers/Bomb.hpp \
 		Headers/Map.hpp \
 		Headers/Bomb.hpp \
 		moc_predefs.h \
@@ -814,6 +823,132 @@ compiler_lex_clean:
 compiler_clean: compiler_rcc_clean compiler_moc_predefs_clean compiler_moc_header_clean 
 
 ####### Compile
+
+Bloc.o: Sources/Bloc.cpp Headers/Bloc.hpp \
+		Headers/Player.hpp \
+		/usr/include/x86_64-linux-gnu/qt5/QtWidgets/QWidget \
+		/usr/include/x86_64-linux-gnu/qt5/QtWidgets/qwidget.h \
+		/usr/include/x86_64-linux-gnu/qt5/QtWidgets/qtwidgetsglobal.h \
+		/usr/include/x86_64-linux-gnu/qt5/QtGui/qtguiglobal.h \
+		/usr/include/x86_64-linux-gnu/qt5/QtCore/qglobal.h \
+		/usr/include/x86_64-linux-gnu/qt5/QtCore/qconfig-bootstrapped.h \
+		/usr/include/x86_64-linux-gnu/qt5/QtCore/qconfig.h \
+		/usr/include/x86_64-linux-gnu/qt5/QtCore/qtcore-config.h \
+		/usr/include/x86_64-linux-gnu/qt5/QtCore/qsystemdetection.h \
+		/usr/include/x86_64-linux-gnu/qt5/QtCore/qprocessordetection.h \
+		/usr/include/x86_64-linux-gnu/qt5/QtCore/qcompilerdetection.h \
+		/usr/include/x86_64-linux-gnu/qt5/QtCore/qtypeinfo.h \
+		/usr/include/x86_64-linux-gnu/qt5/QtCore/qsysinfo.h \
+		/usr/include/x86_64-linux-gnu/qt5/QtCore/qlogging.h \
+		/usr/include/x86_64-linux-gnu/qt5/QtCore/qflags.h \
+		/usr/include/x86_64-linux-gnu/qt5/QtCore/qatomic.h \
+		/usr/include/x86_64-linux-gnu/qt5/QtCore/qbasicatomic.h \
+		/usr/include/x86_64-linux-gnu/qt5/QtCore/qatomic_bootstrap.h \
+		/usr/include/x86_64-linux-gnu/qt5/QtCore/qgenericatomic.h \
+		/usr/include/x86_64-linux-gnu/qt5/QtCore/qatomic_cxx11.h \
+		/usr/include/x86_64-linux-gnu/qt5/QtCore/qatomic_msvc.h \
+		/usr/include/x86_64-linux-gnu/qt5/QtCore/qglobalstatic.h \
+		/usr/include/x86_64-linux-gnu/qt5/QtCore/qmutex.h \
+		/usr/include/x86_64-linux-gnu/qt5/QtCore/qnumeric.h \
+		/usr/include/x86_64-linux-gnu/qt5/QtCore/qversiontagging.h \
+		/usr/include/x86_64-linux-gnu/qt5/QtGui/qtgui-config.h \
+		/usr/include/x86_64-linux-gnu/qt5/QtWidgets/qtwidgets-config.h \
+		/usr/include/x86_64-linux-gnu/qt5/QtGui/qwindowdefs.h \
+		/usr/include/x86_64-linux-gnu/qt5/QtCore/qobjectdefs.h \
+		/usr/include/x86_64-linux-gnu/qt5/QtCore/qnamespace.h \
+		/usr/include/x86_64-linux-gnu/qt5/QtCore/qobjectdefs_impl.h \
+		/usr/include/x86_64-linux-gnu/qt5/QtGui/qwindowdefs_win.h \
+		/usr/include/x86_64-linux-gnu/qt5/QtCore/qobject.h \
+		/usr/include/x86_64-linux-gnu/qt5/QtCore/qstring.h \
+		/usr/include/x86_64-linux-gnu/qt5/QtCore/qchar.h \
+		/usr/include/x86_64-linux-gnu/qt5/QtCore/qbytearray.h \
+		/usr/include/x86_64-linux-gnu/qt5/QtCore/qrefcount.h \
+		/usr/include/x86_64-linux-gnu/qt5/QtCore/qarraydata.h \
+		/usr/include/x86_64-linux-gnu/qt5/QtCore/qstringbuilder.h \
+		/usr/include/x86_64-linux-gnu/qt5/QtCore/qlist.h \
+		/usr/include/x86_64-linux-gnu/qt5/QtCore/qalgorithms.h \
+		/usr/include/x86_64-linux-gnu/qt5/QtCore/qiterator.h \
+		/usr/include/x86_64-linux-gnu/qt5/QtCore/qhashfunctions.h \
+		/usr/include/x86_64-linux-gnu/qt5/QtCore/qpair.h \
+		/usr/include/x86_64-linux-gnu/qt5/QtCore/qbytearraylist.h \
+		/usr/include/x86_64-linux-gnu/qt5/QtCore/qstringlist.h \
+		/usr/include/x86_64-linux-gnu/qt5/QtCore/qregexp.h \
+		/usr/include/x86_64-linux-gnu/qt5/QtCore/qstringmatcher.h \
+		/usr/include/x86_64-linux-gnu/qt5/QtCore/qcoreevent.h \
+		/usr/include/x86_64-linux-gnu/qt5/QtCore/qscopedpointer.h \
+		/usr/include/x86_64-linux-gnu/qt5/QtCore/qmetatype.h \
+		/usr/include/x86_64-linux-gnu/qt5/QtCore/qvarlengtharray.h \
+		/usr/include/x86_64-linux-gnu/qt5/QtCore/qcontainerfwd.h \
+		/usr/include/x86_64-linux-gnu/qt5/QtCore/qobject_impl.h \
+		/usr/include/x86_64-linux-gnu/qt5/QtCore/qmargins.h \
+		/usr/include/x86_64-linux-gnu/qt5/QtGui/qpaintdevice.h \
+		/usr/include/x86_64-linux-gnu/qt5/QtCore/qrect.h \
+		/usr/include/x86_64-linux-gnu/qt5/QtCore/qsize.h \
+		/usr/include/x86_64-linux-gnu/qt5/QtCore/qpoint.h \
+		/usr/include/x86_64-linux-gnu/qt5/QtGui/qpalette.h \
+		/usr/include/x86_64-linux-gnu/qt5/QtGui/qcolor.h \
+		/usr/include/x86_64-linux-gnu/qt5/QtGui/qrgb.h \
+		/usr/include/x86_64-linux-gnu/qt5/QtGui/qrgba64.h \
+		/usr/include/x86_64-linux-gnu/qt5/QtGui/qbrush.h \
+		/usr/include/x86_64-linux-gnu/qt5/QtCore/qvector.h \
+		/usr/include/x86_64-linux-gnu/qt5/QtGui/qmatrix.h \
+		/usr/include/x86_64-linux-gnu/qt5/QtGui/qpolygon.h \
+		/usr/include/x86_64-linux-gnu/qt5/QtGui/qregion.h \
+		/usr/include/x86_64-linux-gnu/qt5/QtCore/qdatastream.h \
+		/usr/include/x86_64-linux-gnu/qt5/QtCore/qiodevice.h \
+		/usr/include/x86_64-linux-gnu/qt5/QtCore/qline.h \
+		/usr/include/x86_64-linux-gnu/qt5/QtGui/qtransform.h \
+		/usr/include/x86_64-linux-gnu/qt5/QtGui/qpainterpath.h \
+		/usr/include/x86_64-linux-gnu/qt5/QtGui/qimage.h \
+		/usr/include/x86_64-linux-gnu/qt5/QtGui/qpixelformat.h \
+		/usr/include/x86_64-linux-gnu/qt5/QtGui/qpixmap.h \
+		/usr/include/x86_64-linux-gnu/qt5/QtCore/qsharedpointer.h \
+		/usr/include/x86_64-linux-gnu/qt5/QtCore/qshareddata.h \
+		/usr/include/x86_64-linux-gnu/qt5/QtCore/qhash.h \
+		/usr/include/x86_64-linux-gnu/qt5/QtCore/qsharedpointer_impl.h \
+		/usr/include/x86_64-linux-gnu/qt5/QtGui/qfont.h \
+		/usr/include/x86_64-linux-gnu/qt5/QtGui/qfontmetrics.h \
+		/usr/include/x86_64-linux-gnu/qt5/QtGui/qfontinfo.h \
+		/usr/include/x86_64-linux-gnu/qt5/QtWidgets/qsizepolicy.h \
+		/usr/include/x86_64-linux-gnu/qt5/QtGui/qcursor.h \
+		/usr/include/x86_64-linux-gnu/qt5/QtGui/qkeysequence.h \
+		/usr/include/x86_64-linux-gnu/qt5/QtGui/qevent.h \
+		/usr/include/x86_64-linux-gnu/qt5/QtCore/qvariant.h \
+		/usr/include/x86_64-linux-gnu/qt5/QtCore/qmap.h \
+		/usr/include/x86_64-linux-gnu/qt5/QtCore/qdebug.h \
+		/usr/include/x86_64-linux-gnu/qt5/QtCore/qtextstream.h \
+		/usr/include/x86_64-linux-gnu/qt5/QtCore/qlocale.h \
+		/usr/include/x86_64-linux-gnu/qt5/QtCore/qset.h \
+		/usr/include/x86_64-linux-gnu/qt5/QtCore/qcontiguouscache.h \
+		/usr/include/x86_64-linux-gnu/qt5/QtCore/qurl.h \
+		/usr/include/x86_64-linux-gnu/qt5/QtCore/qurlquery.h \
+		/usr/include/x86_64-linux-gnu/qt5/QtCore/qfile.h \
+		/usr/include/x86_64-linux-gnu/qt5/QtCore/qfiledevice.h \
+		/usr/include/x86_64-linux-gnu/qt5/QtGui/qvector2d.h \
+		/usr/include/x86_64-linux-gnu/qt5/QtGui/qtouchdevice.h \
+		/usr/include/x86_64-linux-gnu/qt5/QtCore/QObject \
+		/usr/include/x86_64-linux-gnu/qt5/QtWidgets/QApplication \
+		/usr/include/x86_64-linux-gnu/qt5/QtWidgets/qapplication.h \
+		/usr/include/x86_64-linux-gnu/qt5/QtCore/qcoreapplication.h \
+		/usr/include/x86_64-linux-gnu/qt5/QtCore/qeventloop.h \
+		/usr/include/x86_64-linux-gnu/qt5/QtWidgets/qdesktopwidget.h \
+		/usr/include/x86_64-linux-gnu/qt5/QtGui/qguiapplication.h \
+		/usr/include/x86_64-linux-gnu/qt5/QtGui/qinputmethod.h \
+		/usr/include/x86_64-linux-gnu/qt5/QtWidgets/QGraphicsScene \
+		/usr/include/x86_64-linux-gnu/qt5/QtWidgets/qgraphicsscene.h \
+		/usr/include/x86_64-linux-gnu/qt5/QtGui/qpen.h \
+		/usr/include/x86_64-linux-gnu/qt5/QtGui/QKeyEvent \
+		/usr/include/x86_64-linux-gnu/qt5/QtWidgets/QGraphicsPixmapItem \
+		/usr/include/x86_64-linux-gnu/qt5/QtWidgets/qgraphicsitem.h \
+		/usr/include/x86_64-linux-gnu/qt5/QtWidgets/QGraphicsItem \
+		/usr/include/x86_64-linux-gnu/qt5/QtCore/QSize \
+		/usr/include/x86_64-linux-gnu/qt5/QtGui/QPixmap \
+		Headers/Bomb.hpp \
+		/usr/include/x86_64-linux-gnu/qt5/QtCore/QTimer \
+		/usr/include/x86_64-linux-gnu/qt5/QtCore/qtimer.h \
+		/usr/include/x86_64-linux-gnu/qt5/QtCore/qbasictimer.h \
+		Headers/Map.hpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Bloc.o Sources/Bloc.cpp
 
 Bomb.o: Sources/Bomb.cpp Headers/Bomb.hpp \
 		/usr/include/x86_64-linux-gnu/qt5/QtCore/QObject \
@@ -1465,6 +1600,9 @@ MainWindow.o: Sources/MainWindow.cpp Headers/MainWindow.hpp \
 		/usr/include/x86_64-linux-gnu/qt5/QtWidgets/QGraphicsItem \
 		/usr/include/x86_64-linux-gnu/qt5/QtCore/QDebug
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o MainWindow.o Sources/MainWindow.cpp
+
+Map.o: Sources/Map.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Map.o Sources/Map.cpp
 
 Player.o: Sources/Player.cpp Headers/Player.hpp \
 		/usr/include/x86_64-linux-gnu/qt5/QtWidgets/QWidget \
