@@ -7,6 +7,12 @@
 #include <QPixmap>
 #include <QGraphicsScene>
 
+#include "Headers/Player.h"
+#include <memory>
+
+class Bloc;
+class Map;
+
 class Bomb : public QObject, public QGraphicsPixmapItem
 {
     Q_OBJECT
@@ -27,6 +33,12 @@ private:
     QPixmap im_blast_1;
     QPixmap im_blast_2_left;
     QPixmap im_blast_3_left;
+
+    int x, y; // coordonnées de la bombe
+    int range; // portée de la bombe
+    int life; // à chaque action, on enlève un
+    std::shared_ptr<Player> owner; // permet de savoir quel décompte de bombe modifier à l'explosion
+    std::vector<std::shared_ptr<Bloc> > touched; // l'ensemble des blocs que la bombe va atteindre, en 0 sa case
 
 
 public:
@@ -66,7 +78,10 @@ public:
         //flashing(lifespan);
         QTimer::singleShot(1000, this, SLOT(flashing()));
     }
-    ~Bomb(){}
+
+    ~Bomb(){};
+
+
 
 public slots:
     void blast();
