@@ -14,8 +14,7 @@
 #include <iostream>
 #include <chrono>
 
-class Player : public QGraphicsPixmapItem
-{
+class Player : public QGraphicsPixmapItem {
 private:
     QPixmap im_centre;
     QPixmap im_left;

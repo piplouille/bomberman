@@ -3,7 +3,6 @@
 
 #include <iostream>
 #include <vector>
-#include <atomic>
 #include <memory>
 
 #include "Headers/Bloc.hpp"
@@ -47,9 +46,9 @@ class Map {
         return length;
     }
 
-    auto begin(int);
+    area_type::iterator begin(int);
     std::vector<Bloc>::iterator begin(int, int);
-    auto end(int);
+    std::vector<Bloc>::iterator end(int);
     std::vector<Bloc>::iterator end();
 };
 

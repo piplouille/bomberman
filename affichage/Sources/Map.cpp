@@ -1,4 +1,4 @@
-#include "map.hpp"
+#include "Headers/Map.hpp"
 
 /*
 Les constructeurs
@@ -147,8 +147,8 @@ void Map::update_bomb() {
             if (!bloc->bomb_available()) {
                 // On décrémente
                 auto bomb = bloc->get_bomb();
-                bomb->decrease_life();
-                if (bomb->get_life() == 0) {
+                bomb->decrease_lifespan();
+                if (bomb->get_lifespan() == 0) {
                     // On doit faire exploser la bombe !
                     std::cout << "aïe" << std::endl;
                     // delete(&bomb);
@@ -181,7 +181,7 @@ void Map::print() {
 Gestion des itérateurs : il faut retirer les auto pour Maxence
 */
 
-auto Map::begin(int x) {
+Map::area_type::iterator Map::begin(int x) {
     return (area.begin() + x);
 }
 
@@ -189,7 +189,7 @@ std::vector<Bloc>::iterator Map::begin(int x, int y) {
     return (area.begin() + x)->begin() + y;
 }
 
-auto Map::end(int x) {
+std::vector<Bloc>::iterator Map::end(int x) {
     return (area.begin() + x)->end();
 }
 std::vector<Bloc>::iterator Map::end() {

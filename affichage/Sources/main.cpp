@@ -6,7 +6,7 @@
 #include "Headers/Game.hpp"
 //#include "Headers/MainWindow.h"
 
-    Game * game;
+Game * game;
 int main( int argc, char * argv[]){
 
 
