@@ -1,0 +1,51 @@
+<RCC>
+<qresource>
+
+    <file>Resources/Menu/Title.png</file>
+    <file>Resources/Menu/Start.png</file>
+    <file>Resources/Menu/Quit.png</file>
+
+
+
+
+    <file>Resources/Classic_bomb/blast_1.png</file>
+    <file>Resources/Classic_bomb/blast_2.png</file>
+    <file>Resources/Classic_bomb/blast_3.png</file>
+    <file>Resources/Classic_bomb/Bomb_Exploding_1.png</file>
+    <file>Resources/Classic_bomb/Bomb_Exploding_2.png</file>
+    <file>Resources/Classic_bomb/Bomb_Exploding_3.png</file>
+    <file>Resources/Classic_bomb/Bomb_Exploding_4.png</file>
+    <file>Resources/Classic_bomb/Bomb_Exploding_5.png</file>
+    <file>Resources/Classic_bomb/Bomb_Exploding_6.png</file>
+    <file>Resources/Classic_bomb/Bomb_Flashing_1.png</file>
+    <file>Resources/Classic_bomb/Bomb_Flashing_2.png</file>
+    <file>Resources/Land/Sol.png</file>
+    <file>Resources/Music/01_The_Day_Is_My_Enemy.m4a</file>
+
+    <file>Resources/Player/Player_1_centre.png</file>
+    <file>Resources/Player/Player_1_left.png</file>
+    <file>Resources/Player/Player_1_right.png</file>
+    <file>Resources/Player/Player_1_dead.png</file>
+
+    <file>Resources/Player/Player_2_centre.png</file>
+    <file>Resources/Player/Player_2_left.png</file>
+    <file>Resources/Player/Player_2_right.png</file>
+    <file>Resources/Player/Player_2_dead.png</file>
+
+    <file>Resources/Player/Player_3_centre.png</file>
+    <file>Resources/Player/Player_3_left.png</file>
+    <file>Resources/Player/Player_3_right.png</file>
+    <file>Resources/Player/Player_3_dead.png</file>
+
+    <file>Resources/Player/Player_4_centre.png</file>
+    <file>Resources/Player/Player_4_left.png</file>
+    <file>Resources/Player/Player_4_right.png</file>
+    <file>Resources/Player/Player_4_dead.png</file>
+
+    <file>Resources/Player/Player_5_centre.png</file>
+    <file>Resources/Player/Player_5_left.png</file>
+    <file>Resources/Player/Player_5_right.png</file>
+    <file>Resources/Player/Player_5_dead.png</file>
+
+</qresource>
+</RCC>
