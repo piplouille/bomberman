@@ -14,8 +14,8 @@ class Map {
     typedef std::vector<std::vector<Bloc>> area_type;
 
     private:
-    static const int defaultLength = 8;
-    static const int defaultWidth = 4;
+    static const int defaultLength = 16;
+    static const int defaultWidth = 8;
 
     int length;
     int width;

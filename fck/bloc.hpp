@@ -51,7 +51,8 @@ class Bloc : public std::mutex {
     bool set_player(Player& n_player);
     void erase_player() {player = nullptr;}
 
-    bool set_bomb(Bomb&);
+    bool set_bomb(std::shared_ptr<Bomb>);
+    void remove_bomb() {bomb = nullptr;}
 
     void print();
 };

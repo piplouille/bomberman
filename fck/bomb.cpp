@@ -30,19 +30,15 @@ Bomb::Bomb(Player& p, Map& map) {
         
         for (int indice = 1; indice < range; indice ++) {
             if ((x-indice) >= 0) {
-                map.begin(x-indice, y)->set_type();
                 touched.push_back(std::make_shared<Bloc> (*map.begin(x-indice, y)));
             }
             if ((x+indice) < width) {
-                map.begin(x+indice, y)->set_type();
                 touched.push_back(std::make_shared<Bloc> (*map.begin(x+indice, y)));
             }
             if ((y-indice) >= 0) {
-                map.begin(x, y-indice)->set_type();
                 touched.push_back(std::make_shared<Bloc> (*map.begin(x, y-indice)));
             }
             if ((y+indice) < length) {
-                map.begin(x, y+indice)->set_type();
                 touched.push_back(std::make_shared<Bloc> (*map.begin(x, y+indice)));
             }            
         }
@@ -58,5 +54,8 @@ Bomb::Bomb(Player& p, Map& map) {
 }
 
 Bomb::~Bomb() {
+    touched[0]->lock();
+    touched[0]->remove_bomb();
+    touched[0]->unlock();
     std::cout << "aïe" << std::endl;
 }

@@ -18,7 +18,7 @@ private:
     // std::chrono::time_point<std::chrono::system_clock> start,life; // activation et durée de vie de la bomb
     int life; // à chaque action, on enlève un
     std::shared_ptr<Player> owner; // permet de savoir quel décompte de bombe modifier à l'explosion
-    std::vector<std::shared_ptr<Bloc>> touched; // l'ensemble des blocs que la bombe va atteindre
+    std::vector<std::shared_ptr<Bloc>> touched; // l'ensemble des blocs que la bombe va atteindre, en 0 sa case
 
 public:
     public:
