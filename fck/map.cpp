@@ -151,7 +151,7 @@ void Map::update_bomb() {
                 if (bomb->get_life() == 0) {
                     // On doit faire exploser la bombe !
                     std::cout << "aïe" << std::endl;
-                    delete(&bomb);
+                    // delete(&bomb);
                 }
                 total++;
             }
