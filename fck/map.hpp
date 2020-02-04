@@ -11,7 +11,7 @@
 #include "bomb.hpp"
 
 class Map {
-    typedef std::vector<std::vector<Bloc>> area_type;
+    typedef std::vector<std::vector<Bloc> > area_type;
 
     private:
     static const int defaultLength = 16;
