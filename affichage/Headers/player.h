@@ -100,6 +100,16 @@ public:
     void keyPressEvent(QKeyEvent *event);
     void keyReleaseEvent(QKeyEvent *event);
 
+    unsigned int get_num_player() {return num_player;}
+    int get_x() {return coord_x;}
+    int get_y(){return coord_y;}
+    void set_x(int n_x) {coord_x = n_x;}
+    void set_y(int n_y) {coord_y = n_y;}
+    bool able_bomb() {return ((bomb_quota) > 0);}
+    void decrease_bomb_quota() {bomb_quota--;}
+    int get_bomb_range() {return bomb_range;}
+    int get_bomb_life() {return bomb_life;}
+
 };
 
 /*------------------------------------------------*/
