@@ -10,7 +10,7 @@
 #include <QPixmap>
 #include <QGraphicsScene>
 
-#include "Headers/Player.h"
+#include "Headers/Player.hpp"
 #include <memory>
 
 class Bloc;

@@ -1,4 +1,4 @@
-#include "Headers/Bomb.h"
+#include "Headers/Bomb.hpp"
 #include <QTimer>
 /*
 Constructeurs

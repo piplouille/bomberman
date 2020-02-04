@@ -1,6 +1,6 @@
-#include "Headers/Player.h"
-//#include "Headers/MainWindow.h"
-#include "Headers/Bomb.h"
+#include "Headers/Player.hpp"
+//#include "Headers/MainWindow.hpp"
+#include "Headers/Bomb.hpp"
 #include <QDebug>
 
 

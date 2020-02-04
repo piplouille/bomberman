@@ -3,7 +3,7 @@
 
 #include <QWidget>
 #include <QApplication>
-#include "Headers/Game.h"
+#include "Headers/Game.hpp"
 //#include "Headers/MainWindow.h"
 
     Game * game;

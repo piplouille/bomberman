@@ -1,13 +1,13 @@
-#ifndef GAME_H
-#define GAME_H
+#ifndef GAME_HPP
+#define GAME_HPP
 
 #include <QGraphicsView>
 #include <QWidget>
 #include <QGraphicsScene>
 #include <QBrush>
-#include "Headers/Player.h"
+#include "Headers/Player.hpp"
 //#include "Headers/MainWindow.h"
-#include "Headers/Bomb.h"
+#include "Headers/Bomb.hpp"
 
 class Game: public QGraphicsView{
     Q_OBJECT
