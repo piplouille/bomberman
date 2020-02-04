@@ -144,11 +144,11 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/exceptions.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/yacc.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/lex.prf \
-		affichage.pro Headers/Bomb.h \
-		Headers/Button.h \
-		Headers/Game.h \
-		Headers/MainWindow.h \
-		Headers/Player.h Sources/Bomb.cpp \
+		affichage.pro Headers/Bomb.hpp \
+		Headers/Button.hpp \
+		Headers/Game.hpp \
+		Headers/MainWindow.hpp \
+		Headers/Player.hpp Sources/Bomb.cpp \
 		Sources/Button.cpp \
 		Sources/Game.cpp \
 		Sources/main.cpp \
@@ -346,7 +346,7 @@ distdir: FORCE
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents res.qrc $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents Headers/Bomb.h Headers/Button.h Headers/Game.h Headers/MainWindow.h Headers/Player.h $(DISTDIR)/
+	$(COPY_FILE) --parents Headers/Bomb.hpp Headers/Button.hpp Headers/Game.hpp Headers/MainWindow.hpp Headers/Player.hpp $(DISTDIR)/
 	$(COPY_FILE) --parents Sources/Bomb.cpp Sources/Button.cpp Sources/Game.cpp Sources/main.cpp Sources/MainWindow.cpp Sources/Player.cpp $(DISTDIR)/
 
 
@@ -535,10 +535,21 @@ moc_Bomb.cpp: /usr/include/x86_64-linux-gnu/qt5/QtCore/QObject \
 		/usr/include/x86_64-linux-gnu/qt5/QtWidgets/QGraphicsScene \
 		/usr/include/x86_64-linux-gnu/qt5/QtWidgets/qgraphicsscene.h \
 		/usr/include/x86_64-linux-gnu/qt5/QtGui/qpen.h \
-		Headers/Bomb.h \
+		Headers/Player.hpp \
+		/usr/include/x86_64-linux-gnu/qt5/QtWidgets/QApplication \
+		/usr/include/x86_64-linux-gnu/qt5/QtWidgets/qapplication.h \
+		/usr/include/x86_64-linux-gnu/qt5/QtCore/qcoreapplication.h \
+		/usr/include/x86_64-linux-gnu/qt5/QtCore/qeventloop.h \
+		/usr/include/x86_64-linux-gnu/qt5/QtWidgets/qdesktopwidget.h \
+		/usr/include/x86_64-linux-gnu/qt5/QtGui/qguiapplication.h \
+		/usr/include/x86_64-linux-gnu/qt5/QtGui/qinputmethod.h \
+		/usr/include/x86_64-linux-gnu/qt5/QtGui/QKeyEvent \
+		Headers/Bloc.hpp \
+		Headers/Map.hpp \
+		Headers/Bomb.hpp \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/laetitia/Documents/2A/in204/bomberman/affichage -I/home/laetitia/Documents/2A/in204/bomberman/affichage -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtMultimedia -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/11.0.0/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/usr/include Headers/Bomb.h -o moc_Bomb.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/laetitia/Documents/2A/in204/bomberman/affichage -I/home/laetitia/Documents/2A/in204/bomberman/affichage -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtMultimedia -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/11.0.0/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/usr/include Headers/Bomb.hpp -o moc_Bomb.cpp
 
 moc_Button.cpp: /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QPushButton \
 		/usr/include/x86_64-linux-gnu/qt5/QtWidgets/qpushbutton.h \
@@ -648,10 +659,10 @@ moc_Button.cpp: /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QPushButton \
 		/usr/include/x86_64-linux-gnu/qt5/QtWidgets/QGraphicsRectItem \
 		/usr/include/x86_64-linux-gnu/qt5/QtWidgets/QGraphicsSceneMouseEvent \
 		/usr/include/x86_64-linux-gnu/qt5/QtWidgets/qgraphicssceneevent.h \
-		Headers/Button.h \
+		Headers/Button.hpp \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/laetitia/Documents/2A/in204/bomberman/affichage -I/home/laetitia/Documents/2A/in204/bomberman/affichage -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtMultimedia -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/11.0.0/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/usr/include Headers/Button.h -o moc_Button.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/laetitia/Documents/2A/in204/bomberman/affichage -I/home/laetitia/Documents/2A/in204/bomberman/affichage -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtMultimedia -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/11.0.0/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/usr/include Headers/Button.hpp -o moc_Button.cpp
 
 moc_Game.cpp: /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QGraphicsView \
 		/usr/include/x86_64-linux-gnu/qt5/QtWidgets/qgraphicsview.h \
@@ -764,7 +775,7 @@ moc_Game.cpp: /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QGraphicsView \
 		/usr/include/x86_64-linux-gnu/qt5/QtWidgets/QWidget \
 		/usr/include/x86_64-linux-gnu/qt5/QtWidgets/QGraphicsScene \
 		/usr/include/x86_64-linux-gnu/qt5/QtGui/QBrush \
-		Headers/Player.h \
+		Headers/Player.hpp \
 		/usr/include/x86_64-linux-gnu/qt5/QtCore/QObject \
 		/usr/include/x86_64-linux-gnu/qt5/QtWidgets/QApplication \
 		/usr/include/x86_64-linux-gnu/qt5/QtWidgets/qapplication.h \
@@ -779,14 +790,16 @@ moc_Game.cpp: /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QGraphicsView \
 		/usr/include/x86_64-linux-gnu/qt5/QtWidgets/QGraphicsItem \
 		/usr/include/x86_64-linux-gnu/qt5/QtCore/QSize \
 		/usr/include/x86_64-linux-gnu/qt5/QtGui/QPixmap \
-		Headers/Bomb.h \
+		Headers/Bomb.hpp \
 		/usr/include/x86_64-linux-gnu/qt5/QtCore/QTimer \
 		/usr/include/x86_64-linux-gnu/qt5/QtCore/qtimer.h \
 		/usr/include/x86_64-linux-gnu/qt5/QtCore/qbasictimer.h \
-		Headers/Game.h \
+		Headers/Bloc.hpp \
+		Headers/Map.hpp \
+		Headers/Game.hpp \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/laetitia/Documents/2A/in204/bomberman/affichage -I/home/laetitia/Documents/2A/in204/bomberman/affichage -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtMultimedia -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/11.0.0/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/usr/include Headers/Game.h -o moc_Game.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/laetitia/Documents/2A/in204/bomberman/affichage -I/home/laetitia/Documents/2A/in204/bomberman/affichage -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtMultimedia -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/11.0.0/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/usr/include Headers/Game.hpp -o moc_Game.cpp
 
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
@@ -802,7 +815,7 @@ compiler_clean: compiler_rcc_clean compiler_moc_predefs_clean compiler_moc_heade
 
 ####### Compile
 
-Bomb.o: Sources/Bomb.cpp Headers/Bomb.h \
+Bomb.o: Sources/Bomb.cpp Headers/Bomb.hpp \
 		/usr/include/x86_64-linux-gnu/qt5/QtCore/QObject \
 		/usr/include/x86_64-linux-gnu/qt5/QtCore/qobject.h \
 		/usr/include/x86_64-linux-gnu/qt5/QtCore/qobjectdefs.h \
@@ -914,10 +927,21 @@ Bomb.o: Sources/Bomb.cpp Headers/Bomb.h \
 		/usr/include/x86_64-linux-gnu/qt5/QtGui/QPixmap \
 		/usr/include/x86_64-linux-gnu/qt5/QtWidgets/QGraphicsScene \
 		/usr/include/x86_64-linux-gnu/qt5/QtWidgets/qgraphicsscene.h \
-		/usr/include/x86_64-linux-gnu/qt5/QtGui/qpen.h
+		/usr/include/x86_64-linux-gnu/qt5/QtGui/qpen.h \
+		Headers/Player.hpp \
+		/usr/include/x86_64-linux-gnu/qt5/QtWidgets/QApplication \
+		/usr/include/x86_64-linux-gnu/qt5/QtWidgets/qapplication.h \
+		/usr/include/x86_64-linux-gnu/qt5/QtCore/qcoreapplication.h \
+		/usr/include/x86_64-linux-gnu/qt5/QtCore/qeventloop.h \
+		/usr/include/x86_64-linux-gnu/qt5/QtWidgets/qdesktopwidget.h \
+		/usr/include/x86_64-linux-gnu/qt5/QtGui/qguiapplication.h \
+		/usr/include/x86_64-linux-gnu/qt5/QtGui/qinputmethod.h \
+		/usr/include/x86_64-linux-gnu/qt5/QtGui/QKeyEvent \
+		Headers/Bloc.hpp \
+		Headers/Map.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Bomb.o Sources/Bomb.cpp
 
-Button.o: Sources/Button.cpp Headers/Button.h \
+Button.o: Sources/Button.cpp Headers/Button.hpp \
 		/usr/include/x86_64-linux-gnu/qt5/QtWidgets/QPushButton \
 		/usr/include/x86_64-linux-gnu/qt5/QtWidgets/qpushbutton.h \
 		/usr/include/x86_64-linux-gnu/qt5/QtWidgets/qtwidgetsglobal.h \
@@ -1032,7 +1056,7 @@ Button.o: Sources/Button.cpp Headers/Button.h \
 		/usr/include/x86_64-linux-gnu/qt5/QtWidgets/QGraphicsTextItem
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Button.o Sources/Button.cpp
 
-Game.o: Sources/Game.cpp Headers/Game.h \
+Game.o: Sources/Game.cpp Headers/Game.hpp \
 		/usr/include/x86_64-linux-gnu/qt5/QtWidgets/QGraphicsView \
 		/usr/include/x86_64-linux-gnu/qt5/QtWidgets/qgraphicsview.h \
 		/usr/include/x86_64-linux-gnu/qt5/QtWidgets/qtwidgetsglobal.h \
@@ -1144,7 +1168,7 @@ Game.o: Sources/Game.cpp Headers/Game.h \
 		/usr/include/x86_64-linux-gnu/qt5/QtWidgets/QWidget \
 		/usr/include/x86_64-linux-gnu/qt5/QtWidgets/QGraphicsScene \
 		/usr/include/x86_64-linux-gnu/qt5/QtGui/QBrush \
-		Headers/Player.h \
+		Headers/Player.hpp \
 		/usr/include/x86_64-linux-gnu/qt5/QtCore/QObject \
 		/usr/include/x86_64-linux-gnu/qt5/QtWidgets/QApplication \
 		/usr/include/x86_64-linux-gnu/qt5/QtWidgets/qapplication.h \
@@ -1159,11 +1183,13 @@ Game.o: Sources/Game.cpp Headers/Game.h \
 		/usr/include/x86_64-linux-gnu/qt5/QtWidgets/QGraphicsItem \
 		/usr/include/x86_64-linux-gnu/qt5/QtCore/QSize \
 		/usr/include/x86_64-linux-gnu/qt5/QtGui/QPixmap \
-		Headers/Bomb.h \
+		Headers/Bomb.hpp \
 		/usr/include/x86_64-linux-gnu/qt5/QtCore/QTimer \
 		/usr/include/x86_64-linux-gnu/qt5/QtCore/qtimer.h \
 		/usr/include/x86_64-linux-gnu/qt5/QtCore/qbasictimer.h \
-		Headers/Button.h \
+		Headers/Bloc.hpp \
+		Headers/Map.hpp \
+		Headers/Button.hpp \
 		/usr/include/x86_64-linux-gnu/qt5/QtWidgets/QPushButton \
 		/usr/include/x86_64-linux-gnu/qt5/QtWidgets/qpushbutton.h \
 		/usr/include/x86_64-linux-gnu/qt5/QtWidgets/qabstractbutton.h \
@@ -1286,7 +1312,7 @@ main.o: Sources/main.cpp /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QWidget \
 		/usr/include/x86_64-linux-gnu/qt5/QtWidgets/qdesktopwidget.h \
 		/usr/include/x86_64-linux-gnu/qt5/QtGui/qguiapplication.h \
 		/usr/include/x86_64-linux-gnu/qt5/QtGui/qinputmethod.h \
-		Headers/Game.h \
+		Headers/Game.hpp \
 		/usr/include/x86_64-linux-gnu/qt5/QtWidgets/QGraphicsView \
 		/usr/include/x86_64-linux-gnu/qt5/QtWidgets/qgraphicsview.h \
 		/usr/include/x86_64-linux-gnu/qt5/QtGui/qpainter.h \
@@ -1298,7 +1324,7 @@ main.o: Sources/main.cpp /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QWidget \
 		/usr/include/x86_64-linux-gnu/qt5/QtWidgets/qgraphicsscene.h \
 		/usr/include/x86_64-linux-gnu/qt5/QtWidgets/QGraphicsScene \
 		/usr/include/x86_64-linux-gnu/qt5/QtGui/QBrush \
-		Headers/Player.h \
+		Headers/Player.hpp \
 		/usr/include/x86_64-linux-gnu/qt5/QtCore/QObject \
 		/usr/include/x86_64-linux-gnu/qt5/QtGui/QKeyEvent \
 		/usr/include/x86_64-linux-gnu/qt5/QtWidgets/QGraphicsPixmapItem \
@@ -1306,13 +1332,15 @@ main.o: Sources/main.cpp /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QWidget \
 		/usr/include/x86_64-linux-gnu/qt5/QtWidgets/QGraphicsItem \
 		/usr/include/x86_64-linux-gnu/qt5/QtCore/QSize \
 		/usr/include/x86_64-linux-gnu/qt5/QtGui/QPixmap \
-		Headers/Bomb.h \
+		Headers/Bomb.hpp \
 		/usr/include/x86_64-linux-gnu/qt5/QtCore/QTimer \
 		/usr/include/x86_64-linux-gnu/qt5/QtCore/qtimer.h \
-		/usr/include/x86_64-linux-gnu/qt5/QtCore/qbasictimer.h
+		/usr/include/x86_64-linux-gnu/qt5/QtCore/qbasictimer.h \
+		Headers/Bloc.hpp \
+		Headers/Map.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o Sources/main.cpp
 
-MainWindow.o: Sources/MainWindow.cpp Headers/MainWindow.h \
+MainWindow.o: Sources/MainWindow.cpp Headers/MainWindow.hpp \
 		/usr/include/x86_64-linux-gnu/qt5/QtWidgets/QMainWindow \
 		/usr/include/x86_64-linux-gnu/qt5/QtWidgets/qmainwindow.h \
 		/usr/include/x86_64-linux-gnu/qt5/QtWidgets/qtwidgetsglobal.h \
@@ -1438,7 +1466,7 @@ MainWindow.o: Sources/MainWindow.cpp Headers/MainWindow.h \
 		/usr/include/x86_64-linux-gnu/qt5/QtCore/QDebug
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o MainWindow.o Sources/MainWindow.cpp
 
-Player.o: Sources/Player.cpp Headers/Player.h \
+Player.o: Sources/Player.cpp Headers/Player.hpp \
 		/usr/include/x86_64-linux-gnu/qt5/QtWidgets/QWidget \
 		/usr/include/x86_64-linux-gnu/qt5/QtWidgets/qwidget.h \
 		/usr/include/x86_64-linux-gnu/qt5/QtWidgets/qtwidgetsglobal.h \
@@ -1556,10 +1584,12 @@ Player.o: Sources/Player.cpp Headers/Player.h \
 		/usr/include/x86_64-linux-gnu/qt5/QtWidgets/QGraphicsItem \
 		/usr/include/x86_64-linux-gnu/qt5/QtCore/QSize \
 		/usr/include/x86_64-linux-gnu/qt5/QtGui/QPixmap \
-		Headers/Bomb.h \
+		Headers/Bomb.hpp \
 		/usr/include/x86_64-linux-gnu/qt5/QtCore/QTimer \
 		/usr/include/x86_64-linux-gnu/qt5/QtCore/qtimer.h \
 		/usr/include/x86_64-linux-gnu/qt5/QtCore/qbasictimer.h \
+		Headers/Bloc.hpp \
+		Headers/Map.hpp \
 		/usr/include/x86_64-linux-gnu/qt5/QtCore/QDebug
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Player.o Sources/Player.cpp
 

@@ -45,6 +45,7 @@ private:
 public:
     Bomb(QGraphicsPixmapItem* parent = nullptr);
     Bomb(Player&, QGraphicsPixmapItem* parent = nullptr);
+    Bomb(Player&, Map&, QGraphicsPixmapItem* parent = nullptr);
     Bomb(int, int, int, int, QGraphicsPixmapItem* parent = nullptr);
 
     ~Bomb(){};
@@ -52,8 +53,8 @@ public:
     int get_lifespan() {return lifespan;}
     void decrease_lifespan() {lifespan--;}
 
-    void set_x(int x) {this->x = x;}
-    void set_y(int y) {this->y = y;}
+    void set_x(int x) {posX = x;}
+    void set_y(int y) {posY = y;}
 
 public slots:
     void flashing();
