@@ -3,7 +3,7 @@
 //#include <QTimer>
 #include <QGraphicsPixmapItem>
 //#include <QFont>
-#include <QMediaPlayer>
+//#include <QMediaPlayer>
 //#include <QImage>
 #include <QRadioButton>
 #include <QButtonGroup>
@@ -37,9 +37,9 @@ void Game::displayImage(const char *adresse, int width, int height, int posX, in
 
 void Game::displayStartMenu() {
     // play background music
-    QMediaPlayer * music = new QMediaPlayer();
-    music->setMedia(QUrl("qrc:/Resources/Music/01_The_Day_Is_My_Enemy.m4a"));
-    music->play();
+    // QMediaPlayer * music = new QMediaPlayer();
+    // music->setMedia(QUrl("qrc:/Resources/Music/01_The_Day_Is_My_Enemy.m4a"));
+    // music->play();
 
     //display title
     // QGraphicsPixmapItem * title2 = new QGraphicsPixmapItem(QPixmap(":/Resources/Menu/Title.png").scaled(QSize(this->width()/2-20,this->height()/2-20), Qt::KeepAspectRatio));
@@ -178,9 +178,9 @@ void Game::start() {
     this->resize(640,480);
     scene->setSceneRect(0,0,640,480); // changes the scene
     // play background music
-    QMediaPlayer * music = new QMediaPlayer();
-    music->setMedia(QUrl("qrc:/Resources/Music/01_The_Day_Is_My_Enemy.m4a"));
-    music->play();
+    // QMediaPlayer * music = new QMediaPlayer();
+    // music->setMedia(QUrl("qrc:/Resources/Music/01_The_Day_Is_My_Enemy.m4a"));
+    // music->play();
 
     // create the player
     Player* player = new Player(player_selected);

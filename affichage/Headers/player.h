@@ -11,18 +11,28 @@
 #include <QSize>
 #include <QPixmap>
 
+#include <iostream>
+#include <chrono>
+
 class Player : public QGraphicsPixmapItem
 {
-    private:
+private:
     QPixmap im_centre;
     QPixmap im_left;
     QPixmap im_right;
     QPixmap im_dead;
 
+    unsigned int num_player; //de 0 à 3
+    int coord_x, coord_y; //coordonnées
+    unsigned int bomb_range, bomb_life, bomb_quota;
+    // bomb_life;
+    char name[13] = {'P', 'a', 't', 'r', 'i', 'c', 'k', 'k', 'k', 'k', ' ',(char)num_player,'\0'}; //nom du joueur
+    double speed; //en cases par secondes
+    unsigned int lives; //nombre de vies
 
-    public:
-    Player(int num_player,QGraphicsItem *parent=nullptr): QGraphicsPixmapItem(parent) {
-        switch(num_player){
+public:
+    Player(int n_num_player,QGraphicsItem *parent=nullptr): QGraphicsPixmapItem(parent) {
+        switch(n_num_player) {
             case 1:
             im_centre = QPixmap(":/Resources/Player/Player_1_centre.png");
             im_left = QPixmap(":/Resources/Player/Player_1_left.png");
@@ -73,10 +83,20 @@ class Player : public QGraphicsPixmapItem
         setPos(0,380);
         setFlag(QGraphicsItem::ItemIsFocusable);
         setFocus();
+
+        num_player = n_num_player;
+        coord_x = -1;
+        coord_y = -1;
+
+        bomb_range = 2;
+        bomb_life = 1000;
+        bomb_quota = 3;
+        
+        lives = 1;
     }
+
     ~Player(){}
 
-    public:
     void keyPressEvent(QKeyEvent *event);
     void keyReleaseEvent(QKeyEvent *event);
 

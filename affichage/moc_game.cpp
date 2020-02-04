@@ -1,19 +1,18 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'game.h'
 **
-** Created by: The Qt Meta Object Compiler version 67 (Qt 5.14.0)
+** Created by: The Qt Meta Object Compiler version 67 (Qt 5.9.5)
 **
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
 
-#include <memory>
 #include "Headers/game.h"
 #include <QtCore/qbytearray.h>
 #include <QtCore/qmetatype.h>
 #if !defined(Q_MOC_OUTPUT_REVISION)
 #error "The header file 'game.h' doesn't include <QObject>."
 #elif Q_MOC_OUTPUT_REVISION != 67
-#error "This file was generated using the moc from 5.14.0. It"
+#error "This file was generated using the moc from 5.9.5. It"
 #error "cannot be used with the include files from this version of Qt."
 #error "(The moc has changed too much.)"
 #endif
@@ -48,7 +47,7 @@ QT_MOC_LITERAL(5, 43, 3) // "num"
 static const uint qt_meta_data_Game[] = {
 
  // content:
-       8,       // revision
+       7,       // revision
        0,       // classname
        0,    0, // classinfo
        3,   14, // methods
@@ -74,7 +73,7 @@ static const uint qt_meta_data_Game[] = {
 void Game::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
 {
     if (_c == QMetaObject::InvokeMetaMethod) {
-        auto *_t = static_cast<Game *>(_o);
+        Game *_t = static_cast<Game *>(_o);
         Q_UNUSED(_t)
         switch (_id) {
         case 0: _t->start(); break;
@@ -85,14 +84,10 @@ void Game::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void *
     }
 }
 
-QT_INIT_METAOBJECT const QMetaObject Game::staticMetaObject = { {
-    QMetaObject::SuperData::link<QGraphicsView::staticMetaObject>(),
-    qt_meta_stringdata_Game.data,
-    qt_meta_data_Game,
-    qt_static_metacall,
-    nullptr,
-    nullptr
-} };
+const QMetaObject Game::staticMetaObject = {
+    { &QGraphicsView::staticMetaObject, qt_meta_stringdata_Game.data,
+      qt_meta_data_Game,  qt_static_metacall, nullptr, nullptr}
+};
 
 
 const QMetaObject *Game::metaObject() const
