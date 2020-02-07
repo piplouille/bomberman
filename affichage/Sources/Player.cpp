@@ -6,53 +6,21 @@
 Constructeurs
 */
 
-Player::Player(int num_player, bool bombDropping, QGraphicsItem *parent): QGraphicsPixmapItem(parent) {    this ->num_player = num_player;
-    switch(num_player){
-        case 1:
-        im_centre = QPixmap(":/Resources/Player/Player_1_centre.png");
-        im_left = QPixmap(":/Resources/Player/Player_1_left.png");
-        im_right = QPixmap(":/Resources/Player/Player_1_right.png");
-        im_dead = QPixmap(":/Resources/Player/Player_1_dead.png");
-        break;
-        
-        case 2:
-        im_centre = QPixmap(":/Resources/Player/Player_2_centre.png");
-        im_left = QPixmap(":/Resources/Player/Player_2_left.png");
-        im_right = QPixmap(":/Resources/Player/Player_2_right.png");
-        im_dead = QPixmap(":/Resources/Player/Player_2_dead.png");
-        break;
+Player::Player(int num_player, bool bombDropping, QGraphicsItem *parent): QGraphicsPixmapItem(parent) {
+    this ->num_player = num_player;
 
-        case 3:
-        im_centre = QPixmap(":/Resources/Player/Player_3_centre.png");
-        im_left = QPixmap(":/Resources/Player/Player_3_left.png");
-        im_right = QPixmap(":/Resources/Player/Player_3_right.png");
-        im_dead = QPixmap(":/Resources/Player/Player_3_dead.png");
-        break;
+    QString path = ":/Resources/Player/Player_" + QString::number(num_player, 10);
 
-        case 4:
-        im_centre = QPixmap(":/Resources/Player/Player_4_centre.png");
-        im_left = QPixmap(":/Resources/Player/Player_4_left.png");
-        im_right = QPixmap(":/Resources/Player/Player_4_right.png");
-        im_dead = QPixmap(":/Resources/Player/Player_4_dead.png");
-        break;
+    im_centre = QPixmap(path + "_centre.png");
+    im_left = QPixmap(path + "_left.png");
+    im_right = QPixmap(path + "_right.png");
+    im_dead = QPixmap(path + "_dead.png");
 
-        case 5:
-        im_centre = QPixmap(":/Resources/Player/Player_5_centre.png");
-        im_left = QPixmap(":/Resources/Player/Player_5_left.png");
-        im_right = QPixmap(":/Resources/Player/Player_5_right.png");
-        im_dead = QPixmap(":/Resources/Player/Player_5_dead.png");
-        break;
+    im_centre = im_centre.scaled(QSize(size,size), Qt::KeepAspectRatio);
+    im_left = im_left.scaled(QSize(size,size), Qt::KeepAspectRatio);
+    im_right = im_right.scaled(QSize(size,size), Qt::KeepAspectRatio);
+    im_dead = im_dead.scaled(QSize(size,size), Qt::KeepAspectRatio);
 
-        default:
-        im_centre = QPixmap(":/Resources/Player/Player_1_centre.png");
-        im_left = QPixmap(":/Resources/Player/Player_1_left.png");
-        im_right = QPixmap(":/Resources/Player/Player_1_right.png");
-        im_dead = QPixmap(":/Resources/Player/Player_1_dead.png");
-    }
-    im_centre = im_centre.scaled(QSize(32,32), Qt::KeepAspectRatio);
-    im_left = im_left.scaled(QSize(32,32), Qt::KeepAspectRatio);
-    im_right = im_right.scaled(QSize(32,32), Qt::KeepAspectRatio);
-    im_dead = im_dead.scaled(QSize(32,32), Qt::KeepAspectRatio);
     setPixmap(im_centre);
     setPos(0,320);
     setFlag(QGraphicsItem::ItemIsFocusable);
@@ -60,11 +28,10 @@ Player::Player(int num_player, bool bombDropping, QGraphicsItem *parent): QGraph
 }
 
 void Player::keyPressEvent(QKeyEvent *event) {
-
     if(event->key() == Qt::Key_Left) {
         setPixmap(im_left);
-        if(x()>32)
-            setPos(x()-32,y());
+        if(x()>size)
+            setPos(x()-size,y());
         else
             setPos(0,y());
     }
@@ -72,21 +39,21 @@ void Player::keyPressEvent(QKeyEvent *event) {
     else if(event->key() == Qt::Key_Right) {
         setPixmap(im_right);
 
-        if(x()<scene()->width()-32) setPos(x()+32,y());
-        else setPos(scene()->width()-32,y());    
+        if(x()<scene()->width()-size) setPos(x()+size,y());
+        else setPos(scene()->width()-size,y());    
     }
 
     else if(event->key() == Qt::Key_Up) {
         setPixmap(im_centre);
 
-        if(y()>32) setPos(x(),y()-32);
+        if(y()>size) setPos(x(),y()-size);
         else setPos(x(),0);
     }
 
     else if(event->key() == Qt::Key_Down) {
         setPixmap(im_centre);
-        if(y()<scene()->height()-32) setPos(x(),y()+32);
-        else setPos(x(),scene()->height()-32);
+        if(y()<scene()->height()-size) setPos(x(),y()+size);
+        else setPos(x(),scene()->height()-size);
     }
 
     else if(event->key() == Qt::Key_Space) {

@@ -12,21 +12,29 @@
 #include <QPixmap>
 #include <QTimer>
 
+#include <QString>
+
 class Player : public QObject, public QGraphicsPixmapItem
 {
     Q_OBJECT
 private:
+    const int size = 32;
+
     QPixmap im_centre;
     QPixmap im_left;
     QPixmap im_right;
     QPixmap im_dead;
     int num_player; //numéro du joueur
 
+    // int x, y; //coordonnées
+    unsigned int bomb_range, bomb_life, bomb_quota;
+    // bomb_life;
+    char name[13] = {'P', 'a', 't', 'r', 'i', 'c', 'k', 'k', 'k', 'k', ' ',(char)num_player,'\0'}; //nom du joueur
+    double speed; //en cases par secondes
+    unsigned int lives; //nombre de vies    
 
 public:
     Player(int num_player, bool bombDropping, QGraphicsItem *parent=nullptr);
-
-
 
     ~Player(){}
 

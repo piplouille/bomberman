@@ -12,6 +12,7 @@ Bomb::Bomb(char type, int x, int y, int lifespan, int power, Player* joueur1, Pl
     this->joueur4 = joueur4;
 
     size = 32;
+    
     if(type == 'C') {
         im_flashing_1 = QPixmap(":/Resources/Classic_bomb/Bomb_Flashing_1.png");
         im_flashing_2 = QPixmap(":/Resources/Classic_bomb/Bomb_Flashing_2.png");

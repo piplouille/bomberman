@@ -18,6 +18,7 @@ private:
     int dist; // distance deja parcourue par la déflagration
     int state; // etat de l'animation
     int size;
+    
     QPixmap im_flashing_1;
     QPixmap im_flashing_2;
     QPixmap im_exploding_1;
