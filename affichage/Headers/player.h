@@ -24,7 +24,7 @@ private:
 
 
 public:
-    Player(int num_player,QGraphicsItem *parent=nullptr): QGraphicsPixmapItem(parent) {
+    Player(int num_player, bool bombDropping, QGraphicsItem *parent=nullptr): QGraphicsPixmapItem(parent) {
         this ->num_player = num_player;
         switch(num_player){
             case 1:

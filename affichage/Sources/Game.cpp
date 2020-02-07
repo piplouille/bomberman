@@ -192,7 +192,7 @@ void Game::start() {
     music->play();
 
     // create the player
-    Player* player = new Player(player_selected);
+    Player* player = new Player(player_selected, true);
     scene->addItem(player);
     // add the player to the scene
 }
@@ -213,7 +213,7 @@ void Game::secondGame() {
 
     // create the player
     //Player* player;
-    player = new Player(player_selected,false);
+    player = new Player(player_selected, false);
     scene->addItem(player);
 
     //Initialisation
