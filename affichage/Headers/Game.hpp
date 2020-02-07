@@ -11,16 +11,20 @@
 
 class Game: public QGraphicsView{
     Q_OBJECT
-public:
+private:
     QGraphicsScene* scene;
+
     Player* player;
+
     int player_selected;
+    
     QGraphicsView *fenetre;
     QGraphicsPixmapItem * character_selected;
     QGraphicsTextItem* character_name;
     int intervalle;
     std::chrono::time_point<std::chrono::system_clock> beginning, end, elapsed_time;
     
+public:
     Game(QWidget* parent=nullptr);
 
     void displayStartMenu();

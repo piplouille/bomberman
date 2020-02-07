@@ -27,5 +27,4 @@ int main( int argc, char * argv[]) {
 Utiliser des auto p = make_unique<classe>(attribut1, attribut2,...) -> unic pointer pour créer objets
 Utiliser des shared pointer pour créer des objets
 Dans les deux cas, l'objet est détruit automatiquement à la disparission des pointers
-
 */
