@@ -1,3 +1,6 @@
+#ifndef bombHPP
+#define bombHPP
+
 #include <QObject>
 #include <QWidget>
 #include <QTimer>
@@ -20,10 +23,9 @@ private:
 
     int posX, posY; //positions de la bombe
     int lifespan; //duree de vie de la premiere animation de la bombe
-    int power; //porté de la bombe
+    int range; //porté de la bombe
     int dist = 0; // distance deja parcourue par la déflagration
     int state = 0; // etat de l'animation
-    int size;
 
     std::shared_ptr<Player> owner;
     std::vector<std::shared_ptr<Bloc> > touched; // l'ensemble des blocs que la bombe va atteindre, en 0 sa case
@@ -82,3 +84,5 @@ public slots:
 
 #include "Headers/Bloc.hpp"
 #include "Headers/Map.hpp"
+
+#endif

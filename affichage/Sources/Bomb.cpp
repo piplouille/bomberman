@@ -64,7 +64,7 @@ Bomb::Bomb(char type, int x, int y, int lifespan, int range, Player* joueur1, Pl
     QTimer::singleShot(1000, this, SLOT(flashing()));
 }
 
-Bomb::Bomb(char type, int x, int y, Player& joueur, QGraphicsPixmapItem* parent) {
+Bomb::Bomb(char type, int x, int y, Player& p, QGraphicsPixmapItem* parent) {
     if (p.able_bomb()) {
         if(type == 'C') {
             im_flashing_1 = QPixmap(":/Resources/Classic_bomb/Bomb_Flashing_1.png");
@@ -112,7 +112,7 @@ Bomb::Bomb(char type, int x, int y, Player& joueur, QGraphicsPixmapItem* parent)
         // x = p.get_x();
         // y = p.get_y();
         range = p.get_bomb_range();
-        life = p.get_bomb_life(); // à chaque tour ça décroit de 1
+        lifespan = p.get_bomb_life(); // à chaque tour ça décroit de 1
         owner = std::make_shared<Player> (p); // permet de savoir quel décompte de bombe modifier à l'explosion
         
         this -> setPixmap(im_flashing_1);
@@ -123,7 +123,7 @@ Bomb::Bomb(char type, int x, int y, Player& joueur, QGraphicsPixmapItem* parent)
     }
 }
 
-Bomb::Bomb(char type, int x, int y, Player& p, Map& map, QGraphicsPixmapItem* parent=nullptr): Bomb(type, x, y, p, parent) {
+Bomb::Bomb(char type, int x, int y, Player& p, Map& map, QGraphicsPixmapItem* parent): Bomb(type, x, y, p, parent) {
     if (p.able_bomb()) {
         // On ajoute les pointeurs vers les blocs qui seront touchés
         int width = map.get_width();
@@ -145,6 +145,40 @@ Bomb::Bomb(char type, int x, int y, Player& p, Map& map, QGraphicsPixmapItem* pa
                 touched.push_back(std::make_shared<Bloc> (*map.begin(x, y+indice)));
             }            
         }
+    }
+}
+
+Bomb::Bomb(Player& p, Map& map) {
+    if (p.able_bomb()) {
+        // On récupère les infos de joueur pour créer la bombe
+        posX = p.get_x();
+        posY = p.get_y();
+        range = p.get_bomb_range();
+        owner = std::make_shared<Player> (p); // permet de savoir quel décompte de bombe modifier à l'explosion
+        lifespan = p.get_bomb_life(); // à chaque tour ça décroit de 1
+
+        // On ajoute les pointeurs vers les blocs qui seront touchés
+        int width = map.get_width();
+        int length = map.get_length();
+
+        touched.push_back(std::make_shared<Bloc> (*map.begin(posX, posY)));
+        
+        for (int indice = 1; indice < range; indice ++) {
+            if ((posX-indice) >= 0) {
+                touched.push_back(std::make_shared<Bloc> (*map.begin(posX-indice, posY)));
+            }
+            if ((posX+indice) < width) {
+                touched.push_back(std::make_shared<Bloc> (*map.begin(posX+indice, posY)));
+            }
+            if ((posY-indice) >= 0) {
+                touched.push_back(std::make_shared<Bloc> (*map.begin(posX, posY-indice)));
+            }
+            if ((posY+indice) < length) {
+                touched.push_back(std::make_shared<Bloc> (*map.begin(posX, posY+indice)));
+            }            
+        }
+
+        p.decrease_bomb_quota();
     }
 }
 
@@ -179,7 +213,7 @@ Explosion
 void Bomb::blast() {
 
     dist++;
-    if(dist<power) {
+    if(dist<range) {
         // create image objects that shall be destroyed
         QGraphicsPixmapItem *blaL = new QGraphicsPixmapItem(im_blast_2_left,this);
         QGraphicsPixmapItem *blaR = new QGraphicsPixmapItem(im_blast_2_left,this);
@@ -213,8 +247,8 @@ void Bomb::blast() {
             emit player_touched(joueur4);
         }
     }
-    if(dist>power) {delete this;}
-    else if(dist==power) {
+    if(dist>range) {delete this;}
+    else if(dist==range) {
         // create image objects that shall be destroyed
         QGraphicsPixmapItem *blaL = new QGraphicsPixmapItem(im_blast_3_left);
         QGraphicsPixmapItem *blaR = new QGraphicsPixmapItem(im_blast_3_left);

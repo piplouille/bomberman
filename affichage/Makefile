@@ -50,19 +50,23 @@ OBJECTS_DIR   = ./
 
 ####### Files
 
-SOURCES       = Sources/Bomb.cpp \
+SOURCES       = Sources/Bloc.cpp \
+		Sources/Bomb.cpp \
 		Sources/Button.cpp \
 		Sources/Game.cpp \
 		Sources/main.cpp \
+		Sources/Map.cpp \
 		Sources/Player.cpp qrc_res.cpp \
 		moc_Bomb.cpp \
 		moc_Button.cpp \
 		moc_Game.cpp \
 		moc_Player.cpp
-OBJECTS       = Bomb.o \
+OBJECTS       = Bloc.o \
+		Bomb.o \
 		Button.o \
 		Game.o \
 		main.o \
+		Map.o \
 		Player.o \
 		qrc_res.o \
 		moc_Bomb.o \
@@ -125,6 +129,7 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/qt_config.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++/qmake.conf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_post.prf \
+		.qmake.stash \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/exclusive_builds.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/toolchain.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/default_pre.prf \
@@ -143,13 +148,17 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/exceptions.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/yacc.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/lex.prf \
-		affichage.pro Headers/Bomb.hpp \
+		affichage.pro Headers/Bloc.hpp \
+		Headers/Bomb.hpp \
 		Headers/Button.hpp \
 		Headers/Game.hpp \
-		Headers/Player.hpp Sources/Bomb.cpp \
+		Headers/Map.hpp \
+		Headers/Player.hpp Sources/Bloc.cpp \
+		Sources/Bomb.cpp \
 		Sources/Button.cpp \
 		Sources/Game.cpp \
 		Sources/main.cpp \
+		Sources/Map.cpp \
 		Sources/Player.cpp
 QMAKE_TARGET  = affichage
 DESTDIR       = 
@@ -218,6 +227,7 @@ Makefile: affichage.pro /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++/qmake.co
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/qt_config.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++/qmake.conf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_post.prf \
+		.qmake.stash \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/exclusive_builds.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/toolchain.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/default_pre.prf \
@@ -300,6 +310,7 @@ Makefile: affichage.pro /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++/qmake.co
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/qt_config.prf:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++/qmake.conf:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_post.prf:
+.qmake.stash:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/exclusive_builds.prf:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/toolchain.prf:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/default_pre.prf:
@@ -341,8 +352,8 @@ distdir: FORCE
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents res.qrc $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents Headers/Bomb.hpp Headers/Button.hpp Headers/Game.hpp Headers/Player.hpp $(DISTDIR)/
-	$(COPY_FILE) --parents Sources/Bomb.cpp Sources/Button.cpp Sources/Game.cpp Sources/main.cpp Sources/Player.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents Headers/Bloc.hpp Headers/Bomb.hpp Headers/Button.hpp Headers/Game.hpp Headers/Map.hpp Headers/Player.hpp $(DISTDIR)/
+	$(COPY_FILE) --parents Sources/Bloc.cpp Sources/Bomb.cpp Sources/Button.cpp Sources/Game.cpp Sources/main.cpp Sources/Map.cpp Sources/Player.cpp $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -433,6 +444,9 @@ compiler_moc_header_make_all: moc_Bomb.cpp moc_Button.cpp moc_Game.cpp moc_Playe
 compiler_moc_header_clean:
 	-$(DEL_FILE) moc_Bomb.cpp moc_Button.cpp moc_Game.cpp moc_Player.cpp
 moc_Bomb.cpp: Headers/Player.hpp \
+		Headers/Bloc.hpp \
+		Headers/Bomb.hpp \
+		Headers/Map.hpp \
 		Headers/Bomb.hpp \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
@@ -445,6 +459,8 @@ moc_Button.cpp: Headers/Button.hpp \
 
 moc_Game.cpp: Headers/Player.hpp \
 		Headers/Bomb.hpp \
+		Headers/Bloc.hpp \
+		Headers/Map.hpp \
 		Headers/Game.hpp \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
@@ -469,8 +485,16 @@ compiler_clean: compiler_rcc_clean compiler_moc_predefs_clean compiler_moc_heade
 
 ####### Compile
 
+Bloc.o: Sources/Bloc.cpp Headers/Bloc.hpp \
+		Headers/Player.hpp \
+		Headers/Bomb.hpp \
+		Headers/Map.hpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Bloc.o Sources/Bloc.cpp
+
 Bomb.o: Sources/Bomb.cpp Headers/Bomb.hpp \
-		Headers/Player.hpp
+		Headers/Player.hpp \
+		Headers/Bloc.hpp \
+		Headers/Map.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Bomb.o Sources/Bomb.cpp
 
 Button.o: Sources/Button.cpp Headers/Button.hpp
@@ -479,16 +503,28 @@ Button.o: Sources/Button.cpp Headers/Button.hpp
 Game.o: Sources/Game.cpp Headers/Game.hpp \
 		Headers/Player.hpp \
 		Headers/Bomb.hpp \
+		Headers/Bloc.hpp \
+		Headers/Map.hpp \
 		Headers/Button.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Game.o Sources/Game.cpp
 
 main.o: Sources/main.cpp Headers/Game.hpp \
 		Headers/Player.hpp \
-		Headers/Bomb.hpp
+		Headers/Bomb.hpp \
+		Headers/Bloc.hpp \
+		Headers/Map.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o Sources/main.cpp
 
-Player.o: Sources/Player.cpp Headers/Player.hpp \
+Map.o: Sources/Map.cpp Headers/Map.hpp \
+		Headers/Bloc.hpp \
+		Headers/Player.hpp \
 		Headers/Bomb.hpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Map.o Sources/Map.cpp
+
+Player.o: Sources/Player.cpp Headers/Player.hpp \
+		Headers/Bomb.hpp \
+		Headers/Bloc.hpp \
+		Headers/Map.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Player.o Sources/Player.cpp
 
 qrc_res.o: qrc_res.cpp 
