@@ -1,9 +1,7 @@
-#include "Headers/game.h"
-#include "Headers/Button.h"
+#include "Headers/Game.hpp"
+#include "Headers/Button.hpp"
 #include <QGraphicsPixmapItem>
-//#include <QFont>
 #include <QMediaPlayer>
-//#include <QImage>
 #include <QRadioButton>
 #include <QButtonGroup>
 #include <QColor>

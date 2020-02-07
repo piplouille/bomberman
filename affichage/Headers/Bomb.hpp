@@ -6,7 +6,7 @@
 #include <QSize>
 #include <QPixmap>
 #include <QGraphicsScene>
-#include "Headers/player.h"
+#include "Headers/Player.hpp"
 
 class Bomb : public QObject, public QGraphicsPixmapItem
 {

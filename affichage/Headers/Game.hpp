@@ -5,9 +5,8 @@
 #include <QWidget>
 #include <QGraphicsScene>
 #include <QBrush>
-#include "Headers/player.h"
-//#include "Headers/MainWindow.h"
-#include "Headers/Bomb.h"
+#include "Headers/Player.hpp"
+#include "Headers/Bomb.hpp"
 #include <chrono>
 
 class Game: public QGraphicsView{

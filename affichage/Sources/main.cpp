@@ -3,13 +3,11 @@
 
 #include <QWidget>
 #include <QApplication>
-#include "Headers/game.h"
-//#include "Headers/MainWindow.h"
+#include "Headers/Game.hpp"
 
-    Game * game;
-int main( int argc, char * argv[]){
+Game* game;
 
-
+int main( int argc, char * argv[]) {
     QApplication app(argc, argv);
 
     game = new Game();
