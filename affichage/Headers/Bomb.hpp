@@ -6,30 +6,44 @@
 #include <QSize>
 #include <QPixmap>
 #include <QGraphicsScene>
+
 #include "Headers/Player.hpp"
+#include <memory>
+
+class Bloc;
+class Map;
 
 class Bomb : public QObject, public QGraphicsPixmapItem {
     Q_OBJECT
-
 private:
+    const size = 32;
+
     int posX, posY; //positions de la bombe
     int lifespan; //duree de vie de la premiere animation de la bombe
     int power; //porté de la bombe
-    int dist; // distance deja parcourue par la déflagration
-    int state; // etat de l'animation
+    int dist = 0; // distance deja parcourue par la déflagration
+    int state = 0; // etat de l'animation
     int size;
+
+    std::shared_ptr<Player> owner;
+    std::vector<std::shared_ptr<Bloc> > touched; // l'ensemble des blocs que la bombe va atteindre, en 0 sa case
     
+    // faire tableau statique
     QPixmap im_flashing_1;
     QPixmap im_flashing_2;
+    // faire tableau statique
     QPixmap im_exploding_1;
     QPixmap im_exploding_2;
     QPixmap im_exploding_3;
     QPixmap im_exploding_4;
     QPixmap im_exploding_5;
     QPixmap im_exploding_6;
+    // faire tableau statique
     QPixmap im_blast_1;
     QPixmap im_blast_2_left;
     QPixmap im_blast_3_left;
+
+    // Utiliser le tableau de map svp
     Player* joueur1;
     Player* joueur2;
     Player* joueur3;
@@ -38,8 +52,14 @@ private:
 public:
     // Faire classe mère bombe
     // Et faire hériter les designs de chaque bombe : + propre
+    // Utiliser touched pour trouver qui se fait toucher
     Bomb(char, int, int, int, int, Player*, Player* joueur2=nullptr,
     Player* joueur3=nullptr, Player* joueur4=nullptr, QGraphicsPixmapItem* parent=nullptr);
+
+    // à terme : virer char et virer int et int
+    Bomb(char, int, int, Player&, QGraphicsPixmapItem* parent=nullptr);
+    Bomb(char, int, int, Player&, Map&, QGraphicsPixmapItem* parent=nullptr);
+
     ~Bomb(){scene() -> removeItem(this);}
 
 signals:
@@ -51,3 +71,6 @@ public slots:
     void exploding();
     //void keyPressEvent(QKeyEvent *event);
 };
+
+#include "Headers/Bloc.hpp"
+#include "Headers/Map.hpp"

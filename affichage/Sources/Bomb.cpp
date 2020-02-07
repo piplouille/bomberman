@@ -2,7 +2,11 @@
 #include <QTimer>
 #include <QDebug>
 
-Bomb::Bomb(char type, int x, int y, int lifespan, int power, Player* joueur1, Player* joueur2 ,
+/*
+Constructeurs
+*/
+
+Bomb::Bomb(char type, int x, int y, int lifespan, int range, Player* joueur1, Player* joueur2 ,
     Player* joueur3 ,Player* joueur4 ,QGraphicsPixmapItem* parent) :
     QGraphicsPixmapItem (parent) {
     
@@ -10,8 +14,6 @@ Bomb::Bomb(char type, int x, int y, int lifespan, int power, Player* joueur1, Pl
     this->joueur2 = joueur2;
     this->joueur3 = joueur3;
     this->joueur4 = joueur4;
-
-    size = 32;
     
     if(type == 'C') {
         im_flashing_1 = QPixmap(":/Resources/Classic_bomb/Bomb_Flashing_1.png");
@@ -58,10 +60,92 @@ Bomb::Bomb(char type, int x, int y, int lifespan, int power, Player* joueur1, Pl
     this -> setPixmap(im_flashing_1);
     setPos(posX,posY);
     this->lifespan = lifespan;
-    this->power = power;
-    dist = 0;
-    state = 0;
+    this->range = range;
     QTimer::singleShot(1000, this, SLOT(flashing()));
+}
+
+Bomb::Bomb(char type, int x, int y, Player& joueur, QGraphicsPixmapItem* parent) {
+    if (p.able_bomb()) {
+        if(type == 'C') {
+            im_flashing_1 = QPixmap(":/Resources/Classic_bomb/Bomb_Flashing_1.png");
+            im_flashing_2 = QPixmap(":/Resources/Classic_bomb/Bomb_Flashing_2.png");
+            im_exploding_1 = QPixmap(":/Resources/Classic_bomb/Bomb_Exploding_1.png");
+            im_exploding_2 = QPixmap(":/Resources/Classic_bomb/Bomb_Exploding_2.png");
+            im_exploding_3 = QPixmap(":/Resources/Classic_bomb/Bomb_Exploding_3.png");
+            im_exploding_4 = QPixmap(":/Resources/Classic_bomb/Bomb_Exploding_4.png");
+            im_exploding_5 = QPixmap(":/Resources/Classic_bomb/Bomb_Exploding_5.png");
+            im_exploding_6 = QPixmap(":/Resources/Classic_bomb/Bomb_Exploding_6.png");
+            im_blast_1 = QPixmap(":/Resources/Classic_bomb/blast_2.png");
+            im_blast_2_left = QPixmap(":/Resources/Classic_bomb/blast_1.png");
+            im_blast_3_left = QPixmap(":/Resources/Classic_bomb/blast_3.png");
+        }
+
+        else if(type == 'B') {
+            im_flashing_1 = QPixmap(":/Resources/bombitrouille/BBT_flashing_1.png");
+            im_flashing_2 = QPixmap(":/Resources/bombitrouille/BBT_flashing_2.png");
+            im_exploding_1 = QPixmap(":/Resources/bombitrouille/BBT_Exp_1.png");
+            im_exploding_2 = QPixmap(":/Resources/bombitrouille/BBT_Exp_2.png");
+            im_exploding_3 = QPixmap(":/Resources/bombitrouille/BBT_Exp_3.png");
+            im_exploding_4 = QPixmap(":/Resources/bombitrouille/BBT_Exp_4.png");
+            im_exploding_5 = QPixmap(":/Resources/bombitrouille/BBT_Exp_5.png");
+            im_exploding_6 = QPixmap(":/Resources/bombitrouille/BBT_Exp_6.png");
+            im_blast_1 = QPixmap(":/Resources/bombitrouille/BBT_Blast_1.png");
+            im_blast_2_left = QPixmap(":/Resources/bombitrouille/BBT_Blast_2.png");
+            im_blast_3_left = QPixmap(":/Resources/bombitrouille/BBT_Blast_3.png");
+        }
+
+        im_flashing_1 = im_flashing_1.scaled(QSize(size,size),Qt::KeepAspectRatio);
+        im_flashing_2 = im_flashing_2.scaled(QSize(size,size),Qt::KeepAspectRatio);
+        im_exploding_1 = im_exploding_1.scaled(QSize(size,size),Qt::KeepAspectRatio);
+        im_exploding_2 = im_exploding_2.scaled(QSize(size,size),Qt::KeepAspectRatio);
+        im_exploding_3 = im_exploding_3.scaled(QSize(size,size),Qt::KeepAspectRatio);
+        im_exploding_4 = im_exploding_4.scaled(QSize(size,size),Qt::KeepAspectRatio);
+        im_exploding_5 = im_exploding_5.scaled(QSize(size,size),Qt::KeepAspectRatio);
+        im_exploding_6 = im_exploding_6.scaled(QSize(size,size),Qt::KeepAspectRatio);
+        im_blast_1 = im_blast_1.scaled(QSize(size,size),Qt::KeepAspectRatio);
+        im_blast_2_left = im_blast_2_left.scaled(QSize(size,size),Qt::KeepAspectRatio);
+        im_blast_3_left = im_blast_3_left.scaled(QSize(size,size),Qt::KeepAspectRatio);
+
+        // On récupère les infos de joueur pour créer la bombe
+        posX = x;
+        posY = y;
+        // x = p.get_x();
+        // y = p.get_y();
+        range = p.get_bomb_range();
+        life = p.get_bomb_life(); // à chaque tour ça décroit de 1
+        owner = std::make_shared<Player> (p); // permet de savoir quel décompte de bombe modifier à l'explosion
+        
+        this -> setPixmap(im_flashing_1);
+        setPos(posX,posY);
+        QTimer::singleShot(1000, this, SLOT(flashing()));
+
+        p.decrease_bomb_quota();
+    }
+}
+
+Bomb::Bomb(char type, int x, int y, Player& p, Map& map, QGraphicsPixmapItem* parent=nullptr): Bomb(type, x, y, p, parent) {
+    if (p.able_bomb()) {
+        // On ajoute les pointeurs vers les blocs qui seront touchés
+        int width = map.get_width();
+        int length = map.get_length();
+
+        touched.push_back(std::make_shared<Bloc> (*map.begin(x, y)));
+        
+        for (int indice = 1; indice < range; indice ++) {
+            if ((x-indice) >= 0) {
+                touched.push_back(std::make_shared<Bloc> (*map.begin(x-indice, y)));
+            }
+            if ((x+indice) < width) {
+                touched.push_back(std::make_shared<Bloc> (*map.begin(x+indice, y)));
+            }
+            if ((y-indice) >= 0) {
+                touched.push_back(std::make_shared<Bloc> (*map.begin(x, y-indice)));
+            }
+            if ((y+indice) < length) {
+                touched.push_back(std::make_shared<Bloc> (*map.begin(x, y+indice)));
+            }            
+        }
+    }
 }
 
 /*
