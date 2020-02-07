@@ -38,14 +38,14 @@ void Player::keyPressEvent(QKeyEvent *event)
         else
             setPos(x(),scene()->height()-32);
     }
-    else if(event->key() == Qt::Key_Space && bombDropping)
+    else if(event->key() == Qt::Key_Space)
     {
 
         qDebug() << "Classic bomb dropped";
         Bomb*bb = new Bomb('C',x(),y(),500,20,this);
         scene() -> addItem(bb);
     }
-    else if(event->key() == Qt::Key_B && bombDropping)
+    else if(event->key() == Qt::Key_B)
     {
 
         qDebug() << "Bombitrouille dropped";

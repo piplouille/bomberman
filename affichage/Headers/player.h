@@ -21,13 +21,11 @@ private:
     QPixmap im_right;
     QPixmap im_dead;
     int num_player; //numéro du joueur
-    bool bombDropping; //est ce que le joueur peut larguer des bombes
 
 
 public:
-    Player(int num_player, bool bombDropping,QGraphicsItem *parent=nullptr): QGraphicsPixmapItem(parent) {
+    Player(int num_player,QGraphicsItem *parent=nullptr): QGraphicsPixmapItem(parent) {
         this ->num_player = num_player;
-        this -> bombDropping = bombDropping;
         switch(num_player){
             case 1:
             im_centre = QPixmap(":/Resources/Player/Player_1_centre.png");
