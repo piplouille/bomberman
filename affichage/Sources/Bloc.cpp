@@ -3,7 +3,7 @@
 bool Bloc::set_player(Player &n_player) {
     if (available()) {
         // On pose le joueur sur une case
-        player = std::make_shared<Player> (n_player);
+        player = std::make_shared<Player> (n_player); // constructeur copie il panique
         return true;
     }
     return false;

@@ -30,6 +30,21 @@ private:
     unsigned int lives; //nombre de vies
 
 public:
+    Player(const Player& anotherPlayer): QGraphicsPixmapItem(anotherPlayer.parentItem())
+    {
+        im_centre = anotherPlayer.im_centre;
+        im_left = anotherPlayer.im_left;
+        im_right = anotherPlayer.im_right;
+        im_dead = anotherPlayer.im_dead;
+        num_player = anotherPlayer.num_player;
+        coord_x = anotherPlayer.coord_x;
+        coord_y = anotherPlayer.coord_y;
+        bomb_range = anotherPlayer.bomb_range;
+        bomb_life = anotherPlayer.bomb_life;
+        bomb_quota = anotherPlayer.bomb_quota;
+        speed = anotherPlayer.speed;
+        lives = anotherPlayer.lives;
+    }
     Player(int n_num_player,QGraphicsItem *parent=nullptr): QGraphicsPixmapItem(parent) {
         switch(n_num_player) {
             case 1:
