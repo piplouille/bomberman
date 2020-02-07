@@ -36,7 +36,9 @@ private:
     Player* joueur4;
 
 public:
-    Bomb::Bomb(char, int, int, int, int, Player*, Player* joueur2=nullptr,
+    // Faire classe mère bombe
+    // Et faire hériter les designs de chaque bombe : + propre
+    Bomb(char, int, int, int, int, Player*, Player* joueur2=nullptr,
     Player* joueur3=nullptr, Player* joueur4=nullptr, QGraphicsPixmapItem* parent=nullptr);
     ~Bomb(){scene() -> removeItem(this);}
 

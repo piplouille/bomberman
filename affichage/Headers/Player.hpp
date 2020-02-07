@@ -28,9 +28,6 @@ private:
 
     // int x, y; //coordonnées
     unsigned int bomb_range, bomb_life, bomb_quota;
-    // bomb_life;
-    char name[13] = {'P', 'a', 't', 'r', 'i', 'c', 'k', 'k', 'k', 'k', ' ',(char)num_player,'\0'}; //nom du joueur
-    double speed; //en cases par secondes
     unsigned int lives; //nombre de vies    
 
 public:

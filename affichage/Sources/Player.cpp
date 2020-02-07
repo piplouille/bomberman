@@ -8,6 +8,10 @@ Constructeurs
 
 Player::Player(int num_player, bool bombDropping, QGraphicsItem *parent): QGraphicsPixmapItem(parent) {
     this ->num_player = num_player;
+    lives = 1;
+    bomb_range = 20;
+    bomb_life = 500;
+    bomb_quota = 5;
 
     QString path = ":/Resources/Player/Player_" + QString::number(num_player, 10);
 
@@ -27,25 +31,25 @@ Player::Player(int num_player, bool bombDropping, QGraphicsItem *parent): QGraph
     setFocus();
 }
 
+/*
+Gestionnaire d'event concernant player
+*/
+
 void Player::keyPressEvent(QKeyEvent *event) {
     if(event->key() == Qt::Key_Left) {
         setPixmap(im_left);
-        if(x()>size)
-            setPos(x()-size,y());
-        else
-            setPos(0,y());
+        if(x()>size) {setPos(x()-size,y());}
+        else {setPos(0,y());}
     }
 
     else if(event->key() == Qt::Key_Right) {
         setPixmap(im_right);
-
         if(x()<scene()->width()-size) setPos(x()+size,y());
         else setPos(scene()->width()-size,y());    
     }
 
     else if(event->key() == Qt::Key_Up) {
         setPixmap(im_centre);
-
         if(y()>size) setPos(x(),y()-size);
         else setPos(x(),0);
     }
@@ -58,13 +62,13 @@ void Player::keyPressEvent(QKeyEvent *event) {
 
     else if(event->key() == Qt::Key_Space) {
         qDebug() << "Classic bomb dropped";
-        Bomb*bb = new Bomb('C',x(),y(),500,20,this);
+        Bomb* bb = new Bomb('C', x(), y(), bomb_life, bomb_range, this);
         scene() -> addItem(bb);
     }
 
     else if(event->key() == Qt::Key_B) {
         qDebug() << "Bombitrouille dropped";
-        Bomb*bb = new Bomb('B',x(),y(),500,20,this);
+        Bomb* bb = new Bomb('B', x(), y(), bomb_life, bomb_range, this);
         scene() -> addItem(bb);
     }
 
@@ -76,9 +80,14 @@ void Player::keyPressEvent(QKeyEvent *event) {
 void Player::keyReleaseEvent(QKeyEvent *event) {
     if(event->key() == Qt::Key_Left || event->key() == Qt::Key_Right 
         || event->key() == Qt::Key_Up || event->key() == Qt::Key_Down) {
-        setPixmap(im_centre);
+            setPixmap(im_centre);
     }
 }
+
+/*
+Mort
+A checker ?
+*/
 
 void Player::death() {
     qDebug() << "Le joueur est entré dans la mort";
