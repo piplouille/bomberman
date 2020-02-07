@@ -1,1 +1,4 @@
 .vscode
+affichage/*.o
+affichage/Makefile
+affichage/affichage.pro
