@@ -3,10 +3,10 @@
 
 #include <QWidget>
 #include <QApplication>
-#include "Headers/Game.hpp"
+#include "Headers/game.h"
 //#include "Headers/MainWindow.h"
 
-Game * game;
+    Game * game;
 int main( int argc, char * argv[]){
 
 

@@ -1,6 +1,6 @@
-#include "Headers/Player.hpp"
-//#include "Headers/MainWindow.hpp"
-#include "Headers/Bomb.hpp"
+#include "Headers/player.h"
+//#include "Headers/MainWindow.h"
+#include "Headers/Bomb.h"
 #include <QDebug>
 
 
@@ -9,44 +9,72 @@ void Player::keyPressEvent(QKeyEvent *event)
     if(event->key() == Qt::Key_Left)
     {
         setPixmap(im_left);
-        if(x()>10)
-            setPos(x()-16,y());
+        if(x()>32)
+            setPos(x()-32,y());
         else
             setPos(0,y());
     }
     else if(event->key() == Qt::Key_Right)
     {
         setPixmap(im_right);
-        if(x()<585)
-            setPos(x()+16,y());
+        if(x()<scene()->width()-32)
+            setPos(x()+32,y());
         else
-            setPos(590,y());    
+            setPos(scene()->width()-32,y());    
     }
     else if(event->key() == Qt::Key_Up)
     {
         setPixmap(im_centre);
-        if(y()>10)
-            setPos(x(),y()-16);
+        if(y()>32)
+            setPos(x(),y()-32);
         else
             setPos(x(),0);
     }
     else if(event->key() == Qt::Key_Down)
     {
         setPixmap(im_centre);
-        if(y()<585)
-            setPos(x(),y()+16);
+        if(y()<scene()->height()-32)
+            setPos(x(),y()+32);
         else
-            setPos(x(),590);
+            setPos(x(),scene()->height()-32);
     }
-    else if(event->key() == Qt::Key_Space)
+    else if(event->key() == Qt::Key_Space && bombDropping)
     {
-        qDebug() << "Bomb dropped";
-        Bomb*bb = new Bomb(x()+4,y()+4,1000,3);
+
+        qDebug() << "Classic bomb dropped";
+        Bomb*bb = new Bomb('C',x(),y(),500,20,this);
         scene() -> addItem(bb);
+    }
+    else if(event->key() == Qt::Key_B && bombDropping)
+    {
+
+        qDebug() << "Bombitrouille dropped";
+        Bomb*bb = new Bomb('B',x(),y(),500,20,this);
+        scene() -> addItem(bb);
+    }
+    else if(event->key() == Qt::Key_Q)
+    {
+        qApp -> quit();
     }
 }
 
 void Player::keyReleaseEvent(QKeyEvent *event) {
     if(event->key() == Qt::Key_Left || event->key() == Qt::Key_Right || event->key() == Qt::Key_Up || event->key() == Qt::Key_Down)
         setPixmap(im_centre);
+}
+void Player::death() {
+    qDebug() << "Le joueur est entré dans la mort";
+    setPixmap(im_dead);
+    //scene() -> addItem(this);
+    clearFocus();
+    qDebug() << "Le joueur est décédé, ne reste plus que son corps";
+    QTimer::singleShot(3000,this,SLOT(desepear()));
+    //desepear();
+}
+
+void Player::desepear() {
+    qDebug() << "Tout le decors a disparu, le joueur s'appraite àààà partir";
+    scene() ->removeItem(this);
+    qDebug() << "il est parti";
+    //delete this;
 }

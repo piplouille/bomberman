@@ -4,9 +4,23 @@
     <file>Resources/Menu/Title.png</file>
     <file>Resources/Menu/Start.png</file>
     <file>Resources/Menu/Quit.png</file>
+    <file>Resources/Menu/character_name_Po.png</file>
+    <file>Resources/Menu/option.png</file>
+    <file>Resources/Menu/Menu.png</file>
 
 
 
+    <file>Resources/bombitrouille/BBT_flashing_1.png</file>
+    <file>Resources/bombitrouille/BBT_flashing_2.png</file>
+    <file>Resources/bombitrouille/BBT_Exp_1.png</file>
+    <file>Resources/bombitrouille/BBT_Exp_2.png</file>
+    <file>Resources/bombitrouille/BBT_Exp_3.png</file>
+    <file>Resources/bombitrouille/BBT_Exp_4.png</file>
+    <file>Resources/bombitrouille/BBT_Exp_5.png</file>
+    <file>Resources/bombitrouille/BBT_Exp_6.png</file>
+    <file>Resources/bombitrouille/BBT_Blast_1.png</file>
+    <file>Resources/bombitrouille/BBT_Blast_2.png</file>
+    <file>Resources/bombitrouille/BBT_Blast_3.png</file>
 
     <file>Resources/Classic_bomb/blast_1.png</file>
     <file>Resources/Classic_bomb/blast_2.png</file>
@@ -19,7 +33,11 @@
     <file>Resources/Classic_bomb/Bomb_Exploding_6.png</file>
     <file>Resources/Classic_bomb/Bomb_Flashing_1.png</file>
     <file>Resources/Classic_bomb/Bomb_Flashing_2.png</file>
+
+
     <file>Resources/Land/Sol.png</file>
+
+
     <file>Resources/Music/01_The_Day_Is_My_Enemy.m4a</file>
 
     <file>Resources/Player/Player_1_centre.png</file>

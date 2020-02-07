@@ -1,4 +1,4 @@
-#include "Headers/Button.hpp"
+#include "Headers/Button.h"
 #include <QPixmap>
 #include <QSize>
 #include <QIcon>

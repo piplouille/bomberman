@@ -1,4 +1,4 @@
-#include "Headers/MainWindow.hpp"
+#include "Headers/MainWindow.h"
 #include <QDebug>
 #include <QGraphicsItem>
 
