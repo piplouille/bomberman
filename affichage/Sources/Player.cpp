@@ -6,7 +6,7 @@
 Constructeurs
 */
 
-Player::Player(int num_player, bool bombDropping, QGraphicsItem *parent): QGraphicsPixmapItem(parent) {
+Player::Player(unsigned int num_player, bool bombDropping, QGraphicsItem *parent): QGraphicsPixmapItem(parent) {
     this ->num_player = num_player;
     lives = 1;
     bomb_range = 20;
@@ -29,6 +29,20 @@ Player::Player(int num_player, bool bombDropping, QGraphicsItem *parent): QGraph
     setPos(0,320);
     setFlag(QGraphicsItem::ItemIsFocusable);
     setFocus();
+}
+
+Player::Player(const Player& anotherPlayer) : QGraphicsPixmapItem(anotherPlayer.parentItem()) {
+    im_centre = anotherPlayer.im_centre;
+    im_left = anotherPlayer.im_left;
+    im_right = anotherPlayer.im_right;
+    im_dead = anotherPlayer.im_dead;
+
+    num_player = anotherPlayer.num_player;
+    lives = anotherPlayer.lives;
+
+    bomb_range = anotherPlayer.bomb_range;
+    bomb_quota = anotherPlayer.bomb_quota;
+    bomb_life = anotherPlayer.bomb_life;
 }
 
 /*

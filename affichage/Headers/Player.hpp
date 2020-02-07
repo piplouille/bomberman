@@ -24,22 +24,32 @@ private:
     QPixmap im_left;
     QPixmap im_right;
     QPixmap im_dead;
-    int num_player; //numéro du joueur
+    unsigned int num_player; //numéro du joueur
 
-    // int x, y; //coordonnées
+    // int x, y; //coordonnées => Voir si je peux m'en passer et prendre la fonction x() de Qt
     unsigned int bomb_range, bomb_life, bomb_quota;
     unsigned int lives; //nombre de vies    
 
 public:
-    Player(int num_player, bool bombDropping, QGraphicsItem *parent=nullptr);
+    Player(unsigned int num_player, bool bombDropping, QGraphicsItem *parent=nullptr);
+    Player(const Player&);
 
     ~Player(){}
 
-public:
     void keyPressEvent(QKeyEvent *event);
     void keyReleaseEvent(QKeyEvent *event);
-    int getNum_Player(){return num_player;}
     void death();
+
+    int getNum_Player(){return num_player;}
+    unsigned int get_num_player() {return num_player;}
+    // int get_x() {return x;}
+    // int get_y(){return y;}
+    // void set_x(int n_x) {x = n_x;}
+    // void set_y(int n_y) {y = n_y;}
+    bool able_bomb() {return ((bomb_quota) > 0);}
+    void decrease_bomb_quota() {bomb_quota--;}
+    int get_bomb_range() {return bomb_range;}
+    int get_bomb_life() {return bomb_life;}
 
 public slots:
     void disappear();
