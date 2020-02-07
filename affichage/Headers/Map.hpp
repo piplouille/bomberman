@@ -5,6 +5,7 @@
 #include <vector>
 #include <atomic>
 #include <memory>
+#include <QDebug>
 
 #include "Headers/Bloc.hpp"
 #include "Headers/Player.hpp"

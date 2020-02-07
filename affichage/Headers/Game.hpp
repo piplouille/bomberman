@@ -16,8 +16,8 @@ private:
 
     Player* player;
 
-    int player_selected;
-    
+    int player_selected; // pour le menu ok
+
     QGraphicsView *fenetre;
     QGraphicsPixmapItem * character_selected;
     QGraphicsTextItem* character_name;

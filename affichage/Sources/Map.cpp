@@ -36,6 +36,7 @@ Déplacement d'un joueur
 void Map::move_player(Player &player, int x, int y) {
     // on veut que player aille en x, y
 
+    qDebug() << player.get_num_player();
     // itérateur
     auto suivant = begin(x, y);
 

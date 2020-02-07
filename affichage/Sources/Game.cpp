@@ -63,48 +63,10 @@ void Game::displayStartMenu() {
     scene->addItem(quitButton);
 }
 
-
 /*----------------------------------------------------------------------------------*/
-/* Display the character currently selected and his name in the menu */
-void Game::player_selection(int num) {
-    player_selected = num;
-    switch(num){
-        case 1:
-        character_selected -> setPixmap(QPixmap(":/Resources/Player/Player_1_centre.png").scaled(QSize(160,160), Qt::KeepAspectRatio));
-        character_name -> setPlainText(QString("Po"));
-        break;
-        
-        case 2:
-        character_selected -> setPixmap(QPixmap(":/Resources/Player/Player_2_centre.png").scaled(QSize(160,160), Qt::KeepAspectRatio));
-        character_name -> setPlainText(QString("Laaa-La"));
-        break;
-
-        case 3:
-        character_selected -> setPixmap(QPixmap(":/Resources/Player/Player_3_centre.png").scaled(QSize(160,160), Qt::KeepAspectRatio));
-        character_name -> setPlainText(QString("Dipsy"));
-        break;
-
-        case 4:
-        character_selected -> setPixmap(QPixmap(":/Resources/Player/Player_4_centre.png").scaled(QSize(160,160), Qt::KeepAspectRatio));
-        character_name -> setPlainText(QString("Tinky Winky"));
-        break;
-
-        case 5:
-        character_selected -> setPixmap(QPixmap(":/Resources/Player/Player_5_centre.png").scaled(QSize(160,160), Qt::KeepAspectRatio));
-        character_name -> setPlainText(QString("Couille"));
-        break;
-
-        default:
-        character_selected -> setPixmap(QPixmap(":/Resources/Player/Player_1_centre.png").scaled(QSize(160,160), Qt::KeepAspectRatio));
-        character_name -> setPlainText(QString("Po"));
-    }
-    character_name -> setPos(this->width()/2-character_name->boundingRect().width()/2,175);
-}
-
-
-/*----------------------------------------------------------------------------------*/
-
-
+/*
+Choix du personnage (et du mode de jeu ?)
+*/
 
 void Game::selectionMenu(){
     //set the scene and the view
@@ -169,9 +131,45 @@ void Game::selectionMenu(){
 // TODO pour le second menu
     //QAbstractButton Class
     //Changer le QPixmap au dessus des bouttons en fonction de celui qui est selectionné
-
 }
 
+/*----------------------------------------------------------------------------------*/
+/* Display the character currently selected and his name in the menu */
+void Game::player_selection(int num) {
+    player_selected = num; // ici on a le player choisi
+
+    switch(num){
+        case 1:
+        character_selected -> setPixmap(QPixmap(":/Resources/Player/Player_1_centre.png").scaled(QSize(160,160), Qt::KeepAspectRatio));
+        character_name -> setPlainText(QString("Po"));
+        break;
+        
+        case 2:
+        character_selected -> setPixmap(QPixmap(":/Resources/Player/Player_2_centre.png").scaled(QSize(160,160), Qt::KeepAspectRatio));
+        character_name -> setPlainText(QString("Laaa-La"));
+        break;
+
+        case 3:
+        character_selected -> setPixmap(QPixmap(":/Resources/Player/Player_3_centre.png").scaled(QSize(160,160), Qt::KeepAspectRatio));
+        character_name -> setPlainText(QString("Dipsy"));
+        break;
+
+        case 4:
+        character_selected -> setPixmap(QPixmap(":/Resources/Player/Player_4_centre.png").scaled(QSize(160,160), Qt::KeepAspectRatio));
+        character_name -> setPlainText(QString("Tinky Winky"));
+        break;
+
+        case 5:
+        character_selected -> setPixmap(QPixmap(":/Resources/Player/Player_5_centre.png").scaled(QSize(160,160), Qt::KeepAspectRatio));
+        character_name -> setPlainText(QString("Couille"));
+        break;
+
+        default:
+        character_selected -> setPixmap(QPixmap(":/Resources/Player/Player_1_centre.png").scaled(QSize(160,160), Qt::KeepAspectRatio));
+        character_name -> setPlainText(QString("Po"));
+    }
+    character_name -> setPos(this->width()/2-character_name->boundingRect().width()/2,175);
+}
 
 /*----------------------------------------------------------------------------------*/
 
@@ -189,10 +187,13 @@ void Game::start() {
     music->setMedia(QUrl("qrc:/Resources/Music/01_The_Day_Is_My_Enemy.m4a"));
     music->play();
 
+    Map map = Map();
     // create the player
     Player* player = new Player(player_selected, true);
-    scene->addItem(player);
     // add the player to the scene
+    map.init_player(*player, 0, 0); // on place maxence en 0,0 parce que j'ai aucune info lol
+    qDebug() << player->get_num_player();
+    scene->addItem(player);
 }
 
 
@@ -261,7 +262,7 @@ void Game::mort(Player* p) {
     p -> death();
 // }
 
-// void Game::menuGameOver() {
+/* void Game::menuGameOver() {
     qDebug() << "Apparition du menu";
     // Affichage du game over
     QGraphicsTextItem *displayGameOver = new QGraphicsTextItem(QString("GAME\nOVER"));
@@ -279,4 +280,4 @@ void Game::mort(Player* p) {
     connect(returnToMenu,SIGNAL(clicked()),this,SLOT(selectionMenu()));
     scene->addItem(returnToMenu);
 
-}
+}*/
