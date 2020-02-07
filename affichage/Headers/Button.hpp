@@ -1,5 +1,5 @@
-#ifndef BUTTON_H
-#define BUTTON_H
+#ifndef BUTTON_HPP
+#define BUTTON_HPP
 
 #include <QPushButton>
 #include <QGraphicsPixmapItem>
@@ -21,6 +21,9 @@
 
 class Button:public QObject, public QGraphicsPixmapItem{
     Q_OBJECT
+private:
+    QPixmap* image;
+
 public:
     // constructors
     Button(const char *adresse, QGraphicsItem* parent=NULL);
@@ -29,12 +32,9 @@ public:
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
     void hoverEnterEvent(QGraphicsSceneHoverEvent *event);
     void hoverLeaveEvent(QGraphicsSceneHoverEvent *event);
+
 signals:
     void clicked();
-private:
-    QPixmap* image;
 };
-
-
 
 #endif

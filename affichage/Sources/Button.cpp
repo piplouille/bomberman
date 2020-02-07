@@ -4,6 +4,9 @@
 #include <QIcon>
 #include <QGraphicsTextItem>
 
+/*
+Constructeur
+*/
 
 Button::Button(const char *adresse, QGraphicsItem *parent): QGraphicsPixmapItem(parent){
     image = new QPixmap(adresse);
@@ -12,6 +15,10 @@ Button::Button(const char *adresse, QGraphicsItem *parent): QGraphicsPixmapItem(
     // allow responding to hover events
     setAcceptHoverEvents(true);
 }
+
+/*
+Events
+*/
 
 void Button::mousePressEvent(QGraphicsSceneMouseEvent *event){
     emit clicked();
