@@ -181,7 +181,7 @@ void Map::print() {
 Gestion des itérateurs
 */
 
-area_type::iterator Map::begin(int x) {
+Map::area_type::iterator Map::begin(int x) {
     return (area.begin() + x);
 }
 

@@ -16,7 +16,7 @@ class Map;
 class Bomb : public QObject, public QGraphicsPixmapItem {
     Q_OBJECT
 private:
-    const size = 32;
+    const int size = 32;
 
     int posX, posY; //positions de la bombe
     int lifespan; //duree de vie de la premiere animation de la bombe
@@ -60,7 +60,15 @@ public:
     Bomb(char, int, int, Player&, QGraphicsPixmapItem* parent=nullptr);
     Bomb(char, int, int, Player&, Map&, QGraphicsPixmapItem* parent=nullptr);
 
+    // pour pouvoir compiler
+    Bomb(Player&, Map&);
+
     ~Bomb(){scene() -> removeItem(this);}
+
+    int get_life() {return lifespan;}
+    void decrease_life() {lifespan--;}
+    void set_x(int x) {posX = x;}
+    void set_y(int y) {posY = y;}
 
 signals:
     void player_touched(Player* player);
