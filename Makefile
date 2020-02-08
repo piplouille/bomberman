@@ -52,7 +52,8 @@ OBJECTS_DIR   = ./
 
 ####### Files
 
-SOURCES       = affichage/qrc_res.cpp \
+SOURCES       = qrc_res.cpp \
+		affichage/qrc_res.cpp \
 		basics/bloc.cpp \
 		basics/bomb.cpp \
 		basics/display.cpp \
@@ -79,6 +80,7 @@ SOURCES       = affichage/qrc_res.cpp \
 		moc_Game.cpp \
 		moc_Player.cpp
 OBJECTS       = qrc_res.o \
+		qrc_res.o \
 		bloc.o \
 		bomb.o \
 		display.o \
@@ -285,6 +287,7 @@ DIST          = /usr/local/Cellar/qt/5.14.0/mkspecs/features/spec_pre.prf \
 		/usr/local/Cellar/qt/5.14.0/mkspecs/features/qt_config.prf \
 		/usr/local/Cellar/qt/5.14.0/mkspecs/macx-clang/qmake.conf \
 		/usr/local/Cellar/qt/5.14.0/mkspecs/features/spec_post.prf \
+		.qmake.stash \
 		/usr/local/Cellar/qt/5.14.0/mkspecs/features/exclusive_builds.prf \
 		/usr/local/Cellar/qt/5.14.0/mkspecs/features/mac/sdk.prf \
 		/usr/local/Cellar/qt/5.14.0/mkspecs/features/toolchain.prf \
@@ -327,7 +330,8 @@ DIST          = /usr/local/Cellar/qt/5.14.0/mkspecs/features/spec_pre.prf \
 		affichage/Headers/Button.hpp \
 		affichage/Headers/Game.hpp \
 		affichage/Headers/Map.hpp \
-		affichage/Headers/Player.hpp affichage/qrc_res.cpp \
+		affichage/Headers/Player.hpp qrc_res.cpp \
+		affichage/qrc_res.cpp \
 		basics/bloc.cpp \
 		basics/bomb.cpp \
 		basics/display.cpp \
@@ -551,6 +555,7 @@ Makefile: bomberman.pro /usr/local/Cellar/qt/5.14.0/mkspecs/macx-clang/qmake.con
 		/usr/local/Cellar/qt/5.14.0/mkspecs/features/qt_config.prf \
 		/usr/local/Cellar/qt/5.14.0/mkspecs/macx-clang/qmake.conf \
 		/usr/local/Cellar/qt/5.14.0/mkspecs/features/spec_post.prf \
+		.qmake.stash \
 		/usr/local/Cellar/qt/5.14.0/mkspecs/features/exclusive_builds.prf \
 		/usr/local/Cellar/qt/5.14.0/mkspecs/features/mac/sdk.prf \
 		/usr/local/Cellar/qt/5.14.0/mkspecs/features/toolchain.prf \
@@ -762,6 +767,7 @@ Makefile: bomberman.pro /usr/local/Cellar/qt/5.14.0/mkspecs/macx-clang/qmake.con
 /usr/local/Cellar/qt/5.14.0/mkspecs/features/qt_config.prf:
 /usr/local/Cellar/qt/5.14.0/mkspecs/macx-clang/qmake.conf:
 /usr/local/Cellar/qt/5.14.0/mkspecs/features/spec_post.prf:
+.qmake.stash:
 /usr/local/Cellar/qt/5.14.0/mkspecs/features/exclusive_builds.prf:
 /usr/local/Cellar/qt/5.14.0/mkspecs/features/mac/sdk.prf:
 /usr/local/Cellar/qt/5.14.0/mkspecs/features/toolchain.prf:
@@ -824,7 +830,7 @@ distdir: FORCE
 	$(COPY_FILE) --parents affichage/res.qrc $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/local/Cellar/qt/5.14.0/mkspecs/features/data/dummy.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents basics/bloc.hpp basics/bomb.hpp basics/display.hpp basics/game.hpp basics/item.hpp basics/map.hpp basics/player.hpp fck/bloc.hpp fck/bomb.hpp fck/map.hpp fck/player.hpp affichage/Headers/Bloc.hpp affichage/Headers/Bomb.hpp affichage/Headers/Button.hpp affichage/Headers/Game.hpp affichage/Headers/Map.hpp affichage/Headers/Player.hpp $(DISTDIR)/
-	$(COPY_FILE) --parents affichage/qrc_res.cpp basics/bloc.cpp basics/bomb.cpp basics/display.cpp basics/game.cpp basics/item.cpp basics/main.cpp basics/map.cpp basics/player.cpp basics/test.cpp fck/bloc.cpp fck/bomb.cpp fck/main.cpp fck/map.cpp fck/player.cpp affichage/Sources/Bloc.cpp affichage/Sources/Bomb.cpp affichage/Sources/Button.cpp affichage/Sources/Game.cpp affichage/Sources/main.cpp affichage/Sources/Map.cpp affichage/Sources/Player.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents qrc_res.cpp affichage/qrc_res.cpp basics/bloc.cpp basics/bomb.cpp basics/display.cpp basics/game.cpp basics/item.cpp basics/main.cpp basics/map.cpp basics/player.cpp basics/test.cpp fck/bloc.cpp fck/bomb.cpp fck/main.cpp fck/map.cpp fck/player.cpp affichage/Sources/Bloc.cpp affichage/Sources/Bomb.cpp affichage/Sources/Button.cpp affichage/Sources/Game.cpp affichage/Sources/main.cpp affichage/Sources/Map.cpp affichage/Sources/Player.cpp $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -834,6 +840,7 @@ clean: compiler_clean
 
 distclean: clean 
 	-$(DEL_FILE) -r bomberman.app
+	-$(DEL_FILE) .qmake.stash
 	-$(DEL_FILE) Makefile
 
 
@@ -973,6 +980,9 @@ compiler_lex_clean:
 compiler_clean: compiler_rcc_clean compiler_moc_predefs_clean compiler_moc_header_clean 
 
 ####### Compile
+
+qrc_res.o: qrc_res.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qrc_res.o qrc_res.cpp
 
 qrc_res.o: affichage/qrc_res.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qrc_res.o affichage/qrc_res.cpp
