@@ -194,7 +194,7 @@ void Game::start() {
     map.init_player(*player, 0, 0); // on place maxence en 0,0 parce que j'ai aucune info lol
     qDebug() << player->get_num_player();
     qDebug() << map.begin(0, 0)->get_player()->get_num_player();
-    qDebug() << map.get_positions(player->get_num_player())->get_player()->get_num_player();
+    // qDebug() << map.get_positions(player->get_num_player())->get_player()->get_num_player();
     scene->addItem(player);
 }
 

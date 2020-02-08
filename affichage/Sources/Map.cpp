@@ -49,11 +49,11 @@ void Map::move_player(Player &player, int x, int y) {
         player.set_x(x);
         player.set_y(y);
 
-        // Mise à jour du tableau positions
-        if (positions[player.get_num_player()] != end()) {
-            positions[player.get_num_player()]->erase_player();
-        }
-        positions[player.get_num_player()] = suivant;
+        // // Mise à jour du tableau positions
+        // if (positions[player.get_num_player()] != end()) {
+        //     positions[player.get_num_player()]->erase_player();
+        // }
+        // positions[player.get_num_player()] = suivant;
     }
     else {
         // std::cout << "bitch try again" << std::endl;

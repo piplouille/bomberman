@@ -23,7 +23,7 @@ class Map : public QObject, public QGraphicsPixmapItem {
 
     area_type area;
 
-    std::vector<Bloc>::iterator positions[4]; // en 0, bloc où se trouve joueur 0
+    // std::vector<Bloc>::iterator positions[4]; // en 0, bloc où se trouve joueur 0
 
     void move_player(Player&, int, int); // déplace un joueur sur la case x y
     
