@@ -11,9 +11,9 @@ Map::Map(int aWidth, int aLength):
     width(aWidth), length(aLength),
     area(width, std::vector<Bloc>(length)) {
 
-    for (int i=0 ; i<4 ; i++) {
-        positions[i] = end();
-    }
+    // for (int i=0 ; i<4 ; i++) {
+    //     positions[i] = end();
+    // }
     // on va dire que le contour de la map sont des murs
     for (int i = 0 ; i < width ; i++) {
         begin(i, 0)->set_type(0);
