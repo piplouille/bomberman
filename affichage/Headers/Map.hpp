@@ -17,19 +17,25 @@ class Map : public QObject, public QGraphicsPixmapItem {
     private:
     static const int defaultLength = 16;
     static const int defaultWidth = 8;
+    //static Player defaultPlayer;
 
     int length;
     int width;
+
+    Player *player1;
+    Player* player2;
 
     area_type area;
 
     // std::vector<Bloc>::iterator positions[4]; // en 0, bloc où se trouve joueur 0
 
+    void keyPressEvent(QKeyEvent *event);
+    void keyReleaseEvent(QKeyEvent *event);
     void move_player(Player&, int, int); // déplace un joueur sur la case x y
     
     public:
-    Map ();
-    Map(int aWidth, int aLength);
+    //Map ();
+    Map(int aWidth, int aLength,Player *player,Player *player2=nullptr);
 
     void init_player(Player&, int, int); // placer un joueur sur la map
     void move_player(Player&, int); // déplacer un joueur de manière relative

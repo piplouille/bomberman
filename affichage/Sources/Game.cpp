@@ -187,9 +187,9 @@ void Game::start() {
     music->setMedia(QUrl("qrc:/Resources/Music/01_The_Day_Is_My_Enemy.m4a"));
     music->play();
 
-    map = new Map(20,15);
     // create the player
-    Player* player = new Player(player_selected, true);
+    Player* player = new Player(player_selected);
+    map = new Map(20,15,player);
     // add the player to the scene
     // map.init_player(*player, 0, 0); // on place maxence en 0,0 parce que j'ai aucune info lol
     qDebug() << player->get_num_player();
@@ -203,7 +203,7 @@ void Game::start() {
 /*----------------------------------------------------------------------------------*/
 
 
-
+/*
 void Game::secondGame() {
     
     // clear the scene
@@ -214,7 +214,7 @@ void Game::secondGame() {
 
     // create the player
     //Player* player;
-    player = new Player(player_selected, false);
+    player = new Player(player_selected);
     scene->addItem(player);
 
     //Initialisation
@@ -229,7 +229,7 @@ void Game::secondGame() {
     /*bool QGraphicsItem::collidesWithItem(const QGraphicsItem * other,
     Qt::ItemSelectionMode mode = Qt::IntersectsItemShape) const*/
     // TODO : trouver un moyen de rendre le player indépendant du jeu
-}
+/*
 
 void Game::bombDropped() {
     int xB,yB;
@@ -254,6 +254,8 @@ void Game::bombDropped() {
     // }
 }
 
+*/
+/*
 void Game::mort(Player* p) {
     // Animation de la fin de partie
     //scene -> clear();
@@ -263,7 +265,7 @@ void Game::mort(Player* p) {
     qDebug() << "score : " << elapsed_time.count();
     p -> death();
 }
-
+*/
 /* void Game::menuGameOver() {
     qDebug() << "Apparition du menu";
     // Affichage du game over
@@ -283,3 +285,4 @@ void Game::mort(Player* p) {
     scene->addItem(returnToMenu);
 
 }*/
+

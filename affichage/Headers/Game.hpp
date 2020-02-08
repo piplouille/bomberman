@@ -36,9 +36,9 @@ public slots:
     void start();
     void selectionMenu();
     void player_selection(int num);
-    void secondGame();
-    void bombDropped();
-    void mort(Player* p);
+    // void secondGame();
+    // void bombDropped();
+    // void mort(Player* p);
     //void menuGameOver()
 };
 

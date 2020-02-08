@@ -4,10 +4,10 @@
 Les constructeurs
 */
 
-Map::Map(): Map(defaultWidth, defaultLength)
-{}
+// Map::Map(): Map(defaultWidth, defaultLength,&defaultPlayer)
+// {}
 
-Map::Map(int aWidth, int aLength):
+Map::Map(int aWidth, int aLength,Player *player1,Player*player2):
     width(aWidth), length(aLength),
     area(width, std::vector<Bloc>(length)) {
 
@@ -23,6 +23,10 @@ Map::Map(int aWidth, int aLength):
         begin(0, j)->set_type(0);
         begin(width - 1, j)->set_type(0);
     }
+    init_player(*player1, 1, 1);
+    if(player2!=nullptr){init_player(*player2, width-1, length-1);}
+    setFlag(QGraphicsItem::ItemIsFocusable);
+    setFocus();
 }
 
 void Map::init_player(Player &player, int x, int y) {
@@ -60,6 +64,76 @@ void Map::move_player(Player &player, int x, int y) {
     }
     suivant->unlock();
 }
+
+
+void Map::keyPressEvent(QKeyEvent *event) {
+    if(event->key() == Qt::Key_Left) {
+        auto suivant = begin(player1->get_x()+1, player1->get_y());
+        suivant->lock();
+        // demander à bloc en x,y s'il est libre pour accueuillir joueur et bouger
+        bool move_done = suivant->set_player(*player1);
+        if (move_done) {
+            // mise à joueur des coordonnées de player
+            player1->set_left();
+        }
+    }
+
+    else if(event->key() == Qt::Key_Right) {
+        auto suivant = begin(player1->get_x()-1, player1->get_y());
+        suivant->lock();
+        // demander à bloc en x,y s'il est libre pour accueuillir joueur et bouger
+        bool move_done = suivant->set_player(*player1);
+        if (move_done) {
+            // mise à joueur des coordonnées de player
+            player1->set_right();  
+        }  
+    }
+
+    else if(event->key() == Qt::Key_Up) {
+        auto suivant = begin(player1->get_x(), player1->get_y()-1);
+        suivant->lock();
+        // demander à bloc en x,y s'il est libre pour accueuillir joueur et bouger
+        bool move_done = suivant->set_player(*player1);
+        if (move_done) {
+            // mise à joueur des coordonnées de player
+            player1->set_up();
+        }
+    }
+
+    else if(event->key() == Qt::Key_Down) {
+        auto suivant = begin(player1->get_x()/32 +1, player1->get_y());
+        suivant->lock();
+        // demander à bloc en x,y s'il est libre pour accueuillir joueur et bouger
+        bool move_done = suivant->set_player(*player1);
+        if (move_done) {
+            // mise à joueur des coordonnées de player
+            player1->set_down();
+        }
+    }
+
+    else if(event->key() == Qt::Key_Space) {
+        player1 -> dropBomb('C');
+    }
+
+    else if(event->key() == Qt::Key_B) {
+        player1 -> dropBomb('B');
+    }
+
+    else if(event->key() == Qt::Key_Q) {
+        qApp -> quit();
+    }
+    print();
+}
+
+void Map::keyReleaseEvent(QKeyEvent *event) {
+    if(event->key() == Qt::Key_Left || event->key() == Qt::Key_Right 
+        || event->key() == Qt::Key_Up || event->key() == Qt::Key_Down) {
+            player1 -> set_centre();
+    }
+}
+
+
+
 
 void Map::move_player(Player &player, int move){
     // On trouve où le joueur veut se déplacer en coordonnées
