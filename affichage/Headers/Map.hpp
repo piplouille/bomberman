@@ -11,7 +11,7 @@
 #include "Headers/Player.hpp"
 #include "Headers/Bomb.hpp"
 
-class Map {
+class Map : public QObject, public QGraphicsPixmapItem {
     typedef std::vector<std::vector<Bloc> > area_type;
 
     private:
@@ -47,6 +47,8 @@ class Map {
     int get_length() {
         return length;
     }
+
+    std::vector<Bloc>::iterator get_positions(int i) {return positions[i];}
 
     area_type::iterator begin(int);
     std::vector<Bloc>::iterator begin(int, int);

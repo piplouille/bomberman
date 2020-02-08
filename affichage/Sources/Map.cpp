@@ -5,7 +5,7 @@ Les constructeurs
 */
 
 Map::Map(): Map(defaultWidth, defaultLength)
-{} 
+{}
 
 Map::Map(int aWidth, int aLength):
     width(aWidth), length(aLength),
