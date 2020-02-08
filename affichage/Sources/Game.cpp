@@ -187,7 +187,7 @@ void Game::start() {
     music->setMedia(QUrl("qrc:/Resources/Music/01_The_Day_Is_My_Enemy.m4a"));
     music->play();
 
-    // Map map;
+    map = new Map(20,15);
     // create the player
     Player* player = new Player(player_selected, true);
     // add the player to the scene
