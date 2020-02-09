@@ -51,6 +51,7 @@ public:
     void set_centre(){setPixmap(im_centre);}
     void set_x(int n_x) {posX = n_x;}
     void set_y(int n_y) {posY = n_y;}
+    void set_xy(int n_x, int n_y) {posX = n_x; posY = n_y;setPos(posX,posY); }
     void move(int up, int left) {posX+=(left*size);posY+=(up*size);}
     bool able_bomb() {return ((bomb_quota) > 0);}
     void decrease_bomb_quota() {bomb_quota--;}

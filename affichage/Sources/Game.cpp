@@ -189,13 +189,15 @@ void Game::start() {
 
     // create the player
     Player* player = new Player(player_selected);
+    scene->addItem(player);
     map = new Map(20,15,player);
+    scene ->addItem(map);
     // add the player to the scene
     // map.init_player(*player, 0, 0); // on place maxence en 0,0 parce que j'ai aucune info lol
     qDebug() << player->get_num_player();
+    qDebug() << map -> hasFocus();
     //qDebug() << map.begin(0, 0)->get_player()->get_num_player();
     // qDebug() << map.get_positions(player->get_num_player())->get_player()->get_num_player();
-    scene->addItem(player);
 }
 
 

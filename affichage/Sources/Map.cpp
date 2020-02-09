@@ -7,7 +7,7 @@ Les constructeurs
 // Map::Map(): Map(defaultWidth, defaultLength,&defaultPlayer)
 // {}
 
-Map::Map(int aWidth, int aLength,Player *player1,Player*player2):
+Map::Map(int aWidth, int aLength,Player *player1,Player*player2, QGraphicsPixmapItem *parent): QGraphicsPixmapItem(parent),
     width(aWidth), length(aLength),
     area(width, std::vector<Bloc>(length)) {
 
@@ -50,8 +50,7 @@ void Map::move_player(Player &player, int x, int y) {
 
     if (move_done) {
         // mise à joueur des coordonnées de player
-        player.set_x(x);
-        player.set_y(y);
+        player.set_xy(x*32,y*32);
 
         // // Mise à jour du tableau positions
         // if (positions[player.get_num_player()] != end()) {
@@ -68,6 +67,7 @@ void Map::move_player(Player &player, int x, int y) {
 
 void Map::keyPressEvent(QKeyEvent *event) {
     if(event->key() == Qt::Key_Left) {
+        qDebug() << "vous avez pressé left";
         auto suivant = begin(player1->get_x()+1, player1->get_y());
         suivant->lock();
         // demander à bloc en x,y s'il est libre pour accueuillir joueur et bouger

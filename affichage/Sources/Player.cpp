@@ -27,8 +27,8 @@ Player::Player(unsigned int num_player, QGraphicsItem *parent): QGraphicsPixmapI
 
     setPixmap(im_centre);
     setPos(0,320);
-    //setFlag(QGraphicsItem::ItemIsFocusable);
-    //setFocus();
+    // setFlag(QGraphicsItem::ItemIsFocusable);
+    // setFocus();
 }
 
 /*Constructeur de recopie*/

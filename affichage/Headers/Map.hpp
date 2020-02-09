@@ -6,12 +6,14 @@
 #include <atomic>
 #include <memory>
 #include <QDebug>
+#include <QFlag>
+#include <QKeyEvent>
 
 #include "Headers/Bloc.hpp"
 #include "Headers/Player.hpp"
 #include "Headers/Bomb.hpp"
 
-class Map : public QObject, public QGraphicsPixmapItem {
+class Map : public QGraphicsPixmapItem {
     typedef std::vector<std::vector<Bloc> > area_type;
 
     private:
@@ -35,7 +37,7 @@ class Map : public QObject, public QGraphicsPixmapItem {
     
     public:
     //Map ();
-    Map(int aWidth, int aLength,Player *player,Player *player2=nullptr);
+    Map(int aWidth, int aLength,Player *player,Player *player2=nullptr, QGraphicsPixmapItem *parent=nullptr);
 
     void init_player(Player&, int, int); // placer un joueur sur la map
     void move_player(Player&, int); // déplacer un joueur de manière relative
