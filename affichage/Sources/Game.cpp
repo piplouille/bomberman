@@ -19,7 +19,7 @@ Game::Game(QWidget* parent){
     //create the scene
     scene = new QGraphicsScene();
     scene->setSceneRect(0,0,640,480); // make the scene 600x400 instead of infinity by infinity (default)
-    setBackgroundBrush(QBrush(QImage(":/Resources/Land/Sol.png")));
+    setBackgroundBrush(QBrush(QImage(":/affichage/Resources/Land/Sol.png")));
     setScene(scene);
 }
 
@@ -36,6 +36,7 @@ void Game::displayImage(const char *adresse, int width, int height, int posX, in
 
 void Game::displayStartMenu() {
     // play background music
+    qDebug() << "Ici";
     QMediaPlayer * music = new QMediaPlayer();
     music->setMedia(QUrl("qrc:/Resources/Music/01_The_Day_Is_My_Enemy.m4a"));
     music->play();
@@ -45,7 +46,6 @@ void Game::displayStartMenu() {
     // title2->setPos(this->width()/2 - title2->boundingRect().width()/2,30);
     // scene -> addItem(title2);
     displayImage(":/Resources/Menu/Title.png",this->width()/2-20,this->height()/2-20,this->width()/2 - (this->width()/2-20)/2,30);
-
     // create the play button
     Button* playButton = new Button(":/Resources/Menu/Start.png");
     int bxPos = this->width()/4 - playButton->boundingRect().width()/2;
@@ -187,15 +187,17 @@ void Game::start() {
     music->setMedia(QUrl("qrc:/Resources/Music/01_The_Day_Is_My_Enemy.m4a"));
     music->play();
 
-    Map map;
     // create the player
-    Player* player = new Player(player_selected, true);
-    // add the player to the scene
-    map.init_player(*player, 0, 0); // on place maxence en 0,0 parce que j'ai aucune info lol
-    qDebug() << player->get_num_player();
-    qDebug() << map.begin(0, 0)->get_player()->get_num_player();
-    qDebug() << map.get_positions(player->get_num_player())->get_player()->get_num_player();
+    Player* player = new Player(player_selected);
     scene->addItem(player);
+    map = new Map(20,15,player);
+    scene ->addItem(map);
+    // add the player to the scene
+    // map.init_player(*player, 0, 0); // on place maxence en 0,0 parce que j'ai aucune info lol
+    qDebug() << player->get_num_player();
+    qDebug() << map -> hasFocus();
+    //qDebug() << map.begin(0, 0)->get_player()->get_num_player();
+    // qDebug() << map.get_positions(player->get_num_player())->get_player()->get_num_player();
 }
 
 
@@ -203,7 +205,7 @@ void Game::start() {
 /*----------------------------------------------------------------------------------*/
 
 
-
+/*
 void Game::secondGame() {
     
     // clear the scene
@@ -214,7 +216,7 @@ void Game::secondGame() {
 
     // create the player
     //Player* player;
-    player = new Player(player_selected, false);
+    player = new Player(player_selected);
     scene->addItem(player);
 
     //Initialisation
@@ -229,7 +231,7 @@ void Game::secondGame() {
     /*bool QGraphicsItem::collidesWithItem(const QGraphicsItem * other,
     Qt::ItemSelectionMode mode = Qt::IntersectsItemShape) const*/
     // TODO : trouver un moyen de rendre le player indépendant du jeu
-}
+/*
 
 void Game::bombDropped() {
     int xB,yB;
@@ -254,6 +256,8 @@ void Game::bombDropped() {
     // }
 }
 
+*/
+/*
 void Game::mort(Player* p) {
     // Animation de la fin de partie
     //scene -> clear();
@@ -263,7 +267,7 @@ void Game::mort(Player* p) {
     qDebug() << "score : " << elapsed_time.count();
     p -> death();
 }
-
+*/
 /* void Game::menuGameOver() {
     qDebug() << "Apparition du menu";
     // Affichage du game over
@@ -283,3 +287,4 @@ void Game::mort(Player* p) {
     scene->addItem(returnToMenu);
 
 }*/
+

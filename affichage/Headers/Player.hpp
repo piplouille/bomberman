@@ -30,21 +30,29 @@ private:
     unsigned int lives; //nombre de vies    
 
 public:
-    Player(unsigned int num_player, bool bombDropping, QGraphicsItem *parent=nullptr);
+    Player(unsigned int num_player, QGraphicsItem *parent=nullptr);
     Player(const Player&);
 
     ~Player(){}
 
-    void keyPressEvent(QKeyEvent *event);
-    void keyReleaseEvent(QKeyEvent *event);
+    //void keyPressEvent(QKeyEvent *event);
+    //void keyReleaseEvent(QKeyEvent *event);
     void death();
+    void dropBomb(char type);
 
     int getNum_Player(){return num_player;}
     unsigned int get_num_player() {return num_player;}
-    int get_x() {return posX;}
-    int get_y(){return posY;}
+    int get_x() {return (posX/size);}
+    int get_y(){return (posY/size);}
+    void set_left(){setPixmap(im_left); posX-=size; setPos(posX,posY);}
+    void set_right(){setPixmap(im_right); posX+=size; setPos(posX,posY);}
+    void set_up(){setPixmap(im_centre); posY-=size; setPos(posX,posY);}
+    void set_down(){setPixmap(im_centre); posY-=size; setPos(posX,posY);}
+    void set_centre(){setPixmap(im_centre);}
     void set_x(int n_x) {posX = n_x;}
     void set_y(int n_y) {posY = n_y;}
+    void set_xy(int n_x, int n_y) {posX = n_x; posY = n_y;setPos(posX,posY); }
+    void move(int up, int left) {posX+=(left*size);posY+=(up*size);}
     bool able_bomb() {return ((bomb_quota) > 0);}
     void decrease_bomb_quota() {bomb_quota--;}
     int get_bomb_range() {return bomb_range;}

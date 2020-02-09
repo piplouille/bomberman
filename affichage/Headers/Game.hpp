@@ -7,6 +7,7 @@
 #include <QBrush>
 #include "Headers/Player.hpp"
 #include "Headers/Bomb.hpp"
+#include "Headers/Map.hpp"
 #include <chrono>
 
 class Game: public QGraphicsView{
@@ -21,6 +22,7 @@ private:
     QGraphicsView *fenetre;
     QGraphicsPixmapItem * character_selected;
     QGraphicsTextItem* character_name;
+    Map *map;
     int intervalle;
     std::chrono::time_point<std::chrono::system_clock> beginning, end, elapsed_time;
     
@@ -34,9 +36,9 @@ public slots:
     void start();
     void selectionMenu();
     void player_selection(int num);
-    void secondGame();
-    void bombDropped();
-    void mort(Player* p);
+    // void secondGame();
+    // void bombDropped();
+    // void mort(Player* p);
     //void menuGameOver()
 };
 

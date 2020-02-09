@@ -11,19 +11,19 @@ bool Bloc::set_player(Player &n_player) {
 
 void Bloc::print() {
     if (type == 0) {
-        std::cout << "X";
+        std::cout << "X"; //mur
     }
 
     else if (player == nullptr && bomb == nullptr) {
-        std::cout << "~";
+        std::cout << "~"; //vide
     }
     
     else if (bomb != nullptr) {
-        std::cout << "#";
+        std::cout << "#"; //bombe
     }
 
     else if (player != nullptr) {
-        std::cout << player->get_num_player();
+        std::cout << player->get_num_player(); //joueur
     }
 }
 

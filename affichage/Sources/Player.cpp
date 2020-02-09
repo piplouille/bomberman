@@ -6,10 +6,10 @@
 Constructeurs
 */
 
-Player::Player(unsigned int num_player, bool bombDropping, QGraphicsItem *parent): QGraphicsPixmapItem(parent) {
+Player::Player(unsigned int num_player, QGraphicsItem *parent): QGraphicsPixmapItem(parent) {
     this ->num_player = num_player;
     lives = 1;
-    bomb_range = 20;
+    bomb_range = 1;
     bomb_life = 500;
     bomb_quota = 5;
 
@@ -27,10 +27,11 @@ Player::Player(unsigned int num_player, bool bombDropping, QGraphicsItem *parent
 
     setPixmap(im_centre);
     setPos(0,320);
-    setFlag(QGraphicsItem::ItemIsFocusable);
-    setFocus();
+    // setFlag(QGraphicsItem::ItemIsFocusable);
+    // setFocus();
 }
 
+/*Constructeur de recopie*/
 Player::Player(const Player& anotherPlayer) : QGraphicsPixmapItem(anotherPlayer.parentItem()) {
     im_centre = anotherPlayer.im_centre;
     im_left = anotherPlayer.im_left;
@@ -49,59 +50,72 @@ Player::Player(const Player& anotherPlayer) : QGraphicsPixmapItem(anotherPlayer.
 Gestionnaire d'event concernant player
 */
 
-void Player::keyPressEvent(QKeyEvent *event) {
-    if(event->key() == Qt::Key_Left) {
-        setPixmap(im_left);
-        if(x()>size) {setPos(x()-size,y());}
-        else {setPos(0,y());}
-    }
+// void Player::keyPressEvent(QKeyEvent *event) {
+//     if(event->key() == Qt::Key_Left) {
+//         setPixmap(im_left);
+//         if(x()>size) {setPos(x()-size,y());}
+//         else {setPos(0,y());}
+//     }
 
-    else if(event->key() == Qt::Key_Right) {
-        setPixmap(im_right);
-        if(x()<scene()->width()-size) setPos(x()+size,y());
-        else setPos(scene()->width()-size,y());    
-    }
+//     else if(event->key() == Qt::Key_Right) {
+//         setPixmap(im_right);
+//         if(x()<scene()->width()-size) setPos(x()+size,y());
+//         else setPos(scene()->width()-size,y());    
+//     }
 
-    else if(event->key() == Qt::Key_Up) {
-        setPixmap(im_centre);
-        if(y()>size) setPos(x(),y()-size);
-        else setPos(x(),0);
-    }
+//     else if(event->key() == Qt::Key_Up) {
+//         setPixmap(im_centre);
+//         if(y()>size) setPos(x(),y()-size);
+//         else setPos(x(),0);
+//     }
 
-    else if(event->key() == Qt::Key_Down) {
-        setPixmap(im_centre);
-        if(y()<scene()->height()-size) setPos(x(),y()+size);
-        else setPos(x(),scene()->height()-size);
-    }
+//     else if(event->key() == Qt::Key_Down) {
+//         setPixmap(im_centre);
+//         if(y()<scene()->height()-size) setPos(x(),y()+size);
+//         else setPos(x(),scene()->height()-size);
+//     }
 
-    else if(event->key() == Qt::Key_Space) {
-        qDebug() << "Classic bomb dropped";
-        Bomb* bb = new Bomb('C', x(), y(), bomb_life, bomb_range, this);
-        scene() -> addItem(bb);
-    }
+//     else if(event->key() == Qt::Key_Space) {
+//         qDebug() << "Classic bomb dropped";
+//         Bomb* bb = new Bomb('C', x(), y(), bomb_life, bomb_range, this);
+//         scene() -> addItem(bb);
+//     }
 
-    else if(event->key() == Qt::Key_B) {
-        qDebug() << "Bombitrouille dropped";
-        Bomb* bb = new Bomb('B', x(), y(), bomb_life, bomb_range, this);
-        scene() -> addItem(bb);
-    }
+//     else if(event->key() == Qt::Key_B) {
+//         qDebug() << "Bombitrouille dropped";
+//         Bomb* bb = new Bomb('B', x(), y(), bomb_life, bomb_range, this);
+//         scene() -> addItem(bb);
+//     }
 
-    else if(event->key() == Qt::Key_Q) {
-        qApp -> quit();
-    }
-}
+//     else if(event->key() == Qt::Key_Q) {
+//         qApp -> quit();
+//     }
+// }
 
-void Player::keyReleaseEvent(QKeyEvent *event) {
-    if(event->key() == Qt::Key_Left || event->key() == Qt::Key_Right 
-        || event->key() == Qt::Key_Up || event->key() == Qt::Key_Down) {
-            setPixmap(im_centre);
-    }
-}
+// void Player::keyReleaseEvent(QKeyEvent *event) {
+//     if(event->key() == Qt::Key_Left || event->key() == Qt::Key_Right 
+//         || event->key() == Qt::Key_Up || event->key() == Qt::Key_Down) {
+//             setPixmap(im_centre);
+//     }
+// }
 
 /*
 Mort
 A checker ?
 */
+
+void Player::dropBomb(char type){
+    if (type=='C') {
+        qDebug() << "Classic bomb dropped";
+        Bomb* bb = new Bomb('C', x(), y(), bomb_life, bomb_range, this);
+        scene() -> addItem(bb);
+    }
+    else if(type=='B') {
+        qDebug() << "Classic bomb dropped";
+        Bomb* bb = new Bomb('C', x(), y(), bomb_life, bomb_range, this);
+        scene() -> addItem(bb);
+    }
+}
 
 void Player::death() {
     qDebug() << "Le joueur est entré dans la mort";
