@@ -86,6 +86,7 @@ void Map::keyPressEvent(QKeyEvent *event) {
             // mise à joueur des coordonnées de player
             player1->set_left();
         }
+        suivant->unlock();
     }
 
     else if(event->key() == Qt::Key_Right) {
@@ -100,7 +101,8 @@ void Map::keyPressEvent(QKeyEvent *event) {
         if (move_done) {
             // mise à joueur des coordonnées de player
             player1->set_right();  
-        }  
+        } 
+        suivant->unlock();
     }
 
     else if(event->key() == Qt::Key_Up) {
@@ -112,18 +114,20 @@ void Map::keyPressEvent(QKeyEvent *event) {
             // mise à joueur des coordonnées de player
             player1->set_up();
         }
+        suivant->unlock();
     }
 
     else if(event->key() == Qt::Key_Down) {
         qDebug() << "vous avez pressé down";
-        // auto suivant = begin(player1->get_x()/32 +1, player1->get_y());
-        // suivant->lock();
-        // // demander à bloc en x,y s'il est libre pour accueuillir joueur et bouger
-        // bool move_done = suivant->set_player(*player1);
-        // if (move_done) {
-        //     // mise à joueur des coordonnées de player
-        //     player1->set_down();
-        // }
+        auto suivant = begin(player1->get_x()/32 +1, player1->get_y());
+        suivant->lock();
+        // demander à bloc en x,y s'il est libre pour accueuillir joueur et bouger
+        bool move_done = suivant->set_player(*player1);
+        if (move_done) {
+            // mise à joueur des coordonnées de player
+            player1->set_down();
+        }
+        suivant->unlock();
     }
 
     else if(event->key() == Qt::Key_Space) {
