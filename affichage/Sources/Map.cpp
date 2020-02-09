@@ -8,7 +8,7 @@ Les constructeurs
 // Map::Map(): Map(defaultWidth, defaultLength,&defaultPlayer)
 // {}
 
-Map::Map(int aWidth, int aLength,Player *player1,Player*player2, QGraphicsPixmapItem *parent): QGraphicsPixmapItem(parent),
+Map::Map(int aWidth, int aLength,Player* n_player1,Player* n_player2, QGraphicsPixmapItem *parent): QGraphicsPixmapItem(parent),
     width(aWidth), length(aLength),
     area(width, std::vector<Bloc>(length)) {
 
@@ -24,8 +24,12 @@ Map::Map(int aWidth, int aLength,Player *player1,Player*player2, QGraphicsPixmap
         begin(0, j)->set_type(0);
         begin(width - 1, j)->set_type(0);
     }
+
+    player1 = n_player1;
+
     init_player(*player1, 1, 1);
-    if(player2!=nullptr){init_player(*player2, width-1, length-1);}
+    // if(player2!=nullptr){init_player(*player2, width-1, length-1);}
+
     setFlag(QGraphicsItem::ItemIsFocusable);
     setFocus();
     qDebug() <<"Position joueur 1 à la fin de l'initialisaiton ("<< player1->get_x() <<", " << player1->get_y()<<")";
@@ -75,6 +79,9 @@ void Map::keyPressEvent(QKeyEvent *event) {
     int new_x = player1-> get_x();
     int new_y = player1-> get_y();
     qDebug() << "Avant de se déplacer la position est ("<< player1-> get_x() <<", " << (player1-> get_y())-1<<")";
+
+    auto actuel = begin(player1->get_x(), player1->get_y());
+
     if(event->key() == Qt::Key_Left) {
         qDebug() << "vous avez pressé left";
         qDebug() <<"Position visée : ("<< player1-> get_x() <<", " << (player1-> get_y())-1<<")";
@@ -85,6 +92,7 @@ void Map::keyPressEvent(QKeyEvent *event) {
         if (move_done) {
             // mise à joueur des coordonnées de player
             player1->set_left();
+            actuel->erase_player();
         }
         suivant->unlock();
     }
@@ -100,7 +108,8 @@ void Map::keyPressEvent(QKeyEvent *event) {
         qDebug() << "La";
         if (move_done) {
             // mise à joueur des coordonnées de player
-            player1->set_right();  
+            player1->set_right();
+            actuel->erase_player();
         } 
         suivant->unlock();
     }
@@ -113,6 +122,7 @@ void Map::keyPressEvent(QKeyEvent *event) {
         if (move_done) {
             // mise à joueur des coordonnées de player
             player1->set_up();
+            actuel->erase_player();
         }
         suivant->unlock();
     }
@@ -126,6 +136,7 @@ void Map::keyPressEvent(QKeyEvent *event) {
         if (move_done) {
             // mise à joueur des coordonnées de player
             player1->set_down();
+            actuel->erase_player();
         }
         suivant->unlock();
     }
