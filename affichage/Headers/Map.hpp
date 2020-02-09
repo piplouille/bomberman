@@ -33,7 +33,7 @@ class Map : public QGraphicsPixmapItem {
 
     void keyPressEvent(QKeyEvent *event);
     void keyReleaseEvent(QKeyEvent *event);
-    void move_player(Player&, int, int); // déplace un joueur sur la case x y
+    void move_player(Player&, int, int, bool init = false); // déplace un joueur sur la case x y
     
     public:
     //Map ();

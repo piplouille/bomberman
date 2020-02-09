@@ -111,7 +111,7 @@ void Player::dropBomb(char type){
     }
     else if(type=='B') {
         qDebug() << "Classic bomb dropped";
-        Bomb* bb = new Bomb('C', x(), y(), bomb_life, bomb_range, this);
+        Bomb* bb = new Bomb('B', x(), y(), bomb_life, bomb_range, this);
         scene() -> addItem(bb);
     }
 }
