@@ -4,3 +4,5 @@ affichage/Makefile
 affichage/affichage*
 *.pro
 bomberman.app/
+moc*
+*.o
