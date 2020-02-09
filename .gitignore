@@ -1,4 +1,8 @@
 .vscode
-./affichage/*.o
-./affichage/Makefile
-./affichage/affichage.pro
+affichage/*.o
+affichage/Makefile
+affichage/affichage*
+*.pro
+bomberman.app/
+moc*
+*.o
