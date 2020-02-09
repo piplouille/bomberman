@@ -6,3 +6,4 @@ affichage/affichage*
 bomberman.app/
 moc*
 *.o
+affichage/qrc_res.cpp
