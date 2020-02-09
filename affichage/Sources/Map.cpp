@@ -1,4 +1,5 @@
 #include "Headers/Map.hpp"
+#include <QKeyEvent>
 
 /*
 Les constructeurs
@@ -27,15 +28,19 @@ Map::Map(int aWidth, int aLength,Player *player1,Player*player2, QGraphicsPixmap
     if(player2!=nullptr){init_player(*player2, width-1, length-1);}
     setFlag(QGraphicsItem::ItemIsFocusable);
     setFocus();
+    qDebug() <<"Position joueur 1 à la fin de l'initialisaiton ("<< player1->get_x() <<", " << player1->get_y()<<")";
+    print();
 }
 
 void Map::init_player(Player &player, int x, int y) {
     move_player(player, x, y);
 }
 
+
 /*
-Déplacement d'un joueur
+----------Déplacement d'un joueur--------------
 */
+
 
 void Map::move_player(Player &player, int x, int y) {
     // on veut que player aille en x, y
@@ -50,13 +55,14 @@ void Map::move_player(Player &player, int x, int y) {
 
     if (move_done) {
         // mise à joueur des coordonnées de player
-        player.set_xy(x*32,y*32);
+        player.set_xy(x,y);
 
         // // Mise à jour du tableau positions
         // if (positions[player.get_num_player()] != end()) {
         //     positions[player.get_num_player()]->erase_player();
         // }
         // positions[player.get_num_player()] = suivant;
+        qDebug() <<"("<< player.get_x() <<", " << player.get_y()<<")";
     }
     else {
         // std::cout << "bitch try again" << std::endl;
@@ -66,9 +72,13 @@ void Map::move_player(Player &player, int x, int y) {
 
 
 void Map::keyPressEvent(QKeyEvent *event) {
+    int new_x = player1-> get_x();
+    int new_y = player1-> get_y();
+    qDebug() << "Avant de se déplacer la position est ("<< player1-> get_x() <<", " << (player1-> get_y())-1<<")";
     if(event->key() == Qt::Key_Left) {
         qDebug() << "vous avez pressé left";
-        auto suivant = begin(player1->get_x()+1, player1->get_y());
+        qDebug() <<"Position visée : ("<< player1-> get_x() <<", " << (player1-> get_y())-1<<")";
+        auto suivant = begin(player1-> get_x(), (player1-> get_y())-1);
         suivant->lock();
         // demander à bloc en x,y s'il est libre pour accueuillir joueur et bouger
         bool move_done = suivant->set_player(*player1);
@@ -79,10 +89,14 @@ void Map::keyPressEvent(QKeyEvent *event) {
     }
 
     else if(event->key() == Qt::Key_Right) {
-        auto suivant = begin(player1->get_x()-1, player1->get_y());
+        qDebug() << "vous avez pressé right";
+        qDebug() <<"Position visée : ("<< player1-> get_x() <<", " << (player1-> get_y())+1 <<")";
+        auto suivant = begin(player1-> get_x(), (player1-> get_y())+1);
+        qDebug() << "Ici";
         suivant->lock();
         // demander à bloc en x,y s'il est libre pour accueuillir joueur et bouger
         bool move_done = suivant->set_player(*player1);
+        qDebug() << "La";
         if (move_done) {
             // mise à joueur des coordonnées de player
             player1->set_right();  
@@ -101,14 +115,15 @@ void Map::keyPressEvent(QKeyEvent *event) {
     }
 
     else if(event->key() == Qt::Key_Down) {
-        auto suivant = begin(player1->get_x()/32 +1, player1->get_y());
-        suivant->lock();
-        // demander à bloc en x,y s'il est libre pour accueuillir joueur et bouger
-        bool move_done = suivant->set_player(*player1);
-        if (move_done) {
-            // mise à joueur des coordonnées de player
-            player1->set_down();
-        }
+        qDebug() << "vous avez pressé down";
+        // auto suivant = begin(player1->get_x()/32 +1, player1->get_y());
+        // suivant->lock();
+        // // demander à bloc en x,y s'il est libre pour accueuillir joueur et bouger
+        // bool move_done = suivant->set_player(*player1);
+        // if (move_done) {
+        //     // mise à joueur des coordonnées de player
+        //     player1->set_down();
+        // }
     }
 
     else if(event->key() == Qt::Key_Space) {
@@ -123,6 +138,7 @@ void Map::keyPressEvent(QKeyEvent *event) {
         qApp -> quit();
     }
     print();
+    qDebug() << "premier mouvement fait";
 }
 
 void Map::keyReleaseEvent(QKeyEvent *event) {
@@ -186,9 +202,11 @@ void Map::move_player(Player &player, int move){
     }
 }
 
+
 /*
-Les bombes
+-------------Les bombes---------------
 */
+
 
 void Map::put_bomb(Player &p) {
     // On vérifie que joueur peut encore poser une bombe
@@ -261,6 +279,7 @@ Map::area_type::iterator Map::begin(int x) {
 }
 
 std::vector<Bloc>::iterator Map::begin(int x, int y) {
+    qDebug() << "On arrive dans le begin(x,y)";
     return (area.begin() + x)->begin() + y;
 }
 

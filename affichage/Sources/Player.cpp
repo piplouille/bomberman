@@ -1,6 +1,5 @@
 #include "Headers/Player.hpp"
 #include "Headers/Bomb.hpp"
-#include <QDebug>
 
 /*
 Constructeurs
@@ -26,7 +25,7 @@ Player::Player(unsigned int num_player, QGraphicsItem *parent): QGraphicsPixmapI
     im_dead = im_dead.scaled(QSize(size,size), Qt::KeepAspectRatio);
 
     setPixmap(im_centre);
-    setPos(0,320);
+    setPos(0,10*size);
     // setFlag(QGraphicsItem::ItemIsFocusable);
     // setFocus();
 }
