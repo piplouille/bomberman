@@ -19,7 +19,7 @@ Game::Game(QWidget* parent){
     //create the scene
     scene = new QGraphicsScene();
     scene->setSceneRect(0,0,640,480); // make the scene 600x400 instead of infinity by infinity (default)
-    setBackgroundBrush(QBrush(QImage(":/affichage/Resources/Land/Sol.png")));
+    setBackgroundBrush(QBrush(QImage(":/Resources/Land/Sol.png")));
     setScene(scene);
 }
 
