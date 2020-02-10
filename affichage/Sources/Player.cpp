@@ -100,12 +100,23 @@ Gestionnaire d'event concernant player
 /*
 Player pose une bombe
 */
-
-
-void Player::dropBomb(char type){
+void Player::dropBomb(char type) {
     if (type=='C') {
         qDebug() << "Classic bomb dropped";
         Bomb* bb = new Bomb('C', x(), y(), *this);
+        scene() -> addItem(bb);
+    }
+    else if(type=='B') {
+        qDebug() << "Classic bomb dropped";
+        Bomb* bb = new Bomb('B', x(), y(), bomb_life, bomb_range, this);
+        scene() -> addItem(bb);
+    }
+}
+
+void Player::dropBomb(char type, Map& map) {
+    if (type=='C') {
+        qDebug() << "Classic bomb dropped";
+        Bomb* bb = new Bomb('C', x(), y(), *this, map);
         scene() -> addItem(bb);
     }
     else if(type=='B') {

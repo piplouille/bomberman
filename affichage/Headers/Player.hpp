@@ -16,6 +16,7 @@
 #include <QString>
 
 class Bomb;
+class Map;
 
 class Player : public QObject, public QGraphicsPixmapItem {
     Q_OBJECT
@@ -42,7 +43,8 @@ public:
     //void keyReleaseEvent(QKeyEvent *event);
     void death();
     void dropBomb(char type);
-
+    void dropBomb(char, Map&);
+;
     int getNum_Player(){return num_player;}
     unsigned int get_num_player() {return num_player;}
     int get_x() {return posY;}
@@ -66,6 +68,7 @@ public slots:
 };
 
 #include "Headers/Bomb.hpp"
+#include "Headers/Map.hpp"
 
 /*------------------------------------------------*/
 

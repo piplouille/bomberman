@@ -238,7 +238,7 @@ void Map::put_bomb(Player &p) {
             std::cout << "Pas possible de poser" << std::endl;
         }
         else {
-            player1 -> dropBomb('C');
+            player1 -> dropBomb('C', *this);
             std::cout << "J'ai posé" << std::endl;
         }
         bloc->unlock();

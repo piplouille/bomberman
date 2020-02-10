@@ -21,7 +21,8 @@ class Bomb : public QObject, public QGraphicsPixmapItem {
 private:
     const int size = 32;
 
-    int posX, posY; //positions de la bombe
+    int posX, posY; //positions de la bombe en pixels
+    int i, j; // position de la bombe en cases de map
     int lifespan; //duree de vie de la premiere animation de la bombe
     int range; //porté de la bombe
     int dist = 0; // distance deja parcourue par la déflagration

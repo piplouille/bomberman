@@ -114,6 +114,8 @@ Bomb::Bomb(char type, int x, int y, Player& p, QGraphicsPixmapItem* parent) : QG
         // On récupère les infos de joueur pour créer la bombe
         posX = x;
         posY = y;
+        i = x / size;
+        j = y / size;
         range = p.get_bomb_range();
         lifespan = p.get_bomb_life(); // à chaque tour ça décroit de 1
         owner = std::make_shared<Player> (p); // permet de savoir quel décompte de bombe modifier à l'explosion
@@ -128,25 +130,26 @@ Bomb::Bomb(char type, int x, int y, Player& p, QGraphicsPixmapItem* parent) : QG
 
     /* Constructeur nouveau AVEC map */
 Bomb::Bomb(char type, int x, int y, Player& p, Map& map, QGraphicsPixmapItem* parent): Bomb(type, x, y, p, parent) {
+    qDebug() << x << " et " << y;
     if (p.able_bomb()) {
         // On ajoute les pointeurs vers les blocs qui seront touchés
         int width = map.get_width();
         int length = map.get_length();
 
-        touched.push_back(std::make_shared<Bloc> (*map.begin(x, y)));
+        touched.push_back(std::make_shared<Bloc> (*map.begin(i, j)));
         
         for (int indice = 1; indice < range; indice ++) {
-            if ((x-indice) >= 0) {
-                touched.push_back(std::make_shared<Bloc> (*map.begin(x-indice, y)));
+            if ((i-indice) >= 0) {
+                touched.push_back(std::make_shared<Bloc> (*map.begin(i-indice, j)));
             }
-            if ((x+indice) < width) {
-                touched.push_back(std::make_shared<Bloc> (*map.begin(x+indice, y)));
+            if ((i+indice) < width) {
+                touched.push_back(std::make_shared<Bloc> (*map.begin(i+indice, j)));
             }
-            if ((y-indice) >= 0) {
-                touched.push_back(std::make_shared<Bloc> (*map.begin(x, y-indice)));
+            if ((j-indice) >= 0) {
+                touched.push_back(std::make_shared<Bloc> (*map.begin(i, j-indice)));
             }
-            if ((y+indice) < length) {
-                touched.push_back(std::make_shared<Bloc> (*map.begin(x, y+indice)));
+            if ((j+indice) < length) {
+                touched.push_back(std::make_shared<Bloc> (*map.begin(i, j+indice)));
             }            
         }
     }
