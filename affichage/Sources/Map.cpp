@@ -142,7 +142,8 @@ void Map::keyPressEvent(QKeyEvent *event) {
     }
 
     else if(event->key() == Qt::Key_Space) {
-        player1 -> dropBomb('C');
+        //player1 -> dropBomb('C');
+        put_bomb(*player1);
     }
 
     else if(event->key() == Qt::Key_B) {
@@ -237,6 +238,7 @@ void Map::put_bomb(Player &p) {
             std::cout << "Pas possible de poser" << std::endl;
         }
         else {
+            player1 -> dropBomb('C');
             std::cout << "J'ai posé" << std::endl;
         }
         bloc->unlock();
