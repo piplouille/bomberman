@@ -17,12 +17,12 @@ Map::Map(int aWidth, int aLength,Player* n_player1,Player* n_player2, QGraphicsP
     // }
     // on va dire que le contour de la map sont des murs
     for (int i = 0 ; i < width ; i++) {
-        begin(i, 0)->set_type(0);
-        begin(i, length - 1)->set_type(0);
+        begin(i, 0)->set_type(0,i,0);
+        begin(i, length - 1)->set_type(0,i,length-1);
     }
     for (int j = 0; j < length ; j++) {
-        begin(0, j)->set_type(0);
-        begin(width - 1, j)->set_type(0);
+        begin(0, j)->set_type(0,0,j);
+        begin(width - 1, j)->set_type(0,width-1,j);
     }
 
     player1 = n_player1;

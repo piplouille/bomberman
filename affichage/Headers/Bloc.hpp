@@ -7,7 +7,7 @@
 #include "Headers/Player.hpp"
 #include "Headers/Bomb.hpp"
 
-class Bloc : public std::mutex {
+class Bloc : public std::mutex, public QGraphicsPixmapItem {
     /*
     Maintenant, je peux bloquer l'accès au bloc quand je veux
     */
@@ -16,9 +16,10 @@ class Bloc : public std::mutex {
     int item;
     std::shared_ptr<Player> player; // nullptr si personne dessus ; shared_ptr permet aux autres blocs etc de lire
     std::shared_ptr<Bomb> bomb;
+    QPixmap image;
 
     public:
-    Bloc() : type(1), item(0), player(nullptr), bomb(nullptr) {
+    Bloc(QGraphicsPixmapItem* parent=nullptr) : type(1), item(0), player(nullptr), bomb(nullptr), QGraphicsPixmapItem(parent) {
 
     }
 
@@ -46,6 +47,17 @@ class Bloc : public std::mutex {
 
     void set_type(int x) {
         type = x;
+    }
+    void set_type(int type,int x,int y) {
+        this -> type = type;
+        if(type==0){
+            image = QPixmap(":/Resources/Land/Mur_32.png");
+            image = image.scaled(QSize(32,32), Qt::KeepAspectRatio);
+            setPixmap(image);
+            setPos(y*32,x*32);
+            qDebug() << "l'image devrait s'afficher aux coordonnées (" << y*32 << ", " << x*32 << ")";
+            qDebug() << "Mais au lieu de cela elle s'affiche aux coordonnées (" << this->x() << ", " << this->y() << ")";
+        }
     }
 
     bool set_player(Player& n_player);
