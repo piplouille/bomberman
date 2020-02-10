@@ -98,9 +98,9 @@ Gestionnaire d'event concernant player
 // }
 
 /*
-Mort
-A checker ?
+Player pose une bombe
 */
+
 
 void Player::dropBomb(char type){
     if (type=='C') {
@@ -114,6 +114,11 @@ void Player::dropBomb(char type){
         scene() -> addItem(bb);
     }
 }
+
+/*
+Mort
+A checker ?
+*/
 
 void Player::death() {
     qDebug() << "Le joueur est entré dans la mort";

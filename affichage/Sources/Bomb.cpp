@@ -6,10 +6,10 @@
 Constructeurs
 */
 
+    /* Constructeur que Laetitia n'aime pas */
 Bomb::Bomb(char type, int x, int y, int lifespan, int range, Player* joueur1, Player* joueur2 ,
     Player* joueur3 ,Player* joueur4 ,QGraphicsPixmapItem* parent) :
     QGraphicsPixmapItem (parent) {
-    
     this->joueur1 = joueur1;
     this->joueur2 = joueur2;
     this->joueur3 = joueur3;
@@ -64,6 +64,7 @@ Bomb::Bomb(char type, int x, int y, int lifespan, int range, Player* joueur1, Pl
     QTimer::singleShot(1000, this, SLOT(flashing()));
 }
 
+    /* Constructeur nouveau sans map*/
 Bomb::Bomb(char type, int x, int y, Player& p, QGraphicsPixmapItem* parent) {
     if (p.able_bomb()) {
         if(type == 'C') {
@@ -123,6 +124,7 @@ Bomb::Bomb(char type, int x, int y, Player& p, QGraphicsPixmapItem* parent) {
     }
 }
 
+    /* Constructeur nouveau AVEC map */
 Bomb::Bomb(char type, int x, int y, Player& p, Map& map, QGraphicsPixmapItem* parent): Bomb(type, x, y, p, parent) {
     if (p.able_bomb()) {
         // On ajoute les pointeurs vers les blocs qui seront touchés
@@ -148,6 +150,7 @@ Bomb::Bomb(char type, int x, int y, Player& p, Map& map, QGraphicsPixmapItem* pa
     }
 }
 
+    /* Constructeur ancien de fck */
 Bomb::Bomb(Player& p, Map& map) {
     if (p.able_bomb()) {
         // On récupère les infos de joueur pour créer la bombe
