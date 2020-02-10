@@ -136,20 +136,20 @@ Bomb::Bomb(char type, int x, int y, Player& p, Map& map, QGraphicsPixmapItem* pa
         int width = map.get_width();
         int length = map.get_length();
 
-        touched.push_back(std::make_shared<Bloc> (*map.begin(i, j)));
+        touched.push_back(map.begin(i, j));
         
         for (int indice = 1; indice < range; indice ++) {
             if ((i-indice) >= 0) {
-                touched.push_back(std::make_shared<Bloc> (*map.begin(i-indice, j)));
+                touched.push_back(map.begin(i-indice, j));
             }
             if ((i+indice) < width) {
-                touched.push_back(std::make_shared<Bloc> (*map.begin(i+indice, j)));
+                touched.push_back(map.begin(i+indice, j));
             }
             if ((j-indice) >= 0) {
-                touched.push_back(std::make_shared<Bloc> (*map.begin(i, j-indice)));
+                touched.push_back(map.begin(i, j-indice));
             }
             if ((j+indice) < length) {
-                touched.push_back(std::make_shared<Bloc> (*map.begin(i, j+indice)));
+                touched.push_back(map.begin(i, j+indice));
             }            
         }
     }
@@ -169,22 +169,22 @@ Bomb::Bomb(Player& p, Map& map) {
         int width = map.get_width();
         int length = map.get_length();
 
-        touched.push_back(std::make_shared<Bloc> (*map.begin(posX, posY)));
+        // touched.push_back(std::make_shared<Bloc> (*map.begin(posX, posY)));
         
-        for (int indice = 1; indice < range; indice ++) {
-            if ((posX-indice) >= 0) {
-                touched.push_back(std::make_shared<Bloc> (*map.begin(posX-indice, posY)));
-            }
-            if ((posX+indice) < width) {
-                touched.push_back(std::make_shared<Bloc> (*map.begin(posX+indice, posY)));
-            }
-            if ((posY-indice) >= 0) {
-                touched.push_back(std::make_shared<Bloc> (*map.begin(posX, posY-indice)));
-            }
-            if ((posY+indice) < length) {
-                touched.push_back(std::make_shared<Bloc> (*map.begin(posX, posY+indice)));
-            }            
-        }
+        // for (int indice = 1; indice < range; indice ++) {
+        //     if ((posX-indice) >= 0) {
+        //         touched.push_back(std::make_shared<Bloc> (*map.begin(posX-indice, posY)));
+        //     }
+        //     if ((posX+indice) < width) {
+        //         touched.push_back(std::make_shared<Bloc> (*map.begin(posX+indice, posY)));
+        //     }
+        //     if ((posY-indice) >= 0) {
+        //         touched.push_back(std::make_shared<Bloc> (*map.begin(posX, posY-indice)));
+        //     }
+        //     if ((posY+indice) < length) {
+        //         touched.push_back(std::make_shared<Bloc> (*map.begin(posX, posY+indice)));
+        //     }            
+        // }
 
         p.decrease_bomb_quota();
     }

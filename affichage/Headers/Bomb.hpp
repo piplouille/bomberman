@@ -29,7 +29,7 @@ private:
     int state = 0; // etat de l'animation
 
     std::shared_ptr<Player> owner;
-    std::vector<std::shared_ptr<Bloc> > touched; // l'ensemble des blocs que la bombe va atteindre, en 0 sa case
+    std::vector<std::vector<Bloc>::iterator > touched; // l'ensemble des blocs que la bombe va atteindre, en 0 sa case
     
     // faire tableau statique
     QPixmap im_flashing_1;
