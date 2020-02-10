@@ -1,5 +1,4 @@
 #include "Headers/Player.hpp"
-#include "Headers/Bomb.hpp"
 
 /*
 Constructeurs

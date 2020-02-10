@@ -15,6 +15,8 @@
 
 #include <QString>
 
+class Bomb;
+
 class Player : public QObject, public QGraphicsPixmapItem {
     Q_OBJECT
 private:
@@ -62,6 +64,8 @@ public:
 public slots:
     void disappear();
 };
+
+#include "Headers/Bomb.hpp"
 
 /*------------------------------------------------*/
 
