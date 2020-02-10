@@ -28,7 +28,7 @@ private:
     int dist = 0; // distance deja parcourue par la déflagration
     int state = 0; // etat de l'animation
 
-    std::shared_ptr<Player> owner;
+    Player* owner;
     std::vector<std::vector<Bloc>::iterator > touched; // l'ensemble des blocs que la bombe va atteindre, en 0 sa case
     
     // faire tableau statique
@@ -65,8 +65,8 @@ public:
 
     // pour pouvoir compiler
     Bomb(Player&, Map&);
-
-    ~Bomb(){scene() -> removeItem(this);}
+    
+    ~Bomb();
 
     int get_life() {return lifespan;}
     void decrease_life() {lifespan--;}

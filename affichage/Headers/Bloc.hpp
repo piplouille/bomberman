@@ -15,7 +15,7 @@ class Bloc : public std::mutex, public QGraphicsPixmapItem {
     int type; // 0 pour mur, 1 pour herbe
     int item;
     std::shared_ptr<Player> player; // nullptr si personne dessus ; shared_ptr permet aux autres blocs etc de lire
-    std::shared_ptr<Bomb> bomb;
+    Bomb* bomb;
     QPixmap image;
 
     public:
@@ -35,7 +35,7 @@ class Bloc : public std::mutex, public QGraphicsPixmapItem {
     }
 
     inline std::shared_ptr<Player> get_player() {return player;} // on récupère s'il y a un joueur sur le bloc
-    inline std::shared_ptr<Bomb> get_bomb() {return bomb;}
+    inline Bomb* get_bomb() {return bomb;}
 
     bool available() {
         return ((player == nullptr) && bomb == nullptr && type == 1);
@@ -63,7 +63,7 @@ class Bloc : public std::mutex, public QGraphicsPixmapItem {
     bool set_player(Player& n_player);
     void erase_player() {player = nullptr;}
 
-    bool set_bomb(std::shared_ptr<Bomb>);
+    bool set_bomb(Bomb*);
     void remove_bomb() {bomb = nullptr;}
 
     void print();

@@ -29,7 +29,7 @@ private:
     QPixmap im_dead;
     unsigned int num_player; //numéro du joueur
 
-    int posX, posY; //coordonnées => Voir si je peux m'en passer et prendre la fonction x() de Qt
+    int posX, posY; //coordonnées en cases
     unsigned int bomb_range, bomb_life, bomb_quota;
     unsigned int lives; //nombre de vies    
 
@@ -59,7 +59,9 @@ public:
     void set_xy(int n_x, int n_y) {posY = n_x; posX = n_y;setPos(posX*size,posY*size); }
     void move(int up, int left) {posX+=(left*size);posY+=(up*size);}
     bool able_bomb() {return ((bomb_quota) > 0);}
+    int get_bomb_quota() {return bomb_quota;}
     void decrease_bomb_quota() {bomb_quota--;}
+    void increase_bomb_quota() {bomb_quota++;}
     int get_bomb_range() {return bomb_range;}
     int get_bomb_life() {return bomb_life;}
 

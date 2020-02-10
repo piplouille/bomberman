@@ -27,7 +27,7 @@ void Bloc::print() {
     }
 }
 
-bool Bloc::set_bomb(std::shared_ptr<Bomb> n_bomb) {
+bool Bloc::set_bomb(Bomb* n_bomb) {
     if (bomb_available()) {
         // bomb = std::make_shared<Bomb> (n_bomb);
         bomb = n_bomb;

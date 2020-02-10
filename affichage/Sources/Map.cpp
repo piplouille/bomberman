@@ -222,27 +222,30 @@ void Map::move_player(Player &player, int move) {
 
 
 void Map::put_bomb(Player &p) {
-    // On vérifie que joueur peut encore poser une bombe
-    if (p.able_bomb()) {
-        // On appelle un fonction qui init bombe de player
-        // Bomb bomb(p, *this);
-        std::shared_ptr<Bomb> bomb(new Bomb(p, *this));
+    p.dropBomb('C', *this);
 
-        // On pose la bombe sur le bloc si possible
-        auto bloc = begin(p.get_x(), p.get_y());
-        bloc->lock();
-        bool move_done = bloc->set_bomb(bomb);
-        if (!move_done) {
-            // On détruit la bombe
-            delete(&bomb);
-            std::cout << "Pas possible de poser" << std::endl;
-        }
-        else {
-            player1 -> dropBomb('C', *this);
-            std::cout << "J'ai posé" << std::endl;
-        }
-        bloc->unlock();
-    }
+    // // On vérifie que joueur peut encore poser une bombe
+    // if (p.able_bomb()) {
+    //     // On appelle un fonction qui init bombe de player
+    //     // Bomb bomb(p, *this);
+    //     std::shared_ptr<Bomb> bomb(new Bomb(p, *this));
+
+    //     // On pose la bombe sur le bloc si possible
+    //     // auto bloc = begin(p.get_x(), p.get_y());
+    //     // bloc->lock();
+    //     // bool move_done = bloc->set_bomb(bomb);
+    //     // if (!move_done) {
+    //     //     // On détruit la bombe
+    //     //     delete(&bomb);
+    //     //     p.increase_bomb_quota();
+    //     //     std::cout << "Pas possible de poser" << std::endl;
+    //     // }
+    //     // else {
+    //     //     player1 -> dropBomb('C', *this);
+    //     //     std::cout << "J'ai posé" << std::endl;
+    //     // }
+    //     // bloc->unlock();
+    // }
 }
 
 void Map::update_bomb() {

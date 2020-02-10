@@ -118,7 +118,7 @@ Bomb::Bomb(char type, int x, int y, Player& p, QGraphicsPixmapItem* parent) : QG
         j = y / size;
         range = p.get_bomb_range();
         lifespan = p.get_bomb_life(); // à chaque tour ça décroit de 1
-        owner = std::make_shared<Player> (p); // permet de savoir quel décompte de bombe modifier à l'explosion
+        owner = &p; // permet de savoir quel décompte de bombe modifier à l'explosion
         
         this -> setPixmap(im_flashing_1);
         setPos(posX,posY);
@@ -162,7 +162,7 @@ Bomb::Bomb(Player& p, Map& map) {
         posX = p.get_x();
         posY = p.get_y();
         range = p.get_bomb_range();
-        owner = std::make_shared<Player> (p); // permet de savoir quel décompte de bombe modifier à l'explosion
+        owner = &p; // permet de savoir quel décompte de bombe modifier à l'explosion
         lifespan = p.get_bomb_life(); // à chaque tour ça décroit de 1
 
         // On ajoute les pointeurs vers les blocs qui seront touchés
@@ -190,11 +190,19 @@ Bomb::Bomb(Player& p, Map& map) {
     }
 }
 
+Bomb::~Bomb() {
+    qDebug() << "MON PERE EST : " << QString("0x%1").arg((quintptr)owner, QT_POINTER_SIZE * 2, 16, QChar('0'));
+    scene() -> removeItem(this);
+    touched[0]->remove_bomb();
+    owner->increase_bomb_quota();
+}
+
 /*
 Affichage bombe
 */
 
 void Bomb::flashing() {
+    qDebug() << "debut flashing";
     lifespan -= 30;
     if(lifespan <= 0) {
         state = 1;
@@ -219,7 +227,7 @@ Explosion
 */
 
 void Bomb::blast() {
-
+    qDebug() << "début blast";
     dist++;
     if(dist<range) {
         // create image objects that shall be destroyed
@@ -297,6 +305,7 @@ void Bomb::blast() {
 
 
 void Bomb::exploding() {
+    qDebug() << "exploding";
     state++;
     int interval = 50;
     switch(state) {
