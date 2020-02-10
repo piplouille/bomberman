@@ -65,7 +65,11 @@ Bomb::Bomb(char type, int x, int y, int lifespan, int range, Player* joueur1, Pl
 }
 
     /* Constructeur nouveau sans map*/
-Bomb::Bomb(char type, int x, int y, Player& p, QGraphicsPixmapItem* parent) {
+Bomb::Bomb(char type, int x, int y, Player& p, QGraphicsPixmapItem* parent) : QGraphicsPixmapItem (parent) {
+    joueur1 = nullptr;
+    joueur2 = nullptr;
+    joueur3 = nullptr;
+    joueur4 = nullptr;
     if (p.able_bomb()) {
         if(type == 'C') {
             im_flashing_1 = QPixmap(":/Resources/Classic_bomb/Bomb_Flashing_1.png");
@@ -110,8 +114,6 @@ Bomb::Bomb(char type, int x, int y, Player& p, QGraphicsPixmapItem* parent) {
         // On récupère les infos de joueur pour créer la bombe
         posX = x;
         posY = y;
-        // x = p.get_x();
-        // y = p.get_y();
         range = p.get_bomb_range();
         lifespan = p.get_bomb_life(); // à chaque tour ça décroit de 1
         owner = std::make_shared<Player> (p); // permet de savoir quel décompte de bombe modifier à l'explosion
