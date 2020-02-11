@@ -20,7 +20,15 @@ class Bloc : public std::mutex, public QGraphicsPixmapItem {
 
     public:
     Bloc(QGraphicsPixmapItem* parent=nullptr) : type(1), item(0), player(nullptr), bomb(nullptr), QGraphicsPixmapItem(parent) {
+        qDebug() << "bloc créée";
+        setPos(0,0);
+        setPixmap(QPixmap(":/Resources/PLayer/Plyer_1_centre.png"));
+    }
 
+    Bloc(int x, int y, QGraphicsPixmapItem* parent=nullptr) : type(1), item(0), player(nullptr), bomb(nullptr), QGraphicsPixmapItem(parent) {
+        qDebug() << "bloc créée";
+        setPos(y*32,x*32);
+        setPixmap(QPixmap(":/Resources/Land/Sol.png").scaled(QSize(32,32),Qt::KeepAspectRatio));
     }
 
     Bloc (int n_type, int n_item, Player &n_player, Bomb &n_bomb)
@@ -47,16 +55,18 @@ class Bloc : public std::mutex, public QGraphicsPixmapItem {
 
     void set_type(int x) {
         type = x;
+        if(type==0){
+            image = QPixmap(":/Resources/Land/Mur_16.png");
+            image = image.scaled(QSize(32,32), Qt::KeepAspectRatio);;
+            setPixmap(image);
     }
     void set_type(int type,int x,int y) {
         this -> type = type;
         if(type==0){
-            image = QPixmap(":/Resources/Land/Mur_32.png");
+            image = QPixmap(":/Resources/Land/Mur_16.png");
             image = image.scaled(QSize(32,32), Qt::KeepAspectRatio);
-            setPixmap(image);
             setPos(y*32,x*32);
-            qDebug() << "l'image devrait s'afficher aux coordonnées (" << y*32 << ", " << x*32 << ")";
-            qDebug() << "Mais au lieu de cela elle s'affiche aux coordonnées (" << this->x() << ", " << this->y() << ")";
+            setPixmap(image);
         }
     }
 
