@@ -29,6 +29,7 @@ private:
     int state = 0; // etat de l'animation
 
     Player* owner;
+    Bloc* current;
     std::vector<Bloc* > touched; // l'ensemble des blocs que la bombe va atteindre, en 0 sa case
     
     // faire tableau statique
@@ -62,6 +63,7 @@ public:
     // à terme : virer char et virer int et int
     Bomb(char, int, int, Player&, QGraphicsPixmapItem* parent=nullptr);
     Bomb(char, int, int, Player&, Map&, QGraphicsPixmapItem* parent=nullptr);
+    Bomb(char type, int x, int y, Player& p, Bloc& bloc, QGraphicsPixmapItem* parent=nullptr);
 
     // pour pouvoir compiler
     Bomb(Player&, Map&);
