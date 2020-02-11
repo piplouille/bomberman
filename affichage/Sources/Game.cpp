@@ -13,6 +13,8 @@
 
 Game::Game(QWidget* parent){
     // create the view
+    setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     fenetre = new QGraphicsView();
     fenetre -> resize(640,480);
 
