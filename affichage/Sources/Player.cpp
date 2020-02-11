@@ -114,27 +114,30 @@ void Player::dropBomb(char type) {
 }
 
 void Player::dropBomb(char type, Map& map) {
-    qDebug() << "MON NUM EST : " << QString("0x%1").arg((quintptr)this, QT_POINTER_SIZE * 2, 16, QChar('0'));
     qDebug() << bomb_quota;
     if (able_bomb()) {
         if (type=='C') {
-            Bomb* bb = new Bomb('C', x(), y(), *this, map);
-
-
             auto bloc = map.begin(get_x(), get_y());
             bloc->lock();
-            bool move_done = bloc->set_bomb(bb);
 
-            if (!move_done) {
-                // On détruit la bombe
-                delete(bb);
-                increase_bomb_quota();
-                std::cout << "Pas possible de poser" << std::endl;
-            }
+            if (bloc->bomb_available()) {
+                Bomb* bb = new Bomb('C', x(), y(), *this, map);
+                qDebug() << "JE SUIS EN : " << QString("0x%1").arg((quintptr)&(*bloc), QT_POINTER_SIZE * 2, 16, QChar('0'));
+                qDebug() << "MON NUM EST : " << QString("0x%1").arg((quintptr)bb, QT_POINTER_SIZE * 2, 16, QChar('0'));
 
-            else {
-                qDebug() << "Classic bomb dropped";
-                scene() -> addItem(bb);
+                bool move_done = bloc->set_bomb(bb);
+
+                if (!move_done) {
+                    // On détruit la bombe
+                    delete(bb);
+                    increase_bomb_quota();
+                    std::cout << "Pas possible de poser" << std::endl;
+                }
+
+                else {
+                    qDebug() << "Classic bomb dropped";
+                    scene() -> addItem(bb);
+                }
             }
             bloc->unlock();
             qDebug() << "fin du drop";
