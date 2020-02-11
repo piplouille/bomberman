@@ -18,10 +18,12 @@ private:
     Player* player;
 
     int player_selected; // pour le menu ok
+    int map_width;
 
     QGraphicsView *fenetre;
     QGraphicsPixmapItem * character_selected;
     QGraphicsTextItem* character_name;
+    QGraphicsTextItem* map_display;
     Map *map;
     int intervalle;
     std::chrono::time_point<std::chrono::system_clock> beginning, end, elapsed_time;
@@ -36,6 +38,8 @@ public slots:
     void start();
     void selectionMenu();
     void player_selection(int num);
+    void options();
+    void map_selected(int num);
     // void secondGame();
     // void bombDropped();
     // void mort(Player* p);

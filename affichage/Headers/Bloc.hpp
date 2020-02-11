@@ -64,7 +64,7 @@ class Bloc : public std::mutex, public QGraphicsPixmapItem {
     void set_type(int type,int x,int y) {
         this -> type = type;
         if(type==0){
-            image = QPixmap(":/Resources/Land/Mur_16.png");
+            image = QPixmap(":/Resources/Land/MurBlanc_16.png");
             image = image.scaled(QSize(32,32), Qt::KeepAspectRatio);
             setPos(y*32,x*32);
             setPixmap(image);
