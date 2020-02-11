@@ -149,11 +149,12 @@ void Map::keyPressEvent(QKeyEvent *event) {
 
     else if(event->key() == Qt::Key_Space) {
         //player1 -> dropBomb('C');
-        put_bomb(*player1);
+        put_bomb('C', *player1);
     }
 
     else if(event->key() == Qt::Key_B) {
-        player1 -> dropBomb('B');
+        // player1 -> dropBomb('B');
+        put_bomb('B', *player1);
     }
 
     else if(event->key() == Qt::Key_Q) {
@@ -227,8 +228,8 @@ void Map::move_player(Player &player, int move) {
 */
 
 
-void Map::put_bomb(Player &p) {
-    p.dropBomb('C', *this);
+void Map::put_bomb(char type, Player &p) {
+    p.dropBomb(type, *this);
 
     // // On vérifie que joueur peut encore poser une bombe
     // if (p.able_bomb()) {

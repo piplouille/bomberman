@@ -136,20 +136,20 @@ Bomb::Bomb(char type, int x, int y, Player& p, Map& map, QGraphicsPixmapItem* pa
         int width = map.get_width();
         int length = map.get_length();
 
-        touched.push_back(map.begin(i, j));
+        touched.push_back(&(*map.begin(i, j)));
         
         for (int indice = 1; indice < range; indice ++) {
             if ((i-indice) >= 0) {
-                touched.push_back(map.begin(i-indice, j));
+                touched.push_back(&(*map.begin(i-indice, j)));
             }
             if ((i+indice) < width) {
-                touched.push_back(map.begin(i+indice, j));
+                touched.push_back(&(*map.begin(i+indice, j)));
             }
             if ((j-indice) >= 0) {
-                touched.push_back(map.begin(i, j-indice));
+                touched.push_back(&(*map.begin(i, j-indice)));
             }
             if ((j+indice) < length) {
-                touched.push_back(map.begin(i, j+indice));
+                touched.push_back(&(*map.begin(i, j+indice)));
             }            
         }
     }
@@ -191,7 +191,8 @@ Bomb::Bomb(Player& p, Map& map) {
 }
 
 Bomb::~Bomb() {
-    qDebug() << "MON PERE EST : " << QString("0x%1").arg((quintptr)owner, QT_POINTER_SIZE * 2, 16, QChar('0'));
+    qDebug() << "JE SUIS EN : " << QString("0x%1").arg((quintptr)&(*touched[0]), QT_POINTER_SIZE * 2, 16, QChar('0'));
+    qDebug() << "MON NUM EST : " << QString("0x%1").arg((quintptr)this, QT_POINTER_SIZE * 2, 16, QChar('0'));
     scene() -> removeItem(this);
     touched[0]->remove_bomb();
     owner->increase_bomb_quota();

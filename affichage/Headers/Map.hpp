@@ -42,7 +42,7 @@ class Map : public QGraphicsPixmapItem {
     void init_player(Player&, int, int); // placer un joueur sur la map
     void move_player(Player&, int); // déplacer un joueur de manière relative
     
-    void put_bomb(Player&);
+    void put_bomb(char, Player&);
     void update_bomb();
 
     void print(Player&);
