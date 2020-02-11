@@ -18,7 +18,7 @@ private:
     Player* player;
 
     int player_selected; // pour le menu ok
-    int map_size;
+    int map_width;
 
     QGraphicsView *fenetre;
     QGraphicsPixmapItem * character_selected;

@@ -207,6 +207,7 @@ void Game::options() {
     selection -> addButton(mapSize3,3);
     selection -> addButton(mapSize4,4);
     mapSize2 -> setChecked(true);
+    map_width = 15;
 
     connect(selection,SIGNAL(buttonClicked(int)),this,SLOT(map_selected(int)));
 
@@ -223,7 +224,7 @@ void Game::options() {
 /*----------------------------------------------------------------------------------*/
 
 void Game::map_selected(int i) {
-    map_size = i;
+    map_width = (i+1)*5;
     switch(i) {
         case 1:
             map_display -> setPlainText(QString("Small"));
