@@ -140,6 +140,7 @@ void Player::dropBomb(char type, Map* map) {
 
  //               else {
                 scene() -> addItem(bb);
+                bool move_done = map -> begin(this->get_x(),this->get_y())->set_bomb(bb);
                 qDebug() << "Classic bomb dropped";
   //              }
   //          }
@@ -150,6 +151,7 @@ void Player::dropBomb(char type, Map* map) {
         else if(type=='B') {
             Bomb* bb = new Bomb('B', bomb_life, bomb_range, this, map);
             scene() -> addItem(bb);
+            bool move_done = map -> begin(this->get_x(),this->get_y())->set_bomb(bb);
             qDebug() << "Bombitrouille dropped";
         }
   //  }

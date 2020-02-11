@@ -260,11 +260,12 @@ void Bomb::blast() {
         blaU -> setParentItem(this);
         blaD -> setParentItem(this);
         // add to the scene
-        
-        QTimer::singleShot(40,this,SLOT(blast()));
 
-        if(map->begin(i+dist,j)->hit_player())
-            qDebug() << "player hitted";
+        if(map->begin(i+dist,j)->hit_player() || map->begin(i-dist,j)->hit_player() || map->begin(i,j+dist)->hit_player() || map->begin(i,j-dist)->hit_player()) {
+            qDebug() << "player hitted!!!!!!!!!!!!!!!!";
+        }
+
+        QTimer::singleShot(40,this,SLOT(blast()));
         // if(blaL -> collidesWithItem(joueur1)==true || blaR -> collidesWithItem(joueur1)==true || blaU -> collidesWithItem(joueur1)==true || blaD -> collidesWithItem(joueur1)==true){
         //     emit player_touched(joueur1);
         // }
@@ -300,6 +301,11 @@ void Bomb::blast() {
         blaR -> setParentItem(this);
         blaU -> setParentItem(this);
         blaD -> setParentItem(this);
+
+        if(map->begin(i+dist,j)->hit_player() || map->begin(i-dist,j)->hit_player() || map->begin(i,j+dist)->hit_player() || map->begin(i,j-dist)->hit_player()) {
+            qDebug() << "player hitted!!!!!!!!!!!!!!!!";
+        }
+
         QTimer::singleShot(300,this,SLOT(blast()));
         // if(blaL -> collidesWithItem(joueur1)==true || blaR -> collidesWithItem(joueur1)==true || blaU -> collidesWithItem(joueur1)==true || blaD -> collidesWithItem(joueur1)==true){
         //     emit player_touched(joueur1);
