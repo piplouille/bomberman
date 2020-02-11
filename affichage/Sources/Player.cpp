@@ -117,19 +117,19 @@ void Player::dropBomb(char type, Map& map) {
     qDebug() << bomb_quota;
     if (able_bomb()) {
         if (type=='C') {
-            // auto bloc = map.begin(get_x(), get_y());
+            auto bloc = map.begin(get_x(), get_y());
             qDebug() << "AVANT : " << QString("0x%1").arg((quintptr)&(map.get_area()[get_x()][get_y()]), QT_POINTER_SIZE * 2, 16, QChar('0'));
-
+            // Bloc* bloc = &map.get_area()[get_x()][get_y()];
             // bloc->lock();
-            map.get_area()[get_x()][get_y()].lock();
+            bloc->lock();
 
-            if (map.get_area()[get_x()][get_y()].bomb_available()) {
-                Bomb* bb = new Bomb('C', x(), y(), *this, map);
-                qDebug() << "JE SUIS EN : " << QString("0x%1").arg((quintptr)&(*map.begin(get_x(), get_y())), QT_POINTER_SIZE * 2, 16, QChar('0'));
-                qDebug() << "MON NUM EST : " << QString("0x%1").arg((quintptr)bb, QT_POINTER_SIZE * 2, 16, QChar('0'));
+            if (bloc->bomb_available()) {
+                Bomb* bb = new Bomb('C', x(), y(), *this, *bloc);
+                // qDebug() << "JE SUIS EN : " << QString("0x%1").arg((quintptr)&(*map.begin(get_x(), get_y())), QT_POINTER_SIZE * 2, 16, QChar('0'));
+                // qDebug() << "MON NUM EST : " << QString("0x%1").arg((quintptr)bb, QT_POINTER_SIZE * 2, 16, QChar('0'));
 
                 // bool move_done = bloc->set_bomb(bb);
-                bool move_done = map.get_area()[get_x()][get_y()].set_bomb(bb);
+                bool move_done = bloc->set_bomb(bb);
 
                 if (!move_done) {
                     // On détruit la bombe
@@ -143,7 +143,7 @@ void Player::dropBomb(char type, Map& map) {
                     scene() -> addItem(bb);
                 }
             }
-            map.get_area()[get_x()][get_y()].unlock();
+            bloc->unlock();
             qDebug() << "fin du drop";
         }
 

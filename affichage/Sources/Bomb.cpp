@@ -159,6 +159,12 @@ Bomb::Bomb(char type, int x, int y, Player& p, Map& map, QGraphicsPixmapItem* pa
     }
 }
 
+Bomb::Bomb(char type, int x, int y, Player& p, Bloc& bloc, QGraphicsPixmapItem* parent): Bomb(type, x, y, p, parent) {
+    if (p.able_bomb()) {
+        current = &bloc;
+    }
+}
+
     /* Constructeur ancien de fck */
 Bomb::Bomb(Player& p, Map& map) {
     if (p.able_bomb()) {
@@ -198,7 +204,7 @@ Bomb::~Bomb() {
     qDebug() << "JE SUIS EN : " << QString("0x%1").arg((quintptr)touched[0], QT_POINTER_SIZE * 2, 16, QChar('0'));
     qDebug() << "MON NUM EST : " << QString("0x%1").arg((quintptr)this, QT_POINTER_SIZE * 2, 16, QChar('0'));
     scene() -> removeItem(this);
-    touched[0]->remove_bomb();
+    current->remove_bomb();
     owner->increase_bomb_quota();
 }
 
