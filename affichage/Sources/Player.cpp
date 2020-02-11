@@ -1,5 +1,9 @@
 #include "Headers/Player.hpp"
 
+// TODO : Gérer le quota de bombes
+// TODO : créer des objets ou augmenter la portée des bombes régulièrement
+
+
 /*
 Constructeurs
 */
