@@ -29,7 +29,7 @@ Map::Map(int aWidth, int aLength,Player* n_player1,Player* n_player2, QGraphicsP
         begin(0, j)->set_type(0,0,j);
         begin(width - 1, j)->set_type(0,width-1,j);
     }
-    //setPixmap(QPixmap(":/Resources/Land/Mur_32.png"));
+    begin(5, 5)->set_type(0,5,5);
 
     player1 = n_player1;
 
