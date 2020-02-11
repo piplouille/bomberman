@@ -56,6 +56,8 @@ class Map : public QGraphicsPixmapItem {
         return length;
     }
 
+    area_type get_area() {return area;}
+
     // std::vector<Bloc>::iterator get_positions(int i) {return positions[i];}
 
     area_type::iterator begin(int);

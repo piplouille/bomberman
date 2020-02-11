@@ -114,8 +114,8 @@ Bomb::Bomb(char type, int x, int y, Player& p, QGraphicsPixmapItem* parent) : QG
         // On récupère les infos de joueur pour créer la bombe
         posX = x;
         posY = y;
-        i = x / size;
-        j = y / size;
+        i = p.get_x();
+        j = p.get_y();
         range = p.get_bomb_range();
         lifespan = p.get_bomb_life(); // à chaque tour ça décroit de 1
         owner = &p; // permet de savoir quel décompte de bombe modifier à l'explosion
@@ -136,8 +136,12 @@ Bomb::Bomb(char type, int x, int y, Player& p, Map& map, QGraphicsPixmapItem* pa
         int width = map.get_width();
         int length = map.get_length();
 
-        touched.push_back(&(*map.begin(i, j)));
-        
+        qDebug() << "AVANT : " << QString("0x%1").arg((quintptr)&(map.get_area()[i][j]), QT_POINTER_SIZE * 2, 16, QChar('0'));
+        // touched.push_back(&(*map.begin(i, j)));
+        touched.push_back(&(map.get_area()[i][j]));
+        // touched.push_back(&(*(map.get_area()).front()));
+        qDebug() << "APRES : " << QString("0x%1").arg((quintptr)touched[0], QT_POINTER_SIZE * 2, 16, QChar('0'));
+
         for (int indice = 1; indice < range; indice ++) {
             if ((i-indice) >= 0) {
                 touched.push_back(&(*map.begin(i-indice, j)));
@@ -191,7 +195,7 @@ Bomb::Bomb(Player& p, Map& map) {
 }
 
 Bomb::~Bomb() {
-    qDebug() << "JE SUIS EN : " << QString("0x%1").arg((quintptr)&(*touched[0]), QT_POINTER_SIZE * 2, 16, QChar('0'));
+    qDebug() << "JE SUIS EN : " << QString("0x%1").arg((quintptr)touched[0], QT_POINTER_SIZE * 2, 16, QChar('0'));
     qDebug() << "MON NUM EST : " << QString("0x%1").arg((quintptr)this, QT_POINTER_SIZE * 2, 16, QChar('0'));
     scene() -> removeItem(this);
     touched[0]->remove_bomb();
