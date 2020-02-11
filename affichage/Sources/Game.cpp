@@ -60,6 +60,8 @@ void Game::displayStartMenu() {
     quitButton->setPos(qxPos,qyPos);
     connect(quitButton,SIGNAL(clicked()),this,SLOT(close()));
     scene->addItem(quitButton);
+
+    map_width = 20; //taille par défaut
 }
 
 /*----------------------------------------------------------------------------------*/
@@ -177,14 +179,14 @@ void Game::player_selection(int num) {
 void Game::options() {
     //set the scene and the view
     scene -> clear();
-    this->resize(400,360);
-    fenetre -> resize(400,360); //changes the view
-    scene->setSceneRect(0,0,400,360); // changes the scene
+    this->resize(360,360);
+    fenetre -> resize(360,360); //changes the view
+    scene->setSceneRect(0,0,360,360); // changes the scene
 
     //The size of the map
     map_display = new QGraphicsTextItem(QString("Normal"));
     map_display -> setDefaultTextColor(QColor(Qt::white));
-    map_display -> setFont(QFont("System",40,85,false));
+    map_display -> setFont(QFont("System",50,85,false));
     map_display -> setPos(this->width()/2-map_display->boundingRect().width()/2,this->height()/4-map_display->boundingRect().height()/2);
     scene -> addItem(map_display);
 
@@ -207,14 +209,13 @@ void Game::options() {
     selection -> addButton(mapSize3,3);
     selection -> addButton(mapSize4,4);
     mapSize2 -> setChecked(true);
-    map_width = 15;
 
     connect(selection,SIGNAL(buttonClicked(int)),this,SLOT(map_selected(int)));
 
     // Boutton de retour au menu
     Button* returnToMenu = new Button(":/Resources/Menu/Menu.png");
     int bxMenu = fenetre->width()/2 - returnToMenu->boundingRect().width()/2;
-    int byMenu = 3*fenetre->height()/4;-returnToMenu->boundingRect().width()/2;// returnToMenu->boundingRect().height();
+    int byMenu = 3*fenetre->height()/4-returnToMenu->boundingRect().width()/4;// returnToMenu->boundingRect().height();
     returnToMenu->setPos(bxMenu,byMenu);
     connect(returnToMenu,SIGNAL(clicked()),this,SLOT(selectionMenu()));
     scene->addItem(returnToMenu);
@@ -224,7 +225,7 @@ void Game::options() {
 /*----------------------------------------------------------------------------------*/
 
 void Game::map_selected(int i) {
-    map_width = (i+1)*5;
+    map_width = (i+2)*5;
     switch(i) {
         case 1:
             map_display -> setPlainText(QString("Small"));
@@ -257,11 +258,13 @@ void Game::map_selected(int i) {
 
 void Game::start() {
     
+    int map_height = map_width>20 ? 20 : map_width-5;
+
     // clear the scene
     scene -> clear();
-    fenetre->resize(640,480);
-    this->resize(640,480);
-    scene->setSceneRect(0,0,640,480); // changes the scene
+    fenetre->resize(32*map_width,32*map_height);
+    this->resize(32*map_width,32*map_height);
+    scene->setSceneRect(0,0,32*map_width,32*map_height); // changes the scene
     // play background music
     QMediaPlayer * music = new QMediaPlayer();
     music->setMedia(QUrl("qrc:/Resources/Music/01_The_Day_Is_My_Enemy.m4a"));
@@ -270,7 +273,7 @@ void Game::start() {
     // create the player
     Player* player = new Player(player_selected);
     scene->addItem(player);
-    map = new Map(15,20,player);
+    map = new Map(map_height,map_width,player);
     scene ->addItem(map);
     // add the player to the scene
     // map.init_player(*player, 0, 0); // on place maxence en 0,0 parce que j'ai aucune info lol
