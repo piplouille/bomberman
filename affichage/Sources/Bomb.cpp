@@ -214,7 +214,6 @@ Affichage bombe
 */
 
 void Bomb::flashing() {
-    qDebug() << "debut flashing";
     lifespan -= 30;
     if(lifespan <= 0) {
         state = 1;
@@ -239,7 +238,6 @@ Explosion
 */
 
 void Bomb::blast() {
-    qDebug() << "début blast";
     dist++;
     if(dist<range) {
         // create image objects that shall be destroyed
@@ -261,25 +259,24 @@ void Bomb::blast() {
         blaD -> setParentItem(this);
         // add to the scene
 
-        if(map->begin(i+dist,j)->hit_player() || map->begin(i-dist,j)->hit_player() || map->begin(i,j+dist)->hit_player() || map->begin(i,j-dist)->hit_player()) {
-            qDebug() << "player hitted!!!!!!!!!!!!!!!!";
+        if(map->begin(i+dist,j)->hit_player()) {
+            qDebug() << "Joueur " << map->begin(i+dist,j)->getPlayer()->get_num_player() << "touché !!!";
+        }
+        if(map->begin(i-dist,j)->hit_player()) {
+            qDebug() << "Joueur " << map->begin(i-dist,j)->getPlayer()->get_num_player() << "touché !!!";
+        }
+        if(map->begin(i,j+dist)->hit_player()) {
+            qDebug() << "Joueur " << map->begin(i,j+dist)->getPlayer()->get_num_player() << "touché !!!";
+        }
+        if(map->begin(i,j-dist)->hit_player()) {
+            qDebug() << "Joueur " << map->begin(i,j-dist)->getPlayer()->get_num_player() << "touché !!!";
         }
 
         QTimer::singleShot(40,this,SLOT(blast()));
-        // if(blaL -> collidesWithItem(joueur1)==true || blaR -> collidesWithItem(joueur1)==true || blaU -> collidesWithItem(joueur1)==true || blaD -> collidesWithItem(joueur1)==true){
-        //     emit player_touched(joueur1);
-        // }
-        // if(blaL -> collidesWithItem(joueur2)==true || blaR -> collidesWithItem(joueur2)==true || blaU -> collidesWithItem(joueur2)==true || blaD -> collidesWithItem(joueur2)==true){
-        //     emit player_touched(joueur2);
-        // }
-        // if(blaL -> collidesWithItem(joueur3)==true || blaR -> collidesWithItem(joueur3)==true || blaU -> collidesWithItem(joueur3)==true || blaD -> collidesWithItem(joueur3)==true){
-        //     emit player_touched(joueur3);
-        // }
-        // if(blaL -> collidesWithItem(joueur4)==true || blaR -> collidesWithItem(joueur4)==true || blaU -> collidesWithItem(joueur4)==true || blaD -> collidesWithItem(joueur4)==true){
-        //     emit player_touched(joueur4);
-        // }
     }
+
     if(dist>range) {owner-> increase_bomb_quota();delete this;}
+
     else if(dist==range) {
         // create image objects that shall be destroyed
         QGraphicsPixmapItem *blaL = new QGraphicsPixmapItem(im_blast_3_left);
@@ -302,8 +299,20 @@ void Bomb::blast() {
         blaU -> setParentItem(this);
         blaD -> setParentItem(this);
 
-        if(map->begin(i+dist,j)->hit_player() || map->begin(i-dist,j)->hit_player() || map->begin(i,j+dist)->hit_player() || map->begin(i,j-dist)->hit_player()) {
-            qDebug() << "player hitted!!!!!!!!!!!!!!!!";
+        // if(map->begin(i+dist,j)->hit_player() || map->begin(i-dist,j)->hit_player() || map->begin(i,j+dist)->hit_player() || map->begin(i,j-dist)->hit_player()) {
+        //     qDebug() << "player hitted!!!!!!!!!!!!!!!!";
+        // }
+        if(map->begin(i+dist,j)->hit_player()) {
+            qDebug() << "Joueur " << map->begin(i+dist,j)->getPlayer()->get_num_player() << "touché !!!";
+        }
+        if(map->begin(i-dist,j)->hit_player()) {
+            qDebug() << "Joueur " << map->begin(i-dist,j)->getPlayer()->get_num_player() << "touché !!!";
+        }
+        if(map->begin(i,j+dist)->hit_player()) {
+            qDebug() << "Joueur " << map->begin(i,j+dist)->getPlayer()->get_num_player() << "touché !!!";
+        }
+        if(map->begin(i,j-dist)->hit_player()) {
+            qDebug() << "Joueur " << map->begin(i,j-dist)->getPlayer()->get_num_player() << "touché !!!";
         }
 
         QTimer::singleShot(300,this,SLOT(blast()));
@@ -324,7 +333,6 @@ void Bomb::blast() {
 
 
 void Bomb::exploding() {
-    qDebug() << "exploding";
     state++;
     int interval = 50;
     switch(state) {
