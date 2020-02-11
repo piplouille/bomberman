@@ -7,13 +7,15 @@ Constructeurs
 */
 
     /* Constructeur que Laetitia n'aime pas */
-Bomb::Bomb(char type, int x, int y, int lifespan, int range, Player* joueur1, Player* joueur2 ,
-    Player* joueur3 ,Player* joueur4 ,QGraphicsPixmapItem* parent) :
+Bomb::Bomb(char type, int lifespan, int range, Player* poseur, Map* map, QGraphicsPixmapItem* parent) :
     QGraphicsPixmapItem (parent) {
-    this->joueur1 = joueur1;
-    this->joueur2 = joueur2;
-    this->joueur3 = joueur3;
-    this->joueur4 = joueur4;
+    this->map = map;
+    this->owner = poseur;
+    i = owner->get_x();
+    j = owner->get_y();
+    posX = j*32;
+    posY = i*32;
+
     
     if(type == 'C') {
         im_flashing_1 = QPixmap(":/Resources/Classic_bomb/Bomb_Flashing_1.png");
@@ -55,8 +57,6 @@ Bomb::Bomb(char type, int x, int y, int lifespan, int range, Player* joueur1, Pl
     im_blast_2_left = im_blast_2_left.scaled(QSize(size,size),Qt::KeepAspectRatio);
     im_blast_3_left = im_blast_3_left.scaled(QSize(size,size),Qt::KeepAspectRatio);
 
-    this -> posX = x;
-    this -> posY = y;
     this -> setPixmap(im_flashing_1);
     setPos(posX,posY);
     this->lifespan = lifespan;
@@ -129,41 +129,41 @@ Bomb::Bomb(char type, int x, int y, Player& p, QGraphicsPixmapItem* parent) : QG
 }
 
     /* Constructeur nouveau AVEC map */
-Bomb::Bomb(char type, int x, int y, Player& p, Map& map, QGraphicsPixmapItem* parent): Bomb(type, x, y, p, parent) {
-    qDebug() << x << " et " << y;
-    if (p.able_bomb()) {
-        // On ajoute les pointeurs vers les blocs qui seront touchés
-        int width = map.get_width();
-        int length = map.get_length();
+// Bomb::Bomb(char type, int x, int y, Player& p, Map& map, QGraphicsPixmapItem* parent): Bomb(type, x, y, p, parent) {
+//     qDebug() << x << " et " << y;
+//     if (p.able_bomb()) {
+//         // On ajoute les pointeurs vers les blocs qui seront touchés
+//         int width = map.get_width();
+//         int length = map.get_length();
 
-        qDebug() << "AVANT : " << QString("0x%1").arg((quintptr)&(map.get_area()[i][j]), QT_POINTER_SIZE * 2, 16, QChar('0'));
-        // touched.push_back(&(*map.begin(i, j)));
-        touched.push_back(&(map.get_area()[i][j]));
-        // touched.push_back(&(*(map.get_area()).front()));
-        qDebug() << "APRES : " << QString("0x%1").arg((quintptr)touched[0], QT_POINTER_SIZE * 2, 16, QChar('0'));
+//         qDebug() << "AVANT : " << QString("0x%1").arg((quintptr)&(map.get_area()[i][j]), QT_POINTER_SIZE * 2, 16, QChar('0'));
+//         // touched.push_back(&(*map.begin(i, j)));
+//         touched.push_back(&(map.get_area()[i][j]));
+//         // touched.push_back(&(*(map.get_area()).front()));
+//         qDebug() << "APRES : " << QString("0x%1").arg((quintptr)touched[0], QT_POINTER_SIZE * 2, 16, QChar('0'));
 
-        for (int indice = 1; indice < range; indice ++) {
-            if ((i-indice) >= 0) {
-                touched.push_back(&(*map.begin(i-indice, j)));
-            }
-            if ((i+indice) < width) {
-                touched.push_back(&(*map.begin(i+indice, j)));
-            }
-            if ((j-indice) >= 0) {
-                touched.push_back(&(*map.begin(i, j-indice)));
-            }
-            if ((j+indice) < length) {
-                touched.push_back(&(*map.begin(i, j+indice)));
-            }            
-        }
-    }
-}
+//         for (int indice = 1; indice < range; indice ++) {
+//             if ((i-indice) >= 0) {
+//                 touched.push_back(&(*map.begin(i-indice, j)));
+//             }
+//             if ((i+indice) < width) {
+//                 touched.push_back(&(*map.begin(i+indice, j)));
+//             }
+//             if ((j-indice) >= 0) {
+//                 touched.push_back(&(*map.begin(i, j-indice)));
+//             }
+//             if ((j+indice) < length) {
+//                 touched.push_back(&(*map.begin(i, j+indice)));
+//             }            
+//         }
+//     }
+// }
 
-Bomb::Bomb(char type, int x, int y, Player& p, Bloc& bloc, QGraphicsPixmapItem* parent): Bomb(type, x, y, p, parent) {
-    if (p.able_bomb()) {
-        current = &bloc;
-    }
-}
+// Bomb::Bomb(char type, int x, int y, Player& p, Bloc& bloc, QGraphicsPixmapItem* parent): Bomb(type, x, y, p, parent) {
+//     if (p.able_bomb()) {
+//         current = &bloc;
+//     }
+// }
 
     /* Constructeur ancien de fck */
 Bomb::Bomb(Player& p, Map& map) {
@@ -201,10 +201,11 @@ Bomb::Bomb(Player& p, Map& map) {
 }
 
 Bomb::~Bomb() {
-    qDebug() << "JE SUIS EN : " << QString("0x%1").arg((quintptr)touched[0], QT_POINTER_SIZE * 2, 16, QChar('0'));
-    qDebug() << "MON NUM EST : " << QString("0x%1").arg((quintptr)this, QT_POINTER_SIZE * 2, 16, QChar('0'));
+    // qDebug() << "JE SUIS EN : " << QString("0x%1").arg((quintptr)touched[0], QT_POINTER_SIZE * 2, 16, QChar('0'));
+    // qDebug() << "MON NUM EST : " << QString("0x%1").arg((quintptr)this, QT_POINTER_SIZE * 2, 16, QChar('0'));
     scene() -> removeItem(this);
-    current->remove_bomb();
+    //current->remove_bomb();
+    map->begin(i,j)->remove_bomb();
     owner->increase_bomb_quota();
 }
 
@@ -261,20 +262,23 @@ void Bomb::blast() {
         // add to the scene
         
         QTimer::singleShot(40,this,SLOT(blast()));
-        if(blaL -> collidesWithItem(joueur1)==true || blaR -> collidesWithItem(joueur1)==true || blaU -> collidesWithItem(joueur1)==true || blaD -> collidesWithItem(joueur1)==true){
-            emit player_touched(joueur1);
-        }
-        if(blaL -> collidesWithItem(joueur2)==true || blaR -> collidesWithItem(joueur2)==true || blaU -> collidesWithItem(joueur2)==true || blaD -> collidesWithItem(joueur2)==true){
-            emit player_touched(joueur2);
-        }
-        if(blaL -> collidesWithItem(joueur3)==true || blaR -> collidesWithItem(joueur3)==true || blaU -> collidesWithItem(joueur3)==true || blaD -> collidesWithItem(joueur3)==true){
-            emit player_touched(joueur3);
-        }
-        if(blaL -> collidesWithItem(joueur4)==true || blaR -> collidesWithItem(joueur4)==true || blaU -> collidesWithItem(joueur4)==true || blaD -> collidesWithItem(joueur4)==true){
-            emit player_touched(joueur4);
-        }
+
+        if(map->begin(i+dist,j)->hit_player())
+            qDebug() << "player hitted";
+        // if(blaL -> collidesWithItem(joueur1)==true || blaR -> collidesWithItem(joueur1)==true || blaU -> collidesWithItem(joueur1)==true || blaD -> collidesWithItem(joueur1)==true){
+        //     emit player_touched(joueur1);
+        // }
+        // if(blaL -> collidesWithItem(joueur2)==true || blaR -> collidesWithItem(joueur2)==true || blaU -> collidesWithItem(joueur2)==true || blaD -> collidesWithItem(joueur2)==true){
+        //     emit player_touched(joueur2);
+        // }
+        // if(blaL -> collidesWithItem(joueur3)==true || blaR -> collidesWithItem(joueur3)==true || blaU -> collidesWithItem(joueur3)==true || blaD -> collidesWithItem(joueur3)==true){
+        //     emit player_touched(joueur3);
+        // }
+        // if(blaL -> collidesWithItem(joueur4)==true || blaR -> collidesWithItem(joueur4)==true || blaU -> collidesWithItem(joueur4)==true || blaD -> collidesWithItem(joueur4)==true){
+        //     emit player_touched(joueur4);
+        // }
     }
-    if(dist>range) {delete this;}
+    if(dist>range) {owner-> increase_bomb_quota();delete this;}
     else if(dist==range) {
         // create image objects that shall be destroyed
         QGraphicsPixmapItem *blaL = new QGraphicsPixmapItem(im_blast_3_left);
@@ -297,21 +301,19 @@ void Bomb::blast() {
         blaU -> setParentItem(this);
         blaD -> setParentItem(this);
         QTimer::singleShot(300,this,SLOT(blast()));
-        if(blaL -> collidesWithItem(joueur1)==true || blaR -> collidesWithItem(joueur1)==true || blaU -> collidesWithItem(joueur1)==true || blaD -> collidesWithItem(joueur1)==true){
-            emit player_touched(joueur1);
-        }
-        if(blaL -> collidesWithItem(joueur2)==true || blaR -> collidesWithItem(joueur2)==true || blaU -> collidesWithItem(joueur2)==true || blaD -> collidesWithItem(joueur2)==true){
-            emit player_touched(joueur2);
-        }
-        if(blaL -> collidesWithItem(joueur3)==true || blaR -> collidesWithItem(joueur3)==true || blaU -> collidesWithItem(joueur3)==true || blaD -> collidesWithItem(joueur3)==true){
-            emit player_touched(joueur3);
-        }
-        if(blaL -> collidesWithItem(joueur4)==true || blaR -> collidesWithItem(joueur4)==true || blaU -> collidesWithItem(joueur4)==true || blaD -> collidesWithItem(joueur4)==true){
-            emit player_touched(joueur4);
-        }
+        // if(blaL -> collidesWithItem(joueur1)==true || blaR -> collidesWithItem(joueur1)==true || blaU -> collidesWithItem(joueur1)==true || blaD -> collidesWithItem(joueur1)==true){
+        //     emit player_touched(joueur1);
+        // }
+        // if(blaL -> collidesWithItem(joueur2)==true || blaR -> collidesWithItem(joueur2)==true || blaU -> collidesWithItem(joueur2)==true || blaD -> collidesWithItem(joueur2)==true){
+        //     emit player_touched(joueur2);
+        // }
+        // if(blaL -> collidesWithItem(joueur3)==true || blaR -> collidesWithItem(joueur3)==true || blaU -> collidesWithItem(joueur3)==true || blaD -> collidesWithItem(joueur3)==true){
+        //     emit player_touched(joueur3);
+        // }
+        // if(blaL -> collidesWithItem(joueur4)==true || blaR -> collidesWithItem(joueur4)==true || blaU -> collidesWithItem(joueur4)==true || blaD -> collidesWithItem(joueur4)==true){
+        //     emit player_touched(joueur4);
+        // }
     }
-    
-    // TODO trouver comment afficher les enfants
 }
 
 

@@ -233,8 +233,13 @@ void Map::move_player(Player &player, int move) {
 
 
 void Map::put_bomb(char type, Player &p) {
-    p.dropBomb(type, *this);
-
+    
+    auto bloc = begin(p.get_x(), p.get_y());
+    bloc->lock();
+    if (bloc->bomb_available() && p.able_bomb()) {
+        p.dropBomb(type, this);
+    }
+    bloc->unlock();
     // // On vérifie que joueur peut encore poser une bombe
     // if (p.able_bomb()) {
     //     // On appelle un fonction qui init bombe de player

@@ -14,7 +14,7 @@
 #include <memory>
 
 class Bloc;
-class Map;
+//class Map;
 
 class Bomb : public QObject, public QGraphicsPixmapItem {
     Q_OBJECT
@@ -29,8 +29,9 @@ private:
     int state = 0; // etat de l'animation
 
     Player* owner;
-    Bloc* current;
-    std::vector<Bloc* > touched; // l'ensemble des blocs que la bombe va atteindre, en 0 sa case
+    Map* map;
+    // Bloc* current;
+    // std::vector<Bloc* > touched; // l'ensemble des blocs que la bombe va atteindre, en 0 sa case
     
     // faire tableau statique
     QPixmap im_flashing_1;
@@ -57,13 +58,12 @@ public:
     // Faire classe mère bombe
     // Et faire hériter les designs de chaque bombe : + propre
     // Utiliser touched pour trouver qui se fait toucher
-    Bomb(char, int, int, int, int, Player*, Player* joueur2=nullptr,
-    Player* joueur3=nullptr, Player* joueur4=nullptr, QGraphicsPixmapItem* parent=nullptr);
+    Bomb(char, int, int, Player*, Map*, QGraphicsPixmapItem* parent = nullptr);
 
     // à terme : virer char et virer int et int
     Bomb(char, int, int, Player&, QGraphicsPixmapItem* parent=nullptr);
-    Bomb(char, int, int, Player&, Map&, QGraphicsPixmapItem* parent=nullptr);
-    Bomb(char type, int x, int y, Player& p, Bloc& bloc, QGraphicsPixmapItem* parent=nullptr);
+    //Bomb(char, int, int, Player&, Map&, QGraphicsPixmapItem* parent=nullptr);
+    // Bomb(char type, int x, int y, Player& p, Bloc& bloc, QGraphicsPixmapItem* parent=nullptr);
 
     // pour pouvoir compiler
     Bomb(Player&, Map&);

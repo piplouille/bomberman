@@ -6,7 +6,7 @@ Constructeurs
 
 Player::Player(unsigned int num_player, QGraphicsItem *parent): QGraphicsPixmapItem(parent) {
     this ->num_player = num_player;
-    lives = 1;
+    lives = 2;
     bomb_range = 1;
     bomb_life = 500;
     bomb_quota = 5;
@@ -108,51 +108,51 @@ void Player::dropBomb(char type) {
     }
     else if(type=='B') {
         qDebug() << "Classic bomb dropped";
-        Bomb* bb = new Bomb('B', x(), y(), bomb_life, bomb_range, this);
+        Bomb* bb = new Bomb('B', x(), y(), *this);
         scene() -> addItem(bb);
     }
 }
 
-void Player::dropBomb(char type, Map& map) {
+void Player::dropBomb(char type, Map* map) {
     qDebug() << bomb_quota;
-    if (able_bomb()) {
+    //if (able_bomb()) {
         if (type=='C') {
-            auto bloc = map.begin(get_x(), get_y());
-            qDebug() << "AVANT : " << QString("0x%1").arg((quintptr)&(map.get_area()[get_x()][get_y()]), QT_POINTER_SIZE * 2, 16, QChar('0'));
-            // Bloc* bloc = &map.get_area()[get_x()][get_y()];
-            // bloc->lock();
-            bloc->lock();
+            //auto bloc = map.begin(get_x(), get_y());
+            // qDebug() << "AVANT : " << QString("0x%1").arg((quintptr)&(map.get_area()[get_x()][get_y()]), QT_POINTER_SIZE * 2, 16, QChar('0'));
+            //// Bloc* bloc = &map.get_area()[get_x()][get_y()];
+            //// bloc->lock();
+  //          bloc->lock();
 
-            if (bloc->bomb_available()) {
-                Bomb* bb = new Bomb('C', x(), y(), *this, *bloc);
+            //if (bloc->bomb_available()) {
+            Bomb* bb = new Bomb('C', bomb_life, bomb_range, this, map);
                 // qDebug() << "JE SUIS EN : " << QString("0x%1").arg((quintptr)&(*map.begin(get_x(), get_y())), QT_POINTER_SIZE * 2, 16, QChar('0'));
                 // qDebug() << "MON NUM EST : " << QString("0x%1").arg((quintptr)bb, QT_POINTER_SIZE * 2, 16, QChar('0'));
 
                 // bool move_done = bloc->set_bomb(bb);
-                bool move_done = bloc->set_bomb(bb);
+ //               bool move_done = bloc->set_bomb(bb);
 
-                if (!move_done) {
+ //               if (!move_done) {
                     // On détruit la bombe
-                    delete(bb);
-                    increase_bomb_quota();
-                    std::cout << "Pas possible de poser" << std::endl;
-                }
+  //                  delete(bb);
+  //                  increase_bomb_quota();
+  //                  std::cout << "Pas possible de poser" << std::endl;
+  //              }
 
-                else {
-                    qDebug() << "Classic bomb dropped";
-                    scene() -> addItem(bb);
-                }
-            }
-            bloc->unlock();
-            qDebug() << "fin du drop";
+ //               else {
+                scene() -> addItem(bb);
+                qDebug() << "Classic bomb dropped";
+  //              }
+  //          }
+ //           bloc->unlock();
+  //          qDebug() << "fin du drop";
         }
 
         else if(type=='B') {
-            qDebug() << "Classic bomb dropped";
-            Bomb* bb = new Bomb('B', x(), y(), bomb_life, bomb_range, this);
+            Bomb* bb = new Bomb('B', bomb_life, bomb_range, this, map);
             scene() -> addItem(bb);
+            qDebug() << "Bombitrouille dropped";
         }
-    }
+  //  }
 }
 
 /*

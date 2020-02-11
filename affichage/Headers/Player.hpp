@@ -43,7 +43,7 @@ public:
     //void keyReleaseEvent(QKeyEvent *event);
     void death();
     void dropBomb(char type);
-    void dropBomb(char, Map&);
+    void dropBomb(char, Map*);
 ;
     int getNum_Player(){return num_player;}
     unsigned int get_num_player() {return num_player;}

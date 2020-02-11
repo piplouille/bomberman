@@ -76,6 +76,7 @@ class Bloc : public std::mutex, public QGraphicsPixmapItem {
 
     bool set_bomb(Bomb*);
     void remove_bomb() {bomb = nullptr;}
+    bool hit_player() {return (player != nullptr);} //true if there is a player
 
     void print();
 };
