@@ -47,7 +47,6 @@ Map::Map(int aWidth, int aLength,Player* n_player1,Player* n_player2, QGraphicsP
 }
 
 void Map::init_player(Player &player, int x, int y) {
-    bool move_done;
     move_player(player, x, y, true);
 }
 
@@ -86,16 +85,11 @@ void Map::move_player(Player &player, int x, int y, bool init) {
 
 
 void Map::keyPressEvent(QKeyEvent *event) {
-    int new_x = player1-> get_x();
-    int new_y = player1-> get_y();
-
-    qDebug() << "Avant de se déplacer la position est ("<< player1-> get_x() <<", " << (player1-> get_y())-1<<")";
 
     auto actuel = begin(player1->get_x(), player1->get_y());
 
     if(event->key() == Qt::Key_Left) {
         qDebug() << "vous avez pressé left";
-        qDebug() <<"Position visée : ("<< player1-> get_x() <<", " << (player1-> get_y())-1<<")";
         auto suivant = begin(player1-> get_x(), (player1-> get_y())-1);
         suivant->lock();
         // demander à bloc en x,y s'il est libre pour accueuillir joueur et bouger
@@ -110,13 +104,10 @@ void Map::keyPressEvent(QKeyEvent *event) {
 
     else if(event->key() == Qt::Key_Right) {
         qDebug() << "vous avez pressé right";
-        qDebug() <<"Position visée : ("<< player1-> get_x() <<", " << (player1-> get_y())+1 <<")";
         auto suivant = begin(player1-> get_x(), (player1-> get_y())+1);
-        qDebug() << "Ici";
         suivant->lock();
         // demander à bloc en x,y s'il est libre pour accueuillir joueur et bouger
         bool move_done = suivant->set_player(*player1);
-        qDebug() << "La";
         if (move_done) {
             // mise à joueur des coordonnées de player
             player1->set_right();
@@ -164,8 +155,7 @@ void Map::keyPressEvent(QKeyEvent *event) {
     else if(event->key() == Qt::Key_Q) {
         qApp -> quit();
     }
-    print();
-    qDebug() << "premier mouvement fait";
+    // print();
 }
 
 void Map::keyReleaseEvent(QKeyEvent *event) {
@@ -240,51 +230,29 @@ void Map::put_bomb(char type, Player &p) {
         p.dropBomb(type, this);
     }
     bloc->unlock();
-    // // On vérifie que joueur peut encore poser une bombe
-    // if (p.able_bomb()) {
-    //     // On appelle un fonction qui init bombe de player
-    //     // Bomb bomb(p, *this);
-    //     std::shared_ptr<Bomb> bomb(new Bomb(p, *this));
-
-    //     // On pose la bombe sur le bloc si possible
-    //     // auto bloc = begin(p.get_x(), p.get_y());
-    //     // bloc->lock();
-    //     // bool move_done = bloc->set_bomb(bomb);
-    //     // if (!move_done) {
-    //     //     // On détruit la bombe
-    //     //     delete(&bomb);
-    //     //     p.increase_bomb_quota();
-    //     //     std::cout << "Pas possible de poser" << std::endl;
-    //     // }
-    //     // else {
-    //     //     player1 -> dropBomb('C', *this);
-    //     //     std::cout << "J'ai posé" << std::endl;
-    //     // }
-    //     // bloc->unlock();
-    // }
 }
 
-void Map::update_bomb() {
-    // On prend chaque bloc de la map
-    int total = 0;
-    for (int i = 0; i < width ; i++) {
-        for (int j = 0 ; j < length ; j++) {
-            auto bloc = begin(i, j);
-            if (!bloc->bomb_available()) {
-                // On décrémente
-                auto bomb = bloc->get_bomb();
-                bomb->decrease_life();
-                if (bomb->get_life() == 0) {
-                    // On doit faire exploser la bombe !
-                    std::cout << "aïe" << std::endl;
-                    // delete(&bomb);
-                }
-                total++;
-            }
-        }
-    }
-    // std::cout << "IL Y A " << total << " BOMBES ICI" << std::endl;
-}
+// void Map::update_bomb() {
+//     // On prend chaque bloc de la map
+//     int total = 0;
+//     for (int i = 0; i < width ; i++) {
+//         for (int j = 0 ; j < length ; j++) {
+//             auto bloc = begin(i, j);
+//             if (!bloc->bomb_available()) {
+//                 // On décrémente
+//                 auto bomb = bloc->get_bomb();
+//                 bomb->decrease_life();
+//                 if (bomb->get_life() == 0) {
+//                     // On doit faire exploser la bombe !
+//                     std::cout << "aïe" << std::endl;
+//                     // delete(&bomb);
+//                 }
+//                 total++;
+//             }
+//         }
+//     }
+//     // std::cout << "IL Y A " << total << " BOMBES ICI" << std::endl;
+// }
 
 /*
 Fonctions de print

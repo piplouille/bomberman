@@ -206,7 +206,7 @@ Bomb::~Bomb() {
     scene() -> removeItem(this);
     //current->remove_bomb();
     map->begin(i,j)->remove_bomb();
-    owner->increase_bomb_quota();
+    owner->increase_bomb_dropped_by_player();
 }
 
 /*

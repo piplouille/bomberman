@@ -14,6 +14,7 @@ Player::Player(unsigned int num_player, QGraphicsItem *parent): QGraphicsPixmapI
     bomb_range = 1;
     bomb_life = 500;
     bomb_quota = 5;
+    bomb_dropped_by_player = 0;
 
     QString path = ":/Resources/Player/Player_" + QString::number(num_player, 10);
 
@@ -51,33 +52,34 @@ Player::Player(const Player& anotherPlayer) : QGraphicsPixmapItem(anotherPlayer.
 /*
 Player pose une bombe
 */
-void Player::dropBomb(char type) {
-    if (type=='C') {
-        qDebug() << "Classic bomb dropped";
-        Bomb* bb = new Bomb('C', x(), y(), *this);
-        scene() -> addItem(bb);
-    }
-    else if(type=='B') {
-        qDebug() << "Classic bomb dropped";
-        Bomb* bb = new Bomb('B', x(), y(), *this);
-        scene() -> addItem(bb);
-    }
-}
+// void Player::dropBomb(char type) {
+//     if (type=='C') {
+//         qDebug() << "Classic bomb dropped";
+//         Bomb* bb = new Bomb('C', x(), y(), *this);
+//         scene() -> addItem(bb);
+//     }
+//     else if(type=='B') {
+//         qDebug() << "Classic bomb dropped";
+//         Bomb* bb = new Bomb('B', x(), y(), *this);
+//         scene() -> addItem(bb);
+//     }
+//     decrease_bomb_quota();
+//     qDebug() << "Nouveau quota : " << bomb_quota;
+// }
 
 void Player::dropBomb(char type, Map* map) {
-    qDebug() << bomb_quota;
     if (type=='C') {
         Bomb* bb = new Bomb('C', bomb_life, bomb_range, this, map);
         scene() -> addItem(bb);
         bool move_done = map -> begin(this->get_x(),this->get_y())->set_bomb(bb);
-        qDebug() << "Classic bomb dropped " << bomb_quota << "/5";
     }
     else if(type=='B') {
         Bomb* bb = new Bomb('B', bomb_life, bomb_range, this, map);
         scene() -> addItem(bb);
         bool move_done = map -> begin(this->get_x(),this->get_y())->set_bomb(bb);
-        qDebug() << "Bombitrouille dropped";
     }
+    decrease_bomb_dropped_by_player();
+    qDebug() << "Nouveau quota : " << bomb_dropped_by_player << "/" << bomb_quota;
 }
 
 /*

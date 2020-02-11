@@ -31,6 +31,7 @@ private:
 
     int posX, posY; //coordonnées en cases
     unsigned int bomb_range, bomb_life, bomb_quota;
+    unsigned int bomb_dropped_by_player;
     unsigned int lives; //nombre de vies    
 
 public:
@@ -58,10 +59,12 @@ public:
     void set_y(int n_y) {posX = n_y;}
     void set_xy(int n_x, int n_y) {posY = n_x; posX = n_y;setPos(posX*size,posY*size); }
     void move(int up, int left) {posX+=(left*size);posY+=(up*size);}
-    bool able_bomb() {return ((bomb_quota) > 0);}
+    bool able_bomb() {return ((int)(bomb_quota-bomb_dropped_by_player) > 0);}
     int get_bomb_quota() {return bomb_quota;}
     void decrease_bomb_quota() {bomb_quota--;}
     void increase_bomb_quota() {bomb_quota++;}
+    void decrease_bomb_dropped_by_player() {bomb_dropped_by_player--;}
+    void increase_bomb_dropped_by_player() {bomb_dropped_by_player++;}
     int get_bomb_range() {return bomb_range;}
     int get_bomb_life() {return bomb_life;}
 
