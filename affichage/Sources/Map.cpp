@@ -21,6 +21,11 @@ Map::Map(int aWidth, int aLength,Player* n_player1,Player* n_player2, QGraphicsP
                 begin(i,j)->setParentItem(this);
             }
     }
+    // for (int i = 0 ; i < width ; i++) {
+    //         for (int j = 0; j < length ; j++) {
+    //             if(i%2==0 && j%2==0) {begin(i, j)->set_type(0,i,j);}
+    //         }
+    // }
     for (int i = 0 ; i < width ; i++) {
         begin(i, 0)->set_type(0,i,0);
         begin(i, length - 1)->set_type(0,i,length-1);
@@ -29,7 +34,6 @@ Map::Map(int aWidth, int aLength,Player* n_player1,Player* n_player2, QGraphicsP
         begin(0, j)->set_type(0,0,j);
         begin(width - 1, j)->set_type(0,width-1,j);
     }
-    begin(5, 5)->set_type(0,5,5);
 
     player1 = n_player1;
 

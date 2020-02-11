@@ -87,7 +87,7 @@ void Game::selectionMenu(){
     int bxPosOp = this->width()/2 - optionButton->boundingRect().width()/2;
     int byPosOp = 380;
     optionButton->setPos(bxPosOp,byPosOp);
-    connect(optionButton,SIGNAL(clicked()),this,SLOT(close()));
+    connect(optionButton,SIGNAL(clicked()),this,SLOT(options()));
     scene->addItem(optionButton);
 
     //set character <3
@@ -170,7 +170,87 @@ void Game::player_selection(int num) {
     character_name -> setPos(this->width()/2-character_name->boundingRect().width()/2,175);
 }
 
+
 /*----------------------------------------------------------------------------------*/
+
+
+void Game::options() {
+    //set the scene and the view
+    scene -> clear();
+    this->resize(400,360);
+    fenetre -> resize(400,360); //changes the view
+    scene->setSceneRect(0,0,400,360); // changes the scene
+
+    //The size of the map
+    map_display = new QGraphicsTextItem(QString("Normal"));
+    map_display -> setDefaultTextColor(QColor(Qt::white));
+    map_display -> setFont(QFont("System",40,85,false));
+    map_display -> setPos(this->width()/2-map_display->boundingRect().width()/2,this->height()/4-map_display->boundingRect().height()/2);
+    scene -> addItem(map_display);
+
+    // Selection buttons
+    QButtonGroup* selection = new QButtonGroup();
+    QRadioButton* mapSize1 = new QRadioButton(); // Small
+    mapSize1 -> move(this->width()/7*2,this->height()/2);
+    scene -> addWidget(mapSize1);
+    QRadioButton* mapSize2 = new QRadioButton(); // Normal
+    mapSize2 -> move(this->width()/7*3,this->height()/2);
+    scene -> addWidget(mapSize2);
+    QRadioButton* mapSize3 = new QRadioButton(); // Big
+    mapSize3 -> move(this->width()/7*4,this->height()/2);
+    scene -> addWidget(mapSize3);
+    QRadioButton* mapSize4 = new QRadioButton(); // Huge
+    mapSize4 -> move(this->width()/7*5,this->height()/2);
+    scene -> addWidget(mapSize4);
+    selection -> addButton(mapSize1,1);
+    selection -> addButton(mapSize2,2);
+    selection -> addButton(mapSize3,3);
+    selection -> addButton(mapSize4,4);
+    mapSize2 -> setChecked(true);
+
+    connect(selection,SIGNAL(buttonClicked(int)),this,SLOT(map_selected(int)));
+
+    // Boutton de retour au menu
+    Button* returnToMenu = new Button(":/Resources/Menu/Menu.png");
+    int bxMenu = fenetre->width()/2 - returnToMenu->boundingRect().width()/2;
+    int byMenu = 3*fenetre->height()/4;-returnToMenu->boundingRect().width()/2;// returnToMenu->boundingRect().height();
+    returnToMenu->setPos(bxMenu,byMenu);
+    connect(returnToMenu,SIGNAL(clicked()),this,SLOT(selectionMenu()));
+    scene->addItem(returnToMenu);
+}
+
+
+/*----------------------------------------------------------------------------------*/
+
+void Game::map_selected(int i) {
+    map_size = i;
+    switch(i) {
+        case 1:
+            map_display -> setPlainText(QString("Small"));
+            map_display -> setFont(QFont("System",25,85,false));
+            break;
+        case 2:
+            map_display -> setPlainText(QString("Normal"));
+            map_display -> setFont(QFont("System",50,85,false));
+            break;
+        case 3:
+            map_display -> setPlainText(QString("Large"));
+            map_display -> setFont(QFont("System",80,85,false));
+            break;
+        case 4:
+            map_display -> setPlainText(QString("Huge"));
+            map_display -> setFont(QFont("System",110,85,false));
+            break;
+
+    }
+    map_display -> setPos(this->width()/2-map_display->boundingRect().width()/2,this->height()/4-map_display->boundingRect().height()/2);
+}
+
+
+
+
+
+
 
 
 
