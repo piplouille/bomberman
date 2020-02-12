@@ -5,8 +5,6 @@
 Les constructeurs
 */
 
-// Map::Map(): Map(defaultWidth, defaultLength,&defaultPlayer)
-// {}
 
 Map::Map(int aWidth, int aLength,Player* n_player1,Player* n_player2, QGraphicsPixmapItem *parent): QGraphicsPixmapItem(parent),
     width(aWidth), length(aLength),
@@ -234,57 +232,6 @@ void Map::keyReleaseEvent(QKeyEvent *event) {
         }
 }
 
-// void Map::move_player(Player &player, int move) {
-//     // On trouve où le joueur veut se déplacer en coordonnées
-
-//     int x, y;
-//     x = player.get_x();
-//     y = player.get_y();
-
-//     int move_x = 0; // le changement de mouvements
-//     int move_y = 0;
-
-//     switch (move) 
-//     {
-//         case 0:
-//             // le nouveau bloc vers le haut : ligne x - 1
-//             if (x == 0) {
-//                 break;
-//             }
-//             move_x--;
-//             break;
-//         case 1:
-//             // le nouveau bloc vers la droite : colonne y + 1
-//             if (y == length - 1) {
-//                 break;
-//             }
-//             move_y++;
-//             break;
-//         case 2:
-//             // le nouveau bloc vers le bas : ligne x + 1
-//             if (x == width - 1) {
-//                 break;
-//             }
-//             move_x++;
-//             break;
-//         case 3:
-//             // le nouveau bloc vers la gauche : colonne y - 1
-//             if (y == 0) {
-//                 break;
-//             }
-//             move_y--;
-//             break;
-//     }
-
-//     if (move_x != 0 || move_y != 0) {
-//         bool move_done;
-//         move_player(player, player.get_x() + move_x, player.get_y() + move_y);
-//     }
-//     else {
-//         std::cout << "Mouvement impossible" << std::endl;
-//     }
-// }
-
 
 /*
 -------------Les bombes---------------
@@ -301,27 +248,6 @@ void Map::put_bomb(char type, Player &p) {
     bloc->unlock();
 }
 
-// void Map::update_bomb() {
-//     // On prend chaque bloc de la map
-//     int total = 0;
-//     for (int i = 0; i < width ; i++) {
-//         for (int j = 0 ; j < length ; j++) {
-//             auto bloc = begin(i, j);
-//             if (!bloc->bomb_available()) {
-//                 // On décrémente
-//                 auto bomb = bloc->get_bomb();
-//                 bomb->decrease_life();
-//                 if (bomb->get_life() == 0) {
-//                     // On doit faire exploser la bombe !
-//                     std::cout << "aïe" << std::endl;
-//                     // delete(&bomb);
-//                 }
-//                 total++;
-//             }
-//         }
-//     }
-//     // std::cout << "IL Y A " << total << " BOMBES ICI" << std::endl;
-// }
 
 /*
 Fonctions de print
