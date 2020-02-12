@@ -92,9 +92,8 @@ void Map::move_player(Player &player, int x, int y, bool init) {
 
 void Map::keyPressEvent(QKeyEvent *event) {
 
-    auto actuel = begin(player1->get_x(), player1->get_y());
-
     if(event->key() == Qt::Key_Left) {
+        auto actuel = begin(player1->get_x(), player1->get_y());
         auto suivant = begin(player1-> get_x(), (player1-> get_y())-1);
         suivant->lock();
         // demander à bloc en x,y s'il est libre pour accueuillir joueur et bouger
@@ -108,6 +107,7 @@ void Map::keyPressEvent(QKeyEvent *event) {
     }
 
     else if(event->key() == Qt::Key_Right) {
+        auto actuel = begin(player1->get_x(), player1->get_y());
         auto suivant = begin(player1-> get_x(), (player1-> get_y())+1);
         suivant->lock();
         // demander à bloc en x,y s'il est libre pour accueuillir joueur et bouger
@@ -121,6 +121,7 @@ void Map::keyPressEvent(QKeyEvent *event) {
     }
 
     else if(event->key() == Qt::Key_Up) {
+        auto actuel = begin(player1->get_x(), player1->get_y());
         auto suivant = begin(player1->get_x()-1, player1->get_y());
         suivant->lock();
         // demander à bloc en x,y s'il est libre pour accueuillir joueur et bouger
@@ -134,6 +135,7 @@ void Map::keyPressEvent(QKeyEvent *event) {
     }
 
     else if(event->key() == Qt::Key_Down) {
+        auto actuel = begin(player1->get_x(), player1->get_y());
         auto suivant = begin(player1->get_x() + 1, player1->get_y());
         suivant->lock();
         // demander à bloc en x,y s'il est libre pour accueuillir joueur et bouger
@@ -146,17 +148,75 @@ void Map::keyPressEvent(QKeyEvent *event) {
         suivant->unlock();
     }
 
-    else if(event->key() == Qt::Key_Space) {
+    else if(event->key() == Qt::Key_M) {
+        auto actuel = begin(player1->get_x(), player1->get_y());
         //player1 -> dropBomb('C');
         put_bomb('C', *player1);
     }
+//---------MOVES-OF-PKAYER-2----------------------------------------------------------------------------------
 
-    else if(event->key() == Qt::Key_B) {
-        // player1 -> dropBomb('B');
-        put_bomb('B', *player1);
+    if(event->key() == Qt::Key_Q) {
+        auto actuel = begin(player2->get_x(), player2->get_y());
+        auto suivant = begin(player2-> get_x(), (player2-> get_y())-1);
+        suivant->lock();
+        // demander à bloc en x,y s'il est libre pour accueuillir joueur et bouger
+        bool move_done = suivant->set_player(*player2);
+        if (move_done) {
+            // mise à joueur des coordonnées de player
+            player2->set_left();
+            actuel->erase_player();
+        }
+        suivant->unlock();
     }
 
-    else if(event->key() == Qt::Key_Q) {
+    else if(event->key() == Qt::Key_D) {
+        auto actuel = begin(player2->get_x(), player2->get_y());
+        auto suivant = begin(player2-> get_x(), (player2-> get_y())+1);
+        suivant->lock();
+        // demander à bloc en x,y s'il est libre pour accueuillir joueur et bouger
+        bool move_done = suivant->set_player(*player2);
+        if (move_done) {
+            // mise à joueur des coordonnées de player
+            player2->set_right();
+            actuel->erase_player();
+        } 
+        suivant->unlock();
+    }
+
+    else if(event->key() == Qt::Key_Z) {
+        auto actuel = begin(player2->get_x(), player2->get_y());
+        auto suivant = begin(player2->get_x()-1, player2->get_y());
+        suivant->lock();
+        // demander à bloc en x,y s'il est libre pour accueuillir joueur et bouger
+        bool move_done = suivant->set_player(*player2);
+        if (move_done) {
+            // mise à joueur des coordonnées de player
+            player2->set_up();
+            actuel->erase_player();
+        }
+        suivant->unlock();
+    }
+
+    else if(event->key() == Qt::Key_S) {
+        auto actuel = begin(player2->get_x(), player2->get_y());
+        auto suivant = begin(player2->get_x() + 1, player2->get_y());
+        suivant->lock();
+        // demander à bloc en x,y s'il est libre pour accueuillir joueur et bouger
+        bool move_done = suivant->set_player(*player2);
+        if (move_done) {
+            // mise à joueur des coordonnées de player
+            player2->set_down();
+            actuel->erase_player();
+        }
+        suivant->unlock();
+    }
+    else if(event->key() == Qt::Key_C) {
+        auto actuel = begin(player2->get_x(), player2->get_y());
+        // player1 -> dropBomb('B');
+        put_bomb('B', *player2);
+    }
+
+    else if(event->key() == Qt::Key_Escape) {
         qApp -> quit();
     }
     // print();
@@ -167,7 +227,11 @@ void Map::keyReleaseEvent(QKeyEvent *event) {
     if(event->key() == Qt::Key_Left || event->key() == Qt::Key_Right 
         || event->key() == Qt::Key_Up || event->key() == Qt::Key_Down) {
             player1 -> set_centre();
-    }
+        }
+    else if(event->key() == Qt::Key_Q || event->key() == Qt::Key_D 
+        || event->key() == Qt::Key_Z || event->key() == Qt::Key_S) {
+            player2 -> set_centre();
+        }
 }
 
 // void Map::move_player(Player &player, int move) {
