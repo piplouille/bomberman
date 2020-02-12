@@ -177,7 +177,7 @@ void Bomb::blast() {
             }
         }
 
-        QTimer::singleShot(40,this,SLOT(blast()));
+        QTimer::singleShot(150,this,SLOT(blast()));
     }
 
     if(dist>range) {map-> print(); delete this;}
@@ -234,9 +234,11 @@ void Bomb::blast() {
         if(map->begin(i,j+distR)->hit_player() || map->begin(i,j+distR)->getGround()==2 || map->begin(i,j+distR)->getGround()==0) {
             if( map->begin(i,j+distR)->getGround()==2) {
                 qDebug() << "la R";
+                map->begin(i,j-distL)->lock();
                 map->begin(i,j+distR)->lock();
                 map->begin(i,j+distR)->set_type(1,i,j+distR);
                 map->begin(i,j+distR)->unlock();
+                map->begin(i,j-distL)->unlock();
                 distR--;
             }
             else if( map->begin(i,j+distR)->getGround()==0) {
