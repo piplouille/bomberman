@@ -11,7 +11,7 @@ Constructeurs
 Player::Player(unsigned int num_player, QGraphicsItem *parent): QGraphicsPixmapItem(parent) {
     this ->num_player = num_player;
     lives = 2;
-    bomb_range = 1;
+    bomb_range = 4;
     bomb_life = 500;
     bomb_quota = 5;
     bomb_dropped_by_player = 0;
@@ -78,7 +78,7 @@ void Player::dropBomb(char type, Map* map) {
         scene() -> addItem(bb);
         bool move_done = map -> begin(this->get_x(),this->get_y())->set_bomb(bb);
     }
-    decrease_bomb_dropped_by_player();
+    increase_bomb_dropped_by_player();
     qDebug() << "Nouveau quota : " << bomb_dropped_by_player << "/" << bomb_quota;
 }
 
@@ -91,9 +91,9 @@ void Player::death() {
     qDebug() << "Le joueur est entré dans la mort";
     setPixmap(im_dead);
     //scene() -> addItem(this);
-    clearFocus();
-    qDebug() << "Le joueur est décédé, ne reste plus que son corps";
-    QTimer::singleShot(3000,this,SLOT(desepear()));
+    //clearFocus();
+    //qDebug() << "Le joueur est décédé, ne reste plus que son corps";
+    //QTimer::singleShot(3000,this,SLOT(desepear()));
     //desepear();
 }
 

@@ -59,7 +59,7 @@ public:
     void set_y(int n_y) {posX = n_y;}
     void set_xy(int n_x, int n_y) {posY = n_x; posX = n_y;setPos(posX*size,posY*size); }
     void move(int up, int left) {posX+=(left*size);posY+=(up*size);}
-    bool able_bomb() {return ((int)(bomb_quota-bomb_dropped_by_player) > 0);}
+    bool able_bomb() {return ((bomb_quota-bomb_dropped_by_player) > 0);}
     int get_bomb_quota() {return bomb_quota;}
     void decrease_bomb_quota() {bomb_quota--;}
     void increase_bomb_quota() {bomb_quota++;}

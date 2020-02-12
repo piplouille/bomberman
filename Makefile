@@ -911,7 +911,12 @@ qrc_res.cpp: affichage/res.qrc \
 		affichage/Resources/Classic_bomb/Bomb_Exploding_4.png \
 		affichage/Resources/Classic_bomb/blast_3.png \
 		affichage/Resources/Music/01_The_Day_Is_My_Enemy.m4a \
-		affichage/Resources/Land/Sol.png
+		affichage/Resources/Land/Sol.png \
+		affichage/Resources/Land/Sol.png \
+		affichage/Resources/Land/Mur_32.png \
+		affichage/Resources/Land/MurBlanc_16_cassable.png \
+		affichage/Resources/Land/Mur_16.png \
+		affichage/Resources/Land/MurBlanc_16.png
 	/usr/local/Cellar/qt/5.14.0/bin/rcc -name res affichage/res.qrc -o qrc_res.cpp
 
 compiler_moc_predefs_make_all: moc_predefs.h
@@ -959,6 +964,8 @@ moc_Player.cpp: affichage/Headers/Player.hpp \
 		/usr/local/Cellar/qt/5.14.0/lib/QtGui.framework/Headers/qpixmap.h \
 		/usr/local/Cellar/qt/5.14.0/lib/QtCore.framework/Headers/QTimer \
 		/usr/local/Cellar/qt/5.14.0/lib/QtCore.framework/Headers/qtimer.h \
+		/usr/local/Cellar/qt/5.14.0/lib/QtCore.framework/Headers/QDebug \
+		/usr/local/Cellar/qt/5.14.0/lib/QtCore.framework/Headers/qdebug.h \
 		/usr/local/Cellar/qt/5.14.0/lib/QtCore.framework/Headers/QString \
 		/usr/local/Cellar/qt/5.14.0/lib/QtCore.framework/Headers/qstring.h \
 		moc_predefs.h \
@@ -1092,11 +1099,11 @@ Game.o: affichage/Sources/Game.cpp /usr/local/Cellar/qt/5.14.0/lib/QtGui.framewo
 main.o: affichage/Sources/main.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o affichage/Sources/main.cpp
 
-Map.o: affichage/Sources/Map.cpp 
+Map.o: affichage/Sources/Map.cpp /usr/local/Cellar/qt/5.14.0/lib/QtGui.framework/Headers/QKeyEvent \
+		/usr/local/Cellar/qt/5.14.0/lib/QtGui.framework/Headers/qevent.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Map.o affichage/Sources/Map.cpp
 
-Player.o: affichage/Sources/Player.cpp /usr/local/Cellar/qt/5.14.0/lib/QtCore.framework/Headers/QDebug \
-		/usr/local/Cellar/qt/5.14.0/lib/QtCore.framework/Headers/qdebug.h
+Player.o: affichage/Sources/Player.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Player.o affichage/Sources/Player.cpp
 
 qrc_res.o: qrc_res.cpp 

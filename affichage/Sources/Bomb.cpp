@@ -206,7 +206,7 @@ Bomb::~Bomb() {
     scene() -> removeItem(this);
     //current->remove_bomb();
     map->begin(i,j)->remove_bomb();
-    owner->increase_bomb_dropped_by_player();
+    owner->decrease_bomb_dropped_by_player();
 }
 
 /*
@@ -239,6 +239,10 @@ Explosion
 
 void Bomb::blast() {
     dist++;
+    distL++;
+    distR++;
+    distU++;
+    distD++;
     if(dist<range) {
         // create image objects that shall be destroyed
         QGraphicsPixmapItem *blaL = new QGraphicsPixmapItem(im_blast_2_left,this);
@@ -248,10 +252,10 @@ void Bomb::blast() {
         blaU -> setRotation(90);
         blaD -> setRotation(90);
         // set their position
-        blaL -> setPos(-dist*size,0);
-        blaR -> setPos(dist*size,0);
-        blaU -> setPos(size,-dist*size);
-        blaD -> setPos(size,dist*size);
+        blaL -> setPos(-distL*size,0);
+        blaR -> setPos(distR*size,0);
+        blaU -> setPos(size,-distU*size);
+        blaD -> setPos(size,distD*size);
 
         blaL -> setParentItem(this);
         blaR -> setParentItem(this);
@@ -259,23 +263,71 @@ void Bomb::blast() {
         blaD -> setParentItem(this);
         // add to the scene
 
-        if(map->begin(i+dist,j)->hit_player()) {
-            qDebug() << "Joueur " << map->begin(i+dist,j)->getPlayer()->get_num_player() << "touché !!!";
+        // if(map->begin(i+distD,j)->hit_player()) {
+        //     qDebug() << "Joueur " << map->begin(i+distD,j)->getPlayer()->get_num_player() << "touché !!!";
+        // }
+        // if(map->begin(i-distU,j)->hit_player()) {
+        //     qDebug() << "Joueur " << map->begin(i-distU,j)->getPlayer()->get_num_player() << "touché !!!";
+        // }
+        // if(map->begin(i,j+distR)->hit_player()) {
+        //     qDebug() << "Joueur " << map->begin(i,j+distR)->getPlayer()->get_num_player() << "touché !!!";
+        // }
+        // if(map->begin(i,j-distL)->hit_player()) {
+        //     qDebug() << "Joueur " << map->begin(i,j-distL)->getPlayer()->get_num_player() << "touché !!!";
+        // }
+        if(map->begin(i+distD,j)->hit_player() || map->begin(i+distD,j)->getGround()==2 || map->begin(i+distD,j)->getGround()==0) {
+            if( map->begin(i+distD,j)->getGround()==2) {
+                qDebug() << "la avant D";
+                distD--;
+            }
+            else if( map->begin(i+distD,j)->getGround()==0) {
+                distD--;
+            }
+            else {
+                qDebug() << "Joueur " << map->begin(i+distD,j)->getPlayer()->get_num_player() << "touché !!!";
+            }
         }
-        if(map->begin(i-dist,j)->hit_player()) {
-            qDebug() << "Joueur " << map->begin(i-dist,j)->getPlayer()->get_num_player() << "touché !!!";
+        if(map->begin(i-distU,j)->hit_player() || map->begin(i-distU,j)->getGround()==2 || map->begin(i-distU,j)->getGround()==0) {
+            if( map->begin(i-distU,j)->getGround()==2) {
+                qDebug() << "la avant U";
+                distU--;
+            }
+            else if( map->begin(i-distU,j)->getGround()==0) {
+                distU--;
+            }
+            else {
+                qDebug() << "Joueur " << map->begin(i-distU,j)->getPlayer()->get_num_player() << "touché !!!";
+            }
         }
-        if(map->begin(i,j+dist)->hit_player()) {
-            qDebug() << "Joueur " << map->begin(i,j+dist)->getPlayer()->get_num_player() << "touché !!!";
+        if(map->begin(i,j+distR)->hit_player() || map->begin(i,j+distR)->getGround()==2 || map->begin(i,j+distR)->getGround()==0) {
+            if( map->begin(i,j+distR)->getGround()==2) {
+                qDebug() << "la avant R";
+                distR--;
+            }
+            else if( map->begin(i,j+distR)->getGround()==0) {
+                distR--;
+            }
+            else {
+                qDebug() << "Joueur " << map->begin(i,j+distR)->getPlayer()->get_num_player() << "touché !!!";
+            }
         }
-        if(map->begin(i,j-dist)->hit_player()) {
-            qDebug() << "Joueur " << map->begin(i,j-dist)->getPlayer()->get_num_player() << "touché !!!";
+        if(map->begin(i,j-distL)->hit_player() || map->begin(i,j-distL)->getGround()==0 ||  map->begin(i,j-distL)->getGround()==2) {
+            if(map->begin(i,j-distL)->getGround()==2) {
+                qDebug() << "la avant L";
+                distL--;
+            }
+            else if(map->begin(i,j-distL)->getGround()==0) {
+                distL--;
+            }
+            else {
+                qDebug() << "Joueur " << map->begin(i,j-distL)->getPlayer()->get_num_player() << " touché !!!";
+            }
         }
 
         QTimer::singleShot(40,this,SLOT(blast()));
     }
 
-    if(dist>range) {owner-> increase_bomb_quota();delete this;}
+    if(dist>range) {map-> print(); delete this;}
 
     else if(dist==range) {
         // create image objects that shall be destroyed
@@ -288,10 +340,10 @@ void Bomb::blast() {
         blaD -> setRotation(270);
         // set their position
 
-        blaL -> setPos(-dist*size,0);
-        blaR -> setPos((dist+1)*size,size);
-        blaU -> setPos(size,-dist*size);
-        blaD -> setPos(0,dist*size+size);
+        blaL -> setPos(-distL*size,0);
+        blaR -> setPos((distR+1)*size,size);
+        blaU -> setPos(size,-distU*size);
+        blaD -> setPos(0,distD*size+size);
 
 
         blaL -> setParentItem(this);
@@ -302,17 +354,57 @@ void Bomb::blast() {
         // if(map->begin(i+dist,j)->hit_player() || map->begin(i-dist,j)->hit_player() || map->begin(i,j+dist)->hit_player() || map->begin(i,j-dist)->hit_player()) {
         //     qDebug() << "player hitted!!!!!!!!!!!!!!!!";
         // }
-        if(map->begin(i+dist,j)->hit_player()) {
-            qDebug() << "Joueur " << map->begin(i+dist,j)->getPlayer()->get_num_player() << "touché !!!";
+        if(map->begin(i+distD,j)->hit_player() || map->begin(i+distD,j)->getGround()==2 || map->begin(i+distD,j)->getGround()==0) {
+            if( map->begin(i+distD,j)->getGround()==2) {
+                qDebug() << "la D";
+                map->clean(i+distD,j);
+                distD--;
+            }
+            else if( map->begin(i+distD,j)->getGround()==0) {
+                distD--;
+            }
+            else {
+                qDebug() << "Joueur " << map->begin(i+distD,j)->getPlayer()->get_num_player() << "touché !!!";
+            }
         }
-        if(map->begin(i-dist,j)->hit_player()) {
-            qDebug() << "Joueur " << map->begin(i-dist,j)->getPlayer()->get_num_player() << "touché !!!";
+        if(map->begin(i-distU,j)->hit_player() || map->begin(i-distU,j)->getGround()==2 || map->begin(i-distU,j)->getGround()==0) {
+            if( map->begin(i-distU,j)->getGround()==2) {
+                qDebug() << "la U";
+                map->clean(i-distU,j);
+                distU--;
+            }
+            else if( map->begin(i-distU,j)->getGround()==0) {
+                distU--;
+            }
+            else {
+                qDebug() << "Joueur " << map->begin(i-distU,j)->getPlayer()->get_num_player() << "touché !!!";
+            }
         }
-        if(map->begin(i,j+dist)->hit_player()) {
-            qDebug() << "Joueur " << map->begin(i,j+dist)->getPlayer()->get_num_player() << "touché !!!";
+        if(map->begin(i,j+distR)->hit_player() || map->begin(i,j+distR)->getGround()==2 || map->begin(i,j+distR)->getGround()==0) {
+            if( map->begin(i,j+distR)->getGround()==2) {
+                qDebug() << "la R";
+                map->clean(i,j+distR);
+                distR--;
+            }
+            else if( map->begin(i,j+distR)->getGround()==0) {
+                distR--;
+            }
+            else {
+                qDebug() << "Joueur " << map->begin(i,j+distR)->getPlayer()->get_num_player() << "touché !!!";
+            }
         }
-        if(map->begin(i,j-dist)->hit_player()) {
-            qDebug() << "Joueur " << map->begin(i,j-dist)->getPlayer()->get_num_player() << "touché !!!";
+        if(map->begin(i,j-distL)->hit_player() || map->begin(i,j-distL)->getGround()==0 ||  map->begin(i,j-distL)->getGround()==2) {
+            if(map->begin(i,j-distL)->getGround()==2) {
+                qDebug() << "la L";
+                map->clean(i,j-distL);
+                distL--;
+            }
+            if(map->begin(i,j-distL)->getGround()==0) {
+                distL--;
+            }
+            else {
+                qDebug() << "Joueur " << map->begin(i,j-distL)->getPlayer()->get_num_player() << " touché !!!";
+            }
         }
 
         QTimer::singleShot(300,this,SLOT(blast()));

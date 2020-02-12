@@ -63,7 +63,7 @@ void Game::displayStartMenu() {
     connect(quitButton,SIGNAL(clicked()),this,SLOT(close()));
     scene->addItem(quitButton);
 
-    map_width = 20; //taille par défaut
+    map_width = 19; //taille par défaut
 }
 
 /*----------------------------------------------------------------------------------*/
@@ -164,7 +164,7 @@ void Game::player_selection(int num) {
 
         case 5:
         character_selected -> setPixmap(QPixmap(":/Resources/Player/Player_5_centre.png").scaled(QSize(160,160), Qt::KeepAspectRatio));
-        character_name -> setPlainText(QString("Couille"));
+        character_name -> setPlainText(QString("Bouille"));
         break;
 
         default:
@@ -227,21 +227,24 @@ void Game::options() {
 /*----------------------------------------------------------------------------------*/
 
 void Game::map_selected(int i) {
-    map_width = (i+2)*5;
     switch(i) {
         case 1:
+            map_width = 15;
             map_display -> setPlainText(QString("Small"));
             map_display -> setFont(QFont("System",25,85,false));
             break;
         case 2:
+            map_width = 19;
             map_display -> setPlainText(QString("Normal"));
             map_display -> setFont(QFont("System",50,85,false));
             break;
         case 3:
+            map_width = 23;
             map_display -> setPlainText(QString("Large"));
             map_display -> setFont(QFont("System",80,85,false));
             break;
         case 4:
+            map_width = 27;
             map_display -> setPlainText(QString("Huge"));
             map_display -> setFont(QFont("System",110,85,false));
             break;
@@ -260,7 +263,7 @@ void Game::map_selected(int i) {
 
 void Game::start() {
     
-    int map_height = map_width>20 ? 20 : map_width-5;
+    int map_height = map_width>20 ? 19 : map_width-4;
 
     // clear the scene
     scene -> clear();

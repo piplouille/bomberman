@@ -12,7 +12,7 @@ class Bloc : public std::mutex, public QGraphicsPixmapItem {
     Maintenant, je peux bloquer l'accès au bloc quand je veux
     */
     private:
-    int type; // 0 pour mur, 1 pour herbe
+    int type; // 0 pour mur, 1 pour herbe, 2 pour mur cassable
     int item;
     std::shared_ptr<Player> player; // nullptr si personne dessus ; shared_ptr permet aux autres blocs etc de lire
     Bomb* bomb;
@@ -20,13 +20,10 @@ class Bloc : public std::mutex, public QGraphicsPixmapItem {
 
     public:
     Bloc(QGraphicsPixmapItem* parent=nullptr) : type(1), item(0), player(nullptr), bomb(nullptr), QGraphicsPixmapItem(parent) {
-        qDebug() << "bloc créée";
         setPos(0,0);
-        setPixmap(QPixmap(":/Resources/PLayer/Plyer_1_centre.png"));
     }
 
     Bloc(int x, int y, QGraphicsPixmapItem* parent=nullptr) : type(1), item(0), player(nullptr), bomb(nullptr), QGraphicsPixmapItem(parent) {
-        qDebug() << "bloc créée";
         setPos(y*32,x*32);
         setPixmap(QPixmap(":/Resources/Land/Sol.png").scaled(QSize(32,32),Qt::KeepAspectRatio));
     }
@@ -58,17 +55,29 @@ class Bloc : public std::mutex, public QGraphicsPixmapItem {
         if(type==0){
             image = QPixmap(":/Resources/Land/Mur_16.png");
             image = image.scaled(QSize(32,32), Qt::KeepAspectRatio);
-            setPixmap(image);
         }
     }
     void set_type(int type,int x,int y) {
         this -> type = type;
-        if(type==0){
+       switch(type){
+            case 0:
             image = QPixmap(":/Resources/Land/MurBlanc_16.png");
             image = image.scaled(QSize(32,32), Qt::KeepAspectRatio);
-            setPos(y*32,x*32);
-            setPixmap(image);
+            break;
+            case 1:
+            image = QPixmap(":/Resources/Land/Sol.png");
+            image = image.scaled(QSize(32,32), Qt::KeepAspectRatio);
+            case 2:
+            image = QPixmap(":/Resources/Land/MurBlanc_16_cassable.png");
+            image = image.scaled(QSize(32,32), Qt::KeepAspectRatio);
+            break;
+            default:
+            image = QPixmap(":/Resources/Land/Mur_16.png");
+            image = image.scaled(QSize(32,32), Qt::KeepAspectRatio);
         }
+        setPos(y*32,x*32);
+        qDebug() << "l'image change";
+        setPixmap(image);
     }
 
     bool set_player(Player& n_player);
@@ -79,6 +88,7 @@ class Bloc : public std::mutex, public QGraphicsPixmapItem {
     bool hit_player() {return (player != nullptr);} //true if there is a player
     Player* getPlayer() {return player.get();}
     void print();
+    int getGround() {return type;}
 };
 
 #endif

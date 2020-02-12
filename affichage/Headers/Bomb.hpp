@@ -27,6 +27,11 @@ private:
     int range; //porté de la bombe
     int dist = 0; // distance deja parcourue par la déflagration
     int state = 0; // etat de l'animation
+    int distL = 0;
+    int distR = 0;
+    int distU = 0;
+    int distD = 0;
+
 
     Player* owner;
     Map* map;

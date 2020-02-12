@@ -8,6 +8,7 @@
 #include <QDebug>
 #include <QFlag>
 #include <QKeyEvent>
+#include <stdlib.h>
 
 #include "Headers/Bloc.hpp"
 #include "Headers/Player.hpp"
@@ -44,6 +45,7 @@ class Map : public QGraphicsPixmapItem {
     
     void put_bomb(char, Player&);
     void update_bomb();
+    void clean(int,int);
 
     void print(Player&);
     void print();

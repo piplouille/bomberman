@@ -13,6 +13,9 @@ void Bloc::print() {
     if (type == 0) {
         std::cout << "X"; //mur
     }
+    else if (type == 2) {
+        std::cout << "O";//mur cassable
+    }
 
     else if (player == nullptr && bomb == nullptr) {
         std::cout << "~"; //vide
