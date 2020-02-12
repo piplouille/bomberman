@@ -51,6 +51,7 @@ Map::Map(int aWidth, int aLength,Player* n_player1,Player* n_player2, QGraphicsP
     setFocus();
     qDebug() <<"Position joueur 1 à la fin de l'initialisaiton ("<< player1->get_x() <<", " << player1->get_y()<<")";
     print();
+    }
 }
 
 void Map::init_player(Player &player, int x, int y) {
