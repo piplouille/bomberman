@@ -276,7 +276,10 @@ Map::area_type::iterator Map::begin(int x) {
 
 std::vector<Bloc>::iterator Map::begin(int x, int y) {
     // qDebug() << "On arrive dans le begin(x,y)";
-    return (area.begin() + x)->begin() + y;
+    #pragma omp critical
+    area_type::iterator b = area.begin();
+    #pragma omp end critical
+    return (b + x)->begin() + y;
 }
 
 std::vector<Bloc>::iterator Map::end(int x) {

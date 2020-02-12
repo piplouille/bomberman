@@ -246,21 +246,21 @@ void Bomb::blast() {
                 qDebug() << "Joueur " << map->begin(i,j+distR)->getPlayer()->get_num_player() << "touché !!!";
             }
         }
-        if(map->begin(i,j-distL)->hit_player() || map->begin(i,j-distL)->getGround()==0 ||  map->begin(i,j-distL)->getGround()==2) {
-            if(map->begin(i,j-distL)->getGround()==2) {
-                qDebug() << "la L";
-                map->begin(i,j-distL)->lock();
-                map->begin(i,j-distL)->set_type(1,i,j-distL);
-                map->begin(i,j-distL)->unlock();
-                distL--;
-            }
-            if(map->begin(i,j-distL)->getGround()==0) {
-                distL--;
-            }
-            else {
-                qDebug() << "Joueur " << map->begin(i,j-distL)->getPlayer()->get_num_player() << " touché !!!";
-            }
-        }
+        // if(map->begin(i,j-distL)->hit_player() || map->begin(i,j-distL)->getGround()==0 ||  map->begin(i,j-distL)->getGround()==2) {
+        //     if(map->begin(i,j-distL)->getGround()==2) {
+        //         qDebug() << "la L";
+        //         map->begin(i,j-distL)->lock();
+        //         map->begin(i,j-distL)->set_type(1,i,j-distL);
+        //         map->begin(i,j-distL)->unlock();
+        //         distL--;
+        //     }
+        //     if(map->begin(i,j-distL)->getGround()==0) {
+        //         distL--;
+        //     }
+        //     else {
+        //         qDebug() << "Joueur " << map->begin(i,j-distL)->getPlayer()->get_num_player() << " touché !!!";
+        //     }
+        // }
 
         QTimer::singleShot(300,this,SLOT(blast()));
     }
