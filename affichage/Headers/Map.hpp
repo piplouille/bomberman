@@ -45,7 +45,6 @@ class Map : public QGraphicsPixmapItem {
     
     void put_bomb(char, Player&);
     void update_bomb();
-    void clean(int,int);
 
     void print(Player&);
     void print();

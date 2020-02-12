@@ -356,8 +356,7 @@ void Bomb::blast() {
         // }
         if(map->begin(i+distD,j)->hit_player() || map->begin(i+distD,j)->getGround()==2 || map->begin(i+distD,j)->getGround()==0) {
             if( map->begin(i+distD,j)->getGround()==2) {
-                qDebug() << "la D";
-                map->clean(i+distD,j);
+                map->begin(i+distD,j)->set_type(1,i+distD,j);
                 distD--;
             }
             else if( map->begin(i+distD,j)->getGround()==0) {
@@ -369,8 +368,7 @@ void Bomb::blast() {
         }
         if(map->begin(i-distU,j)->hit_player() || map->begin(i-distU,j)->getGround()==2 || map->begin(i-distU,j)->getGround()==0) {
             if( map->begin(i-distU,j)->getGround()==2) {
-                qDebug() << "la U";
-                map->clean(i-distU,j);
+                map->begin(i-distU,j)->set_type(1,i-distU,j);
                 distU--;
             }
             else if( map->begin(i-distU,j)->getGround()==0) {
@@ -383,7 +381,7 @@ void Bomb::blast() {
         if(map->begin(i,j+distR)->hit_player() || map->begin(i,j+distR)->getGround()==2 || map->begin(i,j+distR)->getGround()==0) {
             if( map->begin(i,j+distR)->getGround()==2) {
                 qDebug() << "la R";
-                map->clean(i,j+distR);
+                map->begin(i,j+distR)->set_type(1,i,j+distR);
                 distR--;
             }
             else if( map->begin(i,j+distR)->getGround()==0) {
@@ -395,8 +393,7 @@ void Bomb::blast() {
         }
         if(map->begin(i,j-distL)->hit_player() || map->begin(i,j-distL)->getGround()==0 ||  map->begin(i,j-distL)->getGround()==2) {
             if(map->begin(i,j-distL)->getGround()==2) {
-                qDebug() << "la L";
-                map->clean(i,j-distL);
+                map->begin(i,j-distL)->set_type(1,i,j-distL);
                 distL--;
             }
             if(map->begin(i,j-distL)->getGround()==0) {

@@ -34,8 +34,10 @@ Map::Map(int aWidth, int aLength,Player* n_player1,Player* n_player2, QGraphicsP
     }
 
     player1 = n_player1;
+    player2 = n_player2;
 
     init_player(*player1, 1, 1);
+    if(n_player2!=nullptr) {player2 = n_player2; init_player(*player2, width-2, length-2);}
 
     for (int i = 1 ; i < width-1 ; i++) {
             for (int j = 1; j < length-1 ; j++) {
@@ -43,7 +45,7 @@ Map::Map(int aWidth, int aLength,Player* n_player1,Player* n_player2, QGraphicsP
                     begin(i, j)->set_type(2,i,j);
                 }
             }
-    }
+    
 
     setFlag(QGraphicsItem::ItemIsFocusable);
     setFocus();
@@ -85,10 +87,6 @@ void Map::move_player(Player &player, int x, int y, bool init) {
     suivant->unlock();
 }
 
-void Map::clean(int i,int j) {
-    begin(i,j)->setParentItem(this);
-    begin(i,j) ->set_type(1,i,j);
-}
 
 
 void Map::keyPressEvent(QKeyEvent *event) {
@@ -161,6 +159,7 @@ void Map::keyPressEvent(QKeyEvent *event) {
         qApp -> quit();
     }
     // print();
+    qDebug() << player1->isVisible();
 }
 
 void Map::keyReleaseEvent(QKeyEvent *event) {

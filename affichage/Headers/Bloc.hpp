@@ -21,6 +21,7 @@ class Bloc : public std::mutex, public QGraphicsPixmapItem {
     public:
     Bloc(QGraphicsPixmapItem* parent=nullptr) : type(1), item(0), player(nullptr), bomb(nullptr), QGraphicsPixmapItem(parent) {
         setPos(0,0);
+        setPixmap(QPixmap(":/Resources/Land/Sol.png").scaled(QSize(32,32),Qt::KeepAspectRatio));
     }
 
     Bloc(int x, int y, QGraphicsPixmapItem* parent=nullptr) : type(1), item(0), player(nullptr), bomb(nullptr), QGraphicsPixmapItem(parent) {
@@ -67,6 +68,7 @@ class Bloc : public std::mutex, public QGraphicsPixmapItem {
             case 1:
             image = QPixmap(":/Resources/Land/Sol.png");
             image = image.scaled(QSize(32,32), Qt::KeepAspectRatio);
+            break;
             case 2:
             image = QPixmap(":/Resources/Land/MurBlanc_16_cassable.png");
             image = image.scaled(QSize(32,32), Qt::KeepAspectRatio);
@@ -76,7 +78,6 @@ class Bloc : public std::mutex, public QGraphicsPixmapItem {
             image = image.scaled(QSize(32,32), Qt::KeepAspectRatio);
         }
         setPos(y*32,x*32);
-        qDebug() << "l'image change";
         setPixmap(image);
     }
 
