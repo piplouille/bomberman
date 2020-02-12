@@ -51,12 +51,27 @@ class Bloc : public std::mutex, public QGraphicsPixmapItem {
         return (bomb == nullptr);
     }
 
-    void set_type(int x) {
-        type = x;
-        if(type==0){
+    void set_type(int n_type) {
+        type = n_type;
+        switch(type){
+            case 0:
+            image = QPixmap(":/Resources/Land/MurBlanc_16.png");
+            image = image.scaled(QSize(32,32), Qt::KeepAspectRatio);
+            break;
+            case 1:
+            image = QPixmap(":/Resources/Land/Sol.png");
+            image = image.scaled(QSize(32,32), Qt::KeepAspectRatio);
+            break;
+            case 2:
+            image = QPixmap(":/Resources/Land/MurBlanc_16_cassable.png");
+            image = image.scaled(QSize(32,32), Qt::KeepAspectRatio);
+            break;
+            default:
             image = QPixmap(":/Resources/Land/Mur_16.png");
             image = image.scaled(QSize(32,32), Qt::KeepAspectRatio);
+            break;
         }
+        setPixmap(image);
     }
     void set_type(int type,int x,int y) {
         this -> type = type;
@@ -76,6 +91,7 @@ class Bloc : public std::mutex, public QGraphicsPixmapItem {
             default:
             image = QPixmap(":/Resources/Land/Mur_16.png");
             image = image.scaled(QSize(32,32), Qt::KeepAspectRatio);
+            break;
         }
         setPos(y*32,x*32);
         setPixmap(image);
