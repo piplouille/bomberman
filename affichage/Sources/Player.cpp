@@ -1,13 +1,15 @@
 #include "Headers/Player.hpp"
 
-// TODO : Gérer le quota de bombes
-// TODO : créer des objets ou augmenter la portée des bombes régulièrement
-
-
 /*
 Constructeurs
 */
 
+/**
+ * @brief Constructeur de Player
+ * @param unsigned int num_player : type de bombe pour son apparence
+ * @param QGraphicsItem *parent : si besoin d'être liée à un autre QGraphicsPixmapItem
+ * @return void
+ */
 Player::Player(unsigned int num_player, QGraphicsItem *parent): QGraphicsPixmapItem(parent) {
     this->num_player = num_player;
     lives = 2;
@@ -35,6 +37,12 @@ Player::Player(unsigned int num_player, QGraphicsItem *parent): QGraphicsPixmapI
 }
 
 /*Constructeur de recopie*/
+
+/**
+ * @brief Constructeur de recopie de Player
+ * @param const Player& anotherPlayer : référence du Player à recopier
+ * @return void
+ */
 Player::Player(const Player& anotherPlayer) : QGraphicsPixmapItem(anotherPlayer.parentItem()) {
     im_centre = anotherPlayer.im_centre;
     im_left = anotherPlayer.im_left;
@@ -52,21 +60,13 @@ Player::Player(const Player& anotherPlayer) : QGraphicsPixmapItem(anotherPlayer.
 /*
 Player pose une bombe
 */
-// void Player::dropBomb(char type) {
-//     if (type=='C') {
-//         qDebug() << "Classic bomb dropped";
-//         Bomb* bb = new Bomb('C', x(), y(), *this);
-//         scene() -> addItem(bb);
-//     }
-//     else if(type=='B') {
-//         qDebug() << "Classic bomb dropped";
-//         Bomb* bb = new Bomb('B', x(), y(), *this);
-//         scene() -> addItem(bb);
-//     }
-//     decrease_bomb_quota();
-//     qDebug() << "Nouveau quota : " << bomb_quota;
-// }
 
+/**
+ * @breif : Player crée et pose sur sa case actuelle une bombe à son image
+ * @param : char type : Type de bombe ; 'C' : classique ; 'B' : bombitrouille
+ * @param : Map* map : Pointeur vers la carte du jeu
+ * @return : void
+ */
 void Player::dropBomb(char type, Map* map) {
     if (type=='C') {
         Bomb* bb = new Bomb('C', bomb_life, bomb_range, this, map);
@@ -79,26 +79,4 @@ void Player::dropBomb(char type, Map* map) {
         bool move_done = map -> begin(this->get_x(),this->get_y())->set_bomb(bb);
     }
     increase_bomb_dropped_by_player();
-}
-
-/*
-Mort
-A checker ?
-*/
-
-// void Player::death() {
-//     qDebug() << "Le joueur est entré dans la mort";
-//     setPixmap(im_dead);
-//     //scene() -> addItem(this);
-//     //clearFocus();
-//     //qDebug() << "Le joueur est décédé, ne reste plus que son corps";
-//     //QTimer::singleShot(3000,this,SLOT(desepear()));
-//     //desepear();
-// }
-
-void Player::disappear() {
-    qDebug() << "Tout le decors a disparu, le joueur s'apprête àààà partir";
-    scene() ->removeItem(this);
-    qDebug() << "il est parti";
-    //delete this;
 }

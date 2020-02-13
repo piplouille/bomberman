@@ -9,6 +9,11 @@ bool Bloc::set_player(Player &n_player) {
     return false;
 }
 
+/**
+ * @breif : Fonction d'affichage dans le terminal de la carte ; X : mur ; 0 : mur cassable ; ~ : case vide ; # : bombe ; int : joueur
+ * @param : void
+ * @return : void
+ */
 void Bloc::print() {
     if (type == 0) {
         std::cout << "X"; //mur
