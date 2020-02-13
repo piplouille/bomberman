@@ -1,9 +1,5 @@
 #include "Headers/Player.hpp"
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 5a455ee77e6953e77493763887278ca065e6e889
 /*
 Constructeurs
 */
@@ -59,12 +55,9 @@ Player::Player(const Player& anotherPlayer) : QGraphicsPixmapItem(anotherPlayer.
     bomb_life = anotherPlayer.bomb_life;
 }
 
-<<<<<<< HEAD
-=======
 /*
 Player pose une bombe
 */
->>>>>>> 5a455ee77e6953e77493763887278ca065e6e889
 
 /**
  * @breif : Player crée et pose sur sa case actuelle une bombe à son image

@@ -67,10 +67,11 @@ public:
         lives--;
         qDebug() << "Il reste " << lives << " vies.";
         if(lives == 0) {
-            setPixmap(im_dead.scaled(QSize(160,160),Qt::KeepAspectRatio));
-            setPos(scene()->width()/2-80,scene()->height()/2-80);
+            setPixmap(im_dead.scaled(QSize(200,200),Qt::KeepAspectRatio));
+            setPos(scene()->width()/2-100,scene()->height()/2-100);
             emit dead(this);
             qDebug() << "Le joueur " << num_player << " est mort";
+            lives = 2;
         }
     }
     unsigned int getLives() {return lives;}
