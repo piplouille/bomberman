@@ -1,8 +1,5 @@
 #include "Headers/Player.hpp"
 
-// TODO : Gérer le quota de bombes
-// TODO : créer des objets ou augmenter la portée des bombes régulièrement
-
 
 /*
 Constructeurs
@@ -30,8 +27,6 @@ Player::Player(unsigned int num_player, QGraphicsItem *parent): QGraphicsPixmapI
 
     setPixmap(im_centre);
     setPos(0,10*size);
-    // setFlag(QGraphicsItem::ItemIsFocusable);
-    // setFocus();
 }
 
 /*Constructeur de recopie*/
@@ -49,23 +44,6 @@ Player::Player(const Player& anotherPlayer) : QGraphicsPixmapItem(anotherPlayer.
     bomb_life = anotherPlayer.bomb_life;
 }
 
-/*
-Player pose une bombe
-*/
-// void Player::dropBomb(char type) {
-//     if (type=='C') {
-//         qDebug() << "Classic bomb dropped";
-//         Bomb* bb = new Bomb('C', x(), y(), *this);
-//         scene() -> addItem(bb);
-//     }
-//     else if(type=='B') {
-//         qDebug() << "Classic bomb dropped";
-//         Bomb* bb = new Bomb('B', x(), y(), *this);
-//         scene() -> addItem(bb);
-//     }
-//     decrease_bomb_quota();
-//     qDebug() << "Nouveau quota : " << bomb_quota;
-// }
 
 void Player::dropBomb(char type, Map* map) {
     if (type=='C') {

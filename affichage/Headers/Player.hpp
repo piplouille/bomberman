@@ -40,9 +40,6 @@ public:
 
     ~Player(){}
 
-    //void keyPressEvent(QKeyEvent *event);
-    //void keyReleaseEvent(QKeyEvent *event);
-    //void death();
     void dropBomb(char type);
     void dropBomb(char, Map*);
 
@@ -66,10 +63,12 @@ public:
     int get_bomb_range() {return bomb_range;}
     int get_bomb_life() {return bomb_life;}
     void decrease_life() {
+        #pragma omp atomic
         lives--;
         qDebug() << "Il reste " << lives << " vies.";
         if(lives == 0) {
-            setPixmap(im_dead);
+            setPixmap(im_dead.scaled(QSize(160,160),Qt::KeepAspectRatio));
+            setPos(scene()->width()/2-80,scene()->height()/2-80);
             emit dead(this);
             qDebug() << "Le joueur " << num_player << " est mort";
         }
@@ -78,10 +77,6 @@ public:
 
 signals:
     void dead(Player* this_player);
-
-
-public slots:
-    void disappear();
 };
 
 #include "Headers/Bomb.hpp"

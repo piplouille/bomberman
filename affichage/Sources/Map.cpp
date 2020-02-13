@@ -1,11 +1,16 @@
 #include "Headers/Map.hpp"
 #include <QKeyEvent>
 
-/*
-Les constructeurs
-*/
 
-
+/**
+ * @breif : Constructeur de map qui initialise la carte avec ses 3 différents blocs et le placement des joueurs
+ * @param int aWidth : Hauteur de map
+ * @param int aLength : Largeur de map
+ * @param Player* n_player1 : Pointeur du premier joueur
+ * @param Player* n_player2 : Pointeur du second joueur
+ * @param QGraphicsPixmapItem *parent : Objet parent
+ * @return : void
+ */
 Map::Map(int aWidth, int aLength,Player* n_player1,Player* n_player2, QGraphicsPixmapItem *parent): QGraphicsPixmapItem(parent),
     width(aWidth), length(aLength),
     area(width, std::vector<Bloc>(length)) {
@@ -49,6 +54,11 @@ Map::Map(int aWidth, int aLength,Player* n_player1,Player* n_player2, QGraphicsP
             }
     
     }
+    begin(1,2)->set_type(1);
+    begin(2,1)->set_type(1);
+    begin(width-3,length-2)->set_type(1);
+    begin(width-2,length-3)->set_type(1);
+
     setFlag(QGraphicsItem::ItemIsFocusable);
     setFocus();
     qDebug() <<"Position joueur 1 à la fin de l'initialisaiton ("<< player1->get_x() <<", " << player1->get_y()<<")";
