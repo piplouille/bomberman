@@ -297,7 +297,7 @@ void Game::start() {
     Player* player1 = new Player(player_selected);
     scene->addItem(player1);
     int player_selected_2 = (player_selected == 2) ? 5 : (player_selected+3)%5;
-    Player* player2 = new Player((player_selected_2);
+    Player* player2 = new Player(player_selected_2);
     scene->addItem(player2);
 
     // create the map
