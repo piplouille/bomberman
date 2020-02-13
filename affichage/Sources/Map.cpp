@@ -34,6 +34,10 @@ Map::Map(int aWidth, int aLength,Player* n_player1,Player* n_player2, QGraphicsP
     player1 = n_player1;
     player2 = n_player2;
 
+    player1->setParentItem(this);
+    player2->setParentItem(this);
+    player1->setZValue(1);
+    player2->setZValue(1);
     init_player(*player1, 1, 1);
     if(n_player2!=nullptr) {player2 = n_player2; init_player(*player2, width-2, length-2);}
 
@@ -44,12 +48,11 @@ Map::Map(int aWidth, int aLength,Player* n_player1,Player* n_player2, QGraphicsP
                 }
             }
     
-
+    }
     setFlag(QGraphicsItem::ItemIsFocusable);
     setFocus();
     qDebug() <<"Position joueur 1 à la fin de l'initialisaiton ("<< player1->get_x() <<", " << player1->get_y()<<")";
     print();
-    }
 }
 
 void Map::init_player(Player &player, int x, int y) {
@@ -100,6 +103,7 @@ void Map::keyPressEvent(QKeyEvent *event) {
             // mise à joueur des coordonnées de player
             player1->set_left();
             actuel->erase_player();
+
         }
         suivant->unlock();
     }
@@ -218,7 +222,6 @@ void Map::keyPressEvent(QKeyEvent *event) {
         qApp -> quit();
     }
     // print();
-    qDebug() << player1->isVisible();
 }
 
 void Map::keyReleaseEvent(QKeyEvent *event) {

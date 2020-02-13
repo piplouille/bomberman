@@ -9,11 +9,11 @@ Constructeurs
 */
 
 Player::Player(unsigned int num_player, QGraphicsItem *parent): QGraphicsPixmapItem(parent) {
-    this ->num_player = num_player;
+    this->num_player = num_player;
     lives = 2;
     bomb_range = 4;
     bomb_life = 500;
-    bomb_quota = 5;
+    bomb_quota = 15;
     bomb_dropped_by_player = 0;
 
     QString path = ":/Resources/Player/Player_" + QString::number(num_player, 10);
@@ -79,7 +79,6 @@ void Player::dropBomb(char type, Map* map) {
         bool move_done = map -> begin(this->get_x(),this->get_y())->set_bomb(bb);
     }
     increase_bomb_dropped_by_player();
-    qDebug() << "Nouveau quota : " << bomb_dropped_by_player << "/" << bomb_quota;
 }
 
 /*
@@ -87,15 +86,15 @@ Mort
 A checker ?
 */
 
-void Player::death() {
-    qDebug() << "Le joueur est entré dans la mort";
-    setPixmap(im_dead);
-    //scene() -> addItem(this);
-    //clearFocus();
-    //qDebug() << "Le joueur est décédé, ne reste plus que son corps";
-    //QTimer::singleShot(3000,this,SLOT(desepear()));
-    //desepear();
-}
+// void Player::death() {
+//     qDebug() << "Le joueur est entré dans la mort";
+//     setPixmap(im_dead);
+//     //scene() -> addItem(this);
+//     //clearFocus();
+//     //qDebug() << "Le joueur est décédé, ne reste plus que son corps";
+//     //QTimer::singleShot(3000,this,SLOT(desepear()));
+//     //desepear();
+// }
 
 void Player::disappear() {
     qDebug() << "Tout le decors a disparu, le joueur s'apprête àààà partir";

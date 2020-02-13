@@ -6,7 +6,16 @@
 Constructeurs
 */
 
-    /* Constructeur que Laetitia n'aime pas */
+/**
+ * @brief Constructeur des bombes
+ * @param char type : type de bombe pour son apparence
+ * @param int lifespan : durée du premier clignotement de la bombe
+ * @param int range : portée de la bombe
+ * @param Player* poseur : joueur ayant posé la bombe
+ * @param Map* map : carte sur laquelle est posée la bombe
+ * @param QGraphicsPixmapItem* parent : si besoin d'être liée à un autre QGraphicsPixmapItem
+ * @return void
+ */
 Bomb::Bomb(char type, int lifespan, int range, Player* poseur, Map* map, QGraphicsPixmapItem* parent) :
     QGraphicsPixmapItem (parent) {
     this->map = map;
@@ -64,20 +73,24 @@ Bomb::Bomb(char type, int lifespan, int range, Player* poseur, Map* map, QGraphi
     QTimer::singleShot(1000, this, SLOT(flashing()));
 }
 
-
+/**
+ * @breif : Destructeur qui suprime la bombe de la carte et de l'affichage
+ * @param : void
+ * @return : void
+ */
 Bomb::~Bomb() {
-    // qDebug() << "JE SUIS EN : " << QString("0x%1").arg((quintptr)touched[0], QT_POINTER_SIZE * 2, 16, QChar('0'));
-    // qDebug() << "MON NUM EST : " << QString("0x%1").arg((quintptr)this, QT_POINTER_SIZE * 2, 16, QChar('0'));
     scene() -> removeItem(this);
-    //current->remove_bomb();
     map->begin(i,j)->remove_bomb();
     owner->decrease_bomb_dropped_by_player();
 }
 
-/*
-Affichage bombe
-*/
 
+
+/**
+ * @breif : Fonction d'affichage du clignotement de la bombe
+ * @param : void
+ * @return : void
+ */
 void Bomb::flashing() {
     lifespan -= 30;
     if(lifespan <= 0) {
@@ -98,10 +111,12 @@ void Bomb::flashing() {
     return;
 }
 
-/*
-Explosion
-*/
 
+/**
+ * @breif : Fonction d'affichage de la déflagration de la bombe en fonction de sa portée
+ * @param : void
+ * @return : void
+ */
 void Bomb::blast() {
     dist++;
     distL++;
@@ -129,58 +144,38 @@ void Bomb::blast() {
         
 
         if(map->begin(i+distD,j)->hit_player() || map->begin(i+distD,j)->getGround()==2 || map->begin(i+distD,j)->getGround()==0) {
-            if( map->begin(i+distD,j)->getGround()==2) {
-                qDebug() << "la avant D";
-                distD--;
-            }
-            else if( map->begin(i+distD,j)->getGround()==0) {
-                distD--;
-            }
+            if( map->begin(i+distD,j)->getGround()==2 || map->begin(i+distD,j)->getGround()==0) {distD--;}
             else {
                 qDebug() << "Joueur " << map->begin(i+distD,j)->getPlayer()->get_num_player() << "touché !!!";
+                map->begin(i+distD,j)->getPlayer()->decrease_life();
             }
         }
         if(map->begin(i-distU,j)->hit_player() || map->begin(i-distU,j)->getGround()==2 || map->begin(i-distU,j)->getGround()==0) {
-            if( map->begin(i-distU,j)->getGround()==2) {
-                qDebug() << "la avant U";
-                distU--;
-            }
-            else if( map->begin(i-distU,j)->getGround()==0) {
-                distU--;
-            }
+            if( map->begin(i-distU,j)->getGround()==2 || map->begin(i-distU,j)->getGround()==0) {distU--;}
             else {
                 qDebug() << "Joueur " << map->begin(i-distU,j)->getPlayer()->get_num_player() << "touché !!!";
+                map->begin(i-distU,j)->getPlayer()->decrease_life();
             }
         }
         if(map->begin(i,j+distR)->hit_player() || map->begin(i,j+distR)->getGround()==2 || map->begin(i,j+distR)->getGround()==0) {
-            if( map->begin(i,j+distR)->getGround()==2) {
-                qDebug() << "la avant R";
-                distR--;
-            }
-            else if( map->begin(i,j+distR)->getGround()==0) {
-                distR--;
-            }
+            if( map->begin(i,j+distR)->getGround()==2 || map->begin(i,j+distR)->getGround()==0) {distR--;}
             else {
                 qDebug() << "Joueur " << map->begin(i,j+distR)->getPlayer()->get_num_player() << "touché !!!";
+                map->begin(i,j+distR)->getPlayer()->decrease_life();
             }
         }
         if(map->begin(i,j-distL)->hit_player() || map->begin(i,j-distL)->getGround()==0 ||  map->begin(i,j-distL)->getGround()==2) {
-            if(map->begin(i,j-distL)->getGround()==2) {
-                qDebug() << "la avant L";
-                distL--;
-            }
-            else if(map->begin(i,j-distL)->getGround()==0) {
-                distL--;
-            }
+            if(map->begin(i,j-distL)->getGround()==2 || map->begin(i,j-distL)->getGround()==0) {distL--;}
             else {
                 qDebug() << "Joueur " << map->begin(i,j-distL)->getPlayer()->get_num_player() << " touché !!!";
+                map->begin(i,j-distL)->getPlayer()->decrease_life();
             }
         }
 
-        QTimer::singleShot(150,this,SLOT(blast()));
+        QTimer::singleShot(40,this,SLOT(blast()));
     }
 
-    if(dist>range) {map-> print(); delete this;}
+    if(dist>range) {delete this;}
 
     else if(dist==range) {
         // create image objects that shall be destroyed
@@ -207,7 +202,6 @@ void Bomb::blast() {
         
         if(map->begin(i+distD,j)->hit_player() || map->begin(i+distD,j)->getGround()==2 || map->begin(i+distD,j)->getGround()==0) {
             if( map->begin(i+distD,j)->getGround()==2) {
-                qDebug() << "la D";
                 map->begin(i+distD,j)->set_type(1);
                 distD--;
             }
@@ -216,11 +210,11 @@ void Bomb::blast() {
             }
             else {
                 qDebug() << "Joueur " << map->begin(i+distD,j)->getPlayer()->get_num_player() << "touché !!!";
+                map->begin(i+distD,j)->getPlayer()->decrease_life();
             }
         }
         if(map->begin(i-distU,j)->hit_player() || map->begin(i-distU,j)->getGround()==2 || map->begin(i-distU,j)->getGround()==0) {
             if( map->begin(i-distU,j)->getGround()==2) {
-                qDebug() << "la U";
                 map->begin(i-distU,j)->set_type(1);
                 distU--;
             }
@@ -229,16 +223,12 @@ void Bomb::blast() {
             }
             else {
                 qDebug() << "Joueur " << map->begin(i-distU,j)->getPlayer()->get_num_player() << "touché !!!";
+                map->begin(i-distU,j)->getPlayer()->decrease_life();
             }
         }
         if(map->begin(i,j+distR)->hit_player() || map->begin(i,j+distR)->getGround()==2 || map->begin(i,j+distR)->getGround()==0) {
             if( map->begin(i,j+distR)->getGround()==2) {
-                qDebug() << "la R";
-                // map->begin(i,j-distL)->lock();
-                // map->begin(i,j+distR)->lock();
                 map->begin(i,j+distR)->set_type(1);
-                // map->begin(i,j+distR)->unlock();
-                // map->begin(i,j-distL)->unlock();
                 distR--;
             }
             else if( map->begin(i,j+distR)->getGround()==0) {
@@ -246,14 +236,12 @@ void Bomb::blast() {
             }
             else {
                 qDebug() << "Joueur " << map->begin(i,j+distR)->getPlayer()->get_num_player() << "touché !!!";
+                map->begin(i,j+distR)->getPlayer()->decrease_life();
             }
         }
         if(map->begin(i,j-distL)->hit_player() || map->begin(i,j-distL)->getGround()==0 ||  map->begin(i,j-distL)->getGround()==2) {
             if(map->begin(i,j-distL)->getGround()==2) {
-                qDebug() << "la L";
-                // map->begin(i,j-distL)->lock();
                 map->begin(i,j-distL)->set_type(1);
-                // map->begin(i,j-distL)->unlock();
                 distL--;
             }
             else if(map->begin(i,j-distL)->getGround()==0) {
@@ -261,6 +249,7 @@ void Bomb::blast() {
             }
             else {
                 qDebug() << "Joueur " << map->begin(i,j-distL)->getPlayer()->get_num_player() << " touché !!!";
+                map->begin(i,j-distL)->getPlayer()->decrease_life();
             }
         }
 
@@ -268,7 +257,11 @@ void Bomb::blast() {
     }
 }
 
-
+/**
+ * @breif : Fonction d'affichage de l'explosion de la bombe
+ * @param : void
+ * @return : void
+ */
 void Bomb::exploding() {
     state++;
     int interval = 50;

@@ -12,7 +12,7 @@
 #include <QPixmap>
 #include <QTimer>
 #include <QDebug>
-
+#include <QMessageBox>
 #include <QString>
 
 class Bomb;
@@ -42,11 +42,10 @@ public:
 
     //void keyPressEvent(QKeyEvent *event);
     //void keyReleaseEvent(QKeyEvent *event);
-    void death();
+    //void death();
     void dropBomb(char type);
     void dropBomb(char, Map*);
-;
-    int getNum_Player(){return num_player;}
+
     unsigned int get_num_player() {return num_player;}
     int get_x() {return posY;}
     int get_y(){ return posX;}
@@ -58,7 +57,6 @@ public:
     void set_x(int n_x) {posY = n_x;}
     void set_y(int n_y) {posX = n_y;}
     void set_xy(int n_x, int n_y) {posY = n_x; posX = n_y;setPos(posX*size,posY*size); }
-    void move(int up, int left) {posX+=(left*size);posY+=(up*size);}
     bool able_bomb() {return ((bomb_quota-bomb_dropped_by_player) > 0);}
     int get_bomb_quota() {return bomb_quota;}
     void decrease_bomb_quota() {bomb_quota--;}
@@ -67,6 +65,20 @@ public:
     void increase_bomb_dropped_by_player() {bomb_dropped_by_player++;}
     int get_bomb_range() {return bomb_range;}
     int get_bomb_life() {return bomb_life;}
+    void decrease_life() {
+        lives--;
+        qDebug() << "Il reste " << lives << " vies.";
+        if(lives == 0) {
+            setPixmap(im_dead);
+            emit dead(this);
+            qDebug() << "Le joueur " << num_player << " est mort";
+        }
+    }
+    unsigned int getLives() {return lives;}
+
+signals:
+    void dead(Player* this_player);
+
 
 public slots:
     void disappear();

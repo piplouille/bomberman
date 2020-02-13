@@ -9,18 +9,23 @@
 #include <cstdlib>
 #include <QDebug>
 
-// TODO : repositionner les widgets avec layout en non plus en position absolue
 
-Game::Game(QWidget* parent){
+
+/**
+ * @breif : Création de la fenetre de fond
+ * @param : void
+ * @return : void
+ */
+Game::Game(){
     // create the view
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     fenetre = new QGraphicsView();
     fenetre -> resize(640,480);
 
-    //create the scene
+    // create the scene
     scene = new QGraphicsScene();
-    scene->setSceneRect(0,0,640,480); // make the scene 600x400 instead of infinity by infinity (default)
+    scene->setSceneRect(0,0,640,480);
     setBackgroundBrush(QBrush(QImage(":/Resources/Land/Sol.png")));
     setScene(scene);
 }
@@ -35,17 +40,17 @@ void Game::displayImage(const char *adresse, int width, int height, int posX, in
 /*----------------------------------------------------------------------------------*/
 
 
-
+/**
+ * @breif : Fenetre d'introduction du jeu
+ * @param : void
+ * @return : void
+ */
 void Game::displayStartMenu() {
     // play background music
     QMediaPlayer * music = new QMediaPlayer();
-    music->setMedia(QUrl("qrc:/Resources/Music/01_The_Day_Is_My_Enemy.m4a"));
+    music->setMedia(QUrl("qrc:/Resources/Music/Parodius Da! Music - Stage 3 Boss (Theme of Hot Lips).mp3"));
     music->play();
 
-    //display title
-    // QGraphicsPixmapItem * title2 = new QGraphicsPixmapItem(QPixmap(":/Resources/Menu/Title.png").scaled(QSize(this->width()/2-20,this->height()/2-20), Qt::KeepAspectRatio));
-    // title2->setPos(this->width()/2 - title2->boundingRect().width()/2,30);
-    // scene -> addItem(title2);
     displayImage(":/Resources/Menu/Title.png",this->width()/2-20,this->height()/2-20,this->width()/2 - (this->width()/2-20)/2,30);
     // create the play button
     Button* playButton = new Button(":/Resources/Menu/Start.png");
@@ -67,10 +72,13 @@ void Game::displayStartMenu() {
 }
 
 /*----------------------------------------------------------------------------------*/
-/*
-Choix du personnage (et du mode de jeu ?)
-*/
 
+
+/**
+ * @breif : Fenetre des options pour le choix du personnage et de la taille de la carte
+ * @param : void
+ * @return : void
+ */
 void Game::selectionMenu(){
     //set the scene and the view
     scene -> clear();
@@ -94,7 +102,7 @@ void Game::selectionMenu(){
     connect(optionButton,SIGNAL(clicked()),this,SLOT(options()));
     scene->addItem(optionButton);
 
-    //set character <3
+    //set character
     player_selected = 1;
     character_selected = new QGraphicsPixmapItem(QPixmap(":/Resources/Player/Player_1_centre.png").scaled(QSize(160,160), Qt::KeepAspectRatio));
     character_selected -> setPos(this->width()/2-80,20);
@@ -105,8 +113,8 @@ void Game::selectionMenu(){
     scene -> addItem(character_name);
     scene -> addItem(character_selected);
 
+    // Radio buttons grouped
     QButtonGroup* selection = new QButtonGroup();
-
     QRadioButton* perso1 = new QRadioButton();
     perso1 -> move(160,this->height()/2);
     scene -> addWidget(perso1);
@@ -130,14 +138,15 @@ void Game::selectionMenu(){
     perso1 -> setChecked(true);
 
     connect(selection,SIGNAL(buttonClicked(int)),this,SLOT(player_selection(int)));
-    
-// TODO pour le second menu
-    //QAbstractButton Class
-    //Changer le QPixmap au dessus des bouttons en fonction de celui qui est selectionné
 }
 
 /*----------------------------------------------------------------------------------*/
-/* Display the character currently selected and his name in the menu */
+
+/**
+ * @breif : Affiche le personnage selectionné ainsi que son nom sur le menu des options
+ * @param int num : numéro du bouton coché
+ * @return : void
+ */
 void Game::player_selection(int num) {
     player_selected = num; // ici on a le player choisi
 
@@ -177,7 +186,11 @@ void Game::player_selection(int num) {
 
 /*----------------------------------------------------------------------------------*/
 
-
+/**
+ * @breif : Fenetre du choix de taille du terrain
+ * @param : void
+ * @return : void
+ */
 void Game::options() {
     //set the scene and the view
     scene -> clear();
@@ -226,6 +239,12 @@ void Game::options() {
 
 /*----------------------------------------------------------------------------------*/
 
+
+/**
+ * @breif : Change la taille du mot décrivant la carte
+ * @param int i : le numéro de la carte choisie
+ * @return : void
+ */
 void Game::map_selected(int i) {
     switch(i) {
         case 1:
@@ -253,14 +272,13 @@ void Game::map_selected(int i) {
     map_display -> setPos(this->width()/2-map_display->boundingRect().width()/2,this->height()/4-map_display->boundingRect().height()/2);
 }
 
+/*------------------------------------------------------------------------------------------------------*/
 
-
-
-
-
-
-
-
+/**
+ * @breif : Fenetre principale du jeu
+ * @param : void
+ * @return : void
+ */
 void Game::start() {
     
     int map_height = map_width>20 ? 19 : map_width-4;
@@ -270,24 +288,25 @@ void Game::start() {
     fenetre->resize(32*map_width,32*map_height);
     this->resize(32*map_width,32*map_height);
     scene->setSceneRect(0,0,32*map_width,32*map_height); // changes the scene
-    // play background music
+    /* play background music
     QMediaPlayer * music = new QMediaPlayer();
     music->setMedia(QUrl("qrc:/Resources/Music/01_The_Day_Is_My_Enemy.m4a"));
-    music->play();
+    music->play(); */
 
     // create the player
-    Player* player = new Player(player_selected);
-    scene->addItem(player);
-    Player* player2 = new Player((player_selected+3)%5);
+    Player* player1 = new Player(player_selected);
+    scene->addItem(player1);
+    int player_selected_2 = (player_selected == 2) ? 5 : (player_selected+3)%5;
+    Player* player2 = new Player((player_selected_2);
     scene->addItem(player2);
-    map = new Map(map_height,map_width,player,player2);
+
+    // create the map
+    map = new Map(map_height,map_width,player1,player2);
     scene ->addItem(map);
-    // add the player to the scene
-    // map.init_player(*player, 0, 0); // on place maxence en 0,0 parce que j'ai aucune info lol
-    qDebug() << player->get_num_player();
-    qDebug() << map -> hasFocus();
-    //qDebug() << map.begin(0, 0)->get_player()->get_num_player();
-    // qDebug() << map.get_positions(player->get_num_player())->get_player()->get_num_player();
+
+    // connection for death
+    connect(player1, SIGNAL(dead(Player*)),this, SLOT(menuGameOver(Player*)));
+    connect(player2, SIGNAL(dead(Player*)),this, SLOT(menuGameOver(Player*)));
 }
 
 
@@ -295,7 +314,11 @@ void Game::start() {
 /*----------------------------------------------------------------------------------*/
 
 
-/*
+/**
+ * @breif : Second jeu pour le mode solo
+ * @param : void
+ * @return : void
+ */
 void Game::secondGame() {
     
     // clear the scene
@@ -305,63 +328,38 @@ void Game::secondGame() {
     scene->setSceneRect(0,0,640,480); // changes the scene
 
     // create the player
-    //Player* player;
+    Player* player;
     player = new Player(player_selected);
     scene->addItem(player);
 
-    //Initialisation
-    //std::chrono::time_point<std::chrono::system_clock> beginning, end, elapsed_time;
-
+    // Initialisation
     intervalle = 500;
     beginning = std::chrono::system_clock::now();
     //elapsed_time = std::chrono::system_clock::now();
     bool touched = false;
     QTimer::singleShot(intervalle,this,SLOT(bombDropped()));
     end = std::chrono::system_clock::now();
-    /*bool QGraphicsItem::collidesWithItem(const QGraphicsItem * other,
-    Qt::ItemSelectionMode mode = Qt::IntersectsItemShape) const*/
-    // TODO : trouver un moyen de rendre le player indépendant du jeu
-/*
-
-void Game::bombDropped() {
-    int xB,yB;
-    int dimX = 640/32;
-    int dimY = 480/32;
-    xB = rand() % (dimX);
-    yB = rand() % (dimY);
-
-    qDebug() << "Bomb dropped at [" << xB << ", " << yB << "]\nIntervalle = " << intervalle;
-    Bomb *b = new Bomb('C',xB*32,yB*32,500,5,player);
-    connect(b,SIGNAL(player_touched(Player*)),this,SLOT(mort(Player*)));
-    scene -> addItem(b);
-    intervalle -= 2;
-    if (!(player->isVisible()))
-        intervalle = 5;
-    if (intervalle>10) {// && player->isVisible())
-        QTimer::singleShot(intervalle,this,SLOT(bombDropped()));
-        qDebug() << player->isVisible();
-    }
-    // if (intervalle<10) {
-    //     QTimer::singleShot(1000,this,SLOT(bombDropped()));
-    // }
 }
 
-*/
-/*
-void Game::mort(Player* p) {
-    // Animation de la fin de partie
-    //scene -> clear();
-    qDebug() << "Player " << p -> getNum_Player() << " dead";
-    end = std::chrono::system_clock::now();
-    std::chrono::duration<double> elapsed_time = end - beginning;
-    qDebug() << "score : " << elapsed_time.count();
-    p -> death();
-}
-*/
-/* void Game::menuGameOver() {
+/*-------------------------------------------------------------------------------*/
+
+
+/**
+ * @breif : Fenetre de game over
+ * @param Player* p : le joueur mort
+ * @return : void
+ */
+void Game::menuGameOver(Player* p) {
     qDebug() << "Apparition du menu";
+
+    scene -> clear();
+    fenetre->resize(640,480);
+    this->resize(640,480);
+    scene->setSceneRect(0,0,640,480);
+
+
     // Affichage du game over
-    QGraphicsTextItem *displayGameOver = new QGraphicsTextItem(QString("GAME\nOVER"));
+    QGraphicsTextItem *displayGameOver = new QGraphicsTextItem(QString("FIN DE\nPARTIE"));
     qDebug() << "Apparition du gm";
     displayGameOver -> setDefaultTextColor(QColor(Qt::white));
     displayGameOver -> setFont(QFont("System",60,85,false));
@@ -370,11 +368,10 @@ void Game::mort(Player* p) {
 
     // Boutton de retour au menu
     Button* returnToMenu = new Button(":/Resources/Menu/Menu.png");
-    int bxMenu = fenetre->width()/2 - returnToMenu->boundingRect().width()/2;
-    int byMenu = 3*fenetre->height()/4;// returnToMenu->boundingRect().height();
+    int bxMenu = this->width()/2 - returnToMenu->boundingRect().width()/2;
+    int byMenu = 3*this->height()/4;// returnToMenu->boundingRect().height();
     returnToMenu->setPos(bxMenu,byMenu);
     connect(returnToMenu,SIGNAL(clicked()),this,SLOT(selectionMenu()));
     scene->addItem(returnToMenu);
-
-}*/
+}
 

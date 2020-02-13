@@ -29,7 +29,7 @@ private:
     std::chrono::time_point<std::chrono::system_clock> beginning, end, elapsed_time;
     
 public:
-    Game(QWidget* parent=nullptr);
+    Game();
 
     void displayStartMenu();
     void displayImage(const char *adresse, int width, int height, int posX, int posY, QGraphicsItem* parent=NULL);
@@ -40,10 +40,8 @@ public slots:
     void player_selection(int num);
     void options();
     void map_selected(int num);
-    // void secondGame();
-    // void bombDropped();
-    // void mort(Player* p);
-    //void menuGameOver()
+    void secondGame();
+    void menuGameOver(Player*);
 };
 
 #endif // GAME_H
