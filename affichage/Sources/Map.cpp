@@ -65,6 +65,14 @@ Map::Map(int aWidth, int aLength,Player* n_player1,Player* n_player2, QGraphicsP
     print();
 }
 
+
+/**
+ * @brief Permet d'initialiser la position du joueur sur la carte
+ * @param Player &player : le joueur initialisé
+ * @param int x : coordonnée verticale
+ * @param int y : coordonnée horizontale
+ * @return void
+ */
 void Map::init_player(Player &player, int x, int y) {
     move_player(player, x, y, true);
 }
@@ -100,7 +108,11 @@ void Map::move_player(Player &player, int x, int y, bool init) {
 }
 
 
-
+/**
+ * @brief Gère la réaction du jeu en fonction des interuptions du clavier
+ * @param QKeyEvent *event : évènement
+ * @return void
+ */
 void Map::keyPressEvent(QKeyEvent *event) {
 
     if(event->key() == Qt::Key_Left) {
@@ -160,12 +172,12 @@ void Map::keyPressEvent(QKeyEvent *event) {
         suivant->unlock();
     }
 
-    else if(event->key() == Qt::Key_M) {
+    else if(event->key() == Qt::Key_Shift) {
         auto actuel = begin(player1->get_x(), player1->get_y());
         //player1 -> dropBomb('C');
         put_bomb('C', *player1);
     }
-//---------MOVES-OF-PKAYER-2----------------------------------------------------------------------------------
+//---------MOVES-OF-PLAYER-2----------------------------------------------------------------------------------
 
     if(event->key() == Qt::Key_Q) {
         auto actuel = begin(player2->get_x(), player2->get_y());
@@ -222,7 +234,7 @@ void Map::keyPressEvent(QKeyEvent *event) {
         }
         suivant->unlock();
     }
-    else if(event->key() == Qt::Key_C) {
+    else if(event->key() == Qt::Key_E) {
         auto actuel = begin(player2->get_x(), player2->get_y());
         // player1 -> dropBomb('B');
         put_bomb('B', *player2);
