@@ -1,1 +1,9 @@
 .vscode
+affichage/*.o
+affichage/Makefile
+affichage/affichage*
+*.pro
+bomberman.app/
+moc*
+*.o
+affichage/qrc_res.cpp
