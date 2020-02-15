@@ -1,6 +1,39 @@
 # B O M B E R M A N
 IN204 - Project c++
 
+## Compilation
+
+### Installation de Qt5
+
+```
+sudo apt install qt5-default
+```
+
+### Compiler
+
+> La compilation sur Mac et Linux se fait de manière similaire.
+> Les instructions précédées de "$" sont à faire dans le terminal.
+
+Se rendre dans le dossier ```affichage```.
+
+```
+$ qmake -project
+```
+
+Ouvrir le fichier ```affichage.pro``` et y ajouter à la toute fin la ligne :
+```
+QT += gui core multimedia widgets
+```
+
+Puis
+
+```
+$ qmake
+$ make
+```
+
+Attention : la compilation prend beaucoup de temps lors du traitement de res.qrc
+
 ## Documentation
 
 ### Déplacement d'un joueur
