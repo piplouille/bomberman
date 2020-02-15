@@ -7,3 +7,7 @@ bomberman.app/
 moc*
 *.o
 affichage/qrc_res.cpp
+.DS_Store
+.README.md.swp
+.qmake.stash
+Makefile
