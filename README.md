@@ -34,6 +34,35 @@ $ make
 
 Attention : la compilation prend beaucoup de temps lors du traitement de res.qrc
 
+## Manuel du jeu
+
+### Fonctions principales
+
+| Fonction               | Touche |
+| --------               | ------ |
+| Quitter                | Echap  |
+| Revenir au jeu (focus) | Tab    |
+
+### Joueur 1 (celui qui choisit son personnage)
+
+| Fonction               | Touche          |
+| --------               | ------          |
+| Déplacement en haut    | Flèche du haut  |
+| Déplacement à droite   | Flèche de droite|
+| Déplacement en bas     | Flèche du bas   |
+| Déplacement à gauche   | Flèche de gauche|
+| Poser une bombe        | Shift           |
+
+### Joueur 2
+
+| Fonction               | Touche |
+| --------               | ------ |
+| Déplacement en haut    | Z      |
+| Déplacement à droite   | D      |
+| Déplacement en bas     | S      |
+| Déplacement à gauche   | Q      |
+| Poser une bombe        | E      |
+
 ## Documentation
 
 ### Déplacement d'un joueur
